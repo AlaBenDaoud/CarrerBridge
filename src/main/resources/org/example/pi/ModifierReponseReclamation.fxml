@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ModifierReponseReclamationController">
+
+    <Label text="Modifier la réponse de réclamation" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <Label text="ID Réponse :"/>
+    <TextField fx:id="txtId" editable="false"/>
+
+    <Label text="Nouvelle réponse :"/>
+    <TextArea fx:id="txtReponse" prefRowCount="3" wrapText="true"/>
+
+    <HBox spacing="10">
+        <Button text="Enregistrer" onAction="#enregistrerModification"/>
+        <Button text="Annuler" onAction="#fermerFenetre"/>
+    </HBox>
+</VBox>

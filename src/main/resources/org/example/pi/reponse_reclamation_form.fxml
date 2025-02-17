@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ReponseReclamationController">
+    <Label text="Soumettre une Réponse à une Réclamation" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+    <!-- ID Réclamation -->
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="ID Réclamation :" />
+        <TextField fx:id="idRecField" promptText="Entrez l'ID de la réclamation" style="-fx-padding: 5; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-pref-width: 200;"/>
+    </HBox>
+
+    <!-- ID Utilisateur -->
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="ID Utilisateur :" />
+        <TextField fx:id="idUserField" promptText="Entrez votre ID" style="-fx-padding: 5; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-pref-width: 200;"/>
+    </HBox>
+
+    <!-- ID Récepteur -->
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="ID Récepteur :" />
+        <TextField fx:id="idReceiverField" promptText="Entrez l'ID du récepteur" style="-fx-padding: 5; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-pref-width: 200;"/>
+    </HBox>
+
+    <!-- Réponse -->
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Réponse :" />
+        <TextArea fx:id="reponseField" prefRowCount="3" wrapText="true" style="-fx-padding: 5; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-pref-width: 200;"/>
+    </HBox>
+
+    <!-- Sélectionner un fichier PDF -->
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Sélectionner un fichier PDF :" />
+        <HBox spacing="10">
+            <Button text="Choisir un fichier" onAction="#handleSelectPdf" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+            <Label fx:id="pdfPathLabel" text="Aucun fichier sélectionné" wrapText="true"/>
+        </HBox>
+    </HBox>
+
+    <!-- Boutons de soumission -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Soumettre" fx:id="btnSubmit" onAction="#handleSubmit" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+        <Button text="Annuler" onAction="#handleCancel" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+        <Button text="Voir toutes les Réponses" onAction="#handleViewAllResponses" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+    </HBox>
+</VBox>
