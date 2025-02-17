@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.effect.DropShadow?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.controller.LeaveRequestController" style="-fx-background-color: #f4f4f4;">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Leave Request Form" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" alignment="CENTER">
+        <font>
+            <Font name="Arial" size="18"/>
+        </font>
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.1)" radius="3" offsetX="1" offsetY="1"/>
+        </effect>
+    </Label>
+
+    <!-- Form Grid -->
+    <GridPane hgap="10" vgap="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
+        <Label text="Employee ID:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="employeeIdField" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Company ID:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="companyIdField" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Start Date:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="startDatePicker" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="End Date:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="endDatePicker" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Description:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextArea fx:id="descriptionArea" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Leave Type:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="leaveTypeComboBox" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Upload PDF:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <Button text="Upload" onAction="#handleUploadPdf" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label fx:id="pdfPathLabel" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Buttons -->
+    <VBox spacing="5" alignment="CENTER">
+        <Button fx:id="submitButton" text="Submit" onAction="#handleSubmit" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+        <Button text="View All Leave Requests" onAction="#handleViewAllLeaveRequests" style="-fx-font-size: 12px; -fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+        <Button text="View My Requests" onAction="#handleViewMyRequests" style="-fx-font-size: 12px; -fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+        <!-- Add this button to the Buttons section -->
+        <Button text="View All Remote Work" onAction="#handleViewAllRemoteWork" style="-fx-font-size: 12px; -fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+    </VBox>
+</VBox>
