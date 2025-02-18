@@ -15,35 +15,45 @@
                 <!-- User ID -->
                 <Label text="User ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
                 <TextField fx:id="userIdField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                <Label fx:id="userIdError" style="-fx-text-fill: red;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
 
                 <!-- Receiver -->
                 <Label text="Receiver:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
                 <TextField fx:id="receiverField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                <Label fx:id="receiverError" style="-fx-text-fill: red;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
 
                 <!-- Title -->
                 <Label text="Title:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
                 <TextField fx:id="titleField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                <Label fx:id="titleError" style="-fx-text-fill: red;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
 
                 <!-- Description -->
                 <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                <TextArea fx:id="descriptionField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                <TextArea fx:id="descriptionField" GridPane.rowIndex="3" GridPane.columnIndex="1" wrapText="true" />
+                <Label fx:id="descriptionError" style="-fx-text-fill: red;" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
 
                 <!-- Image Path -->
                 <Label text="Image Path:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
                 <TextField fx:id="imagePathField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                <Label fx:id="imageError" style="-fx-text-fill: red;" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                <Button text="Upload Image" onAction="#handleUploadImage" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;" GridPane.rowIndex="4" GridPane.columnIndex="3" />
 
                 <!-- PDF Path -->
                 <Label text="PDF Path:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
                 <TextField fx:id="pdfPathField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                <Label fx:id="pdfError" style="-fx-text-fill: red;" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                <Button text="Upload PDF" onAction="#handleUploadPDF" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;" GridPane.rowIndex="5" GridPane.columnIndex="3" />
 
                 <!-- Date -->
-                <!-- Date (non-editable) -->
                 <Label text="Date:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
                 <Label fx:id="dateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1" />
             </GridPane>
 
-            <!-- Button to save changes -->
-            <Button text="Save" onAction="#handleSave" />
+            <!-- Buttons to save changes or cancel -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Save" onAction="#handleSave" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+                <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+            </HBox>
         </VBox>
     </content>
 </DialogPane>

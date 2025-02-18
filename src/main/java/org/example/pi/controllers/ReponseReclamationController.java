@@ -18,12 +18,12 @@ public class ReponseReclamationController {
 
     @FXML
     private TextField idRecField, idUserField, idReceiverField;
-
     @FXML
     private TextArea reponseField;
-
     @FXML
     private Label pdfPathLabel;
+    @FXML
+    private Label idRecError, idUserError, idReceiverError, reponseError, pdfError;
 
     private String pdfPath = null;
     private final ReponseReclamationService reponseService = new ReponseReclamationService();
@@ -42,6 +42,7 @@ public class ReponseReclamationController {
         if (selectedFile != null) {
             pdfPath = selectedFile.getAbsolutePath();
             pdfPathLabel.setText(selectedFile.getName());
+            pdfError.setText(""); // Clear any previous error
         } else {
             pdfPathLabel.setText("Aucun fichier sélectionné");
         }
@@ -49,17 +50,33 @@ public class ReponseReclamationController {
 
     @FXML
     private void handleSubmit() {
-        try {
-            int idRec = Integer.parseInt(idRecField.getText());
-            int idUser = Integer.parseInt(idUserField.getText());
-            int idReceiver = Integer.parseInt(idReceiverField.getText());
-            String reponse = reponseField.getText();
-            LocalDateTime date = LocalDateTime.now();
+        clearErrors(); // Clear previous error messages
+        boolean isValid = true;
 
+        try {
+            // Validate IDs
+            int idRec = validateIntegerField(idRecField, idRecError, "ID Réclamation invalide.");
+            int idUser = validateIntegerField(idUserField, idUserError, "ID Utilisateur invalide.");
+            int idReceiver = validateIntegerField(idReceiverField, idReceiverError, "ID Récepteur invalide.");
+            String reponse = reponseField.getText();
+
+            // Validate response
             if (reponse.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "La réponse ne peut pas être vide.");
-                return;
+                reponseError.setText("La réponse ne peut pas être vide.");
+                isValid = false;
             }
+
+            // Validate PDF path
+            if (pdfPath == null) {
+                pdfError.setText("Veuillez choisir un fichier PDF.");
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return; // Stop processing if validation fails
+            }
+
+            LocalDateTime date = LocalDateTime.now();
 
             // Create ReponseReclamation object
             ReponseReclamation reponseReclamation = new ReponseReclamation();
@@ -77,11 +94,18 @@ public class ReponseReclamationController {
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Réponse soumise avec succès !");
             clearForm();
 
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Les ID doivent être des nombres valides.");
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Problème lors de l'enregistrement de la réponse.");
             e.printStackTrace();
+        }
+    }
+
+    private int validateIntegerField(TextField field, Label errorLabel, String errorMessage) {
+        try {
+            return Integer.parseInt(field.getText());
+        } catch (NumberFormatException e) {
+            errorLabel.setText(errorMessage);
+            return -1; // Indicate an invalid value
         }
     }
 
@@ -97,6 +121,15 @@ public class ReponseReclamationController {
         reponseField.clear();
         pdfPathLabel.setText("Aucun fichier sélectionné");
         pdfPath = null;
+        clearErrors();
+    }
+
+    private void clearErrors() {
+        idRecError.setText("");
+        idUserError.setText("");
+        idReceiverError.setText("");
+        reponseError.setText("");
+        pdfError.setText("");
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.pi.models.Reclamation;
 import org.example.pi.services.ReclamationService;
@@ -52,7 +53,7 @@ public class ViewAllReclamationsController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         statueColumn.setCellValueFactory(new PropertyValueFactory<>("statueOfReclamation"));
 
-        addChangeStatusButtonToTable();
+        addActionButtonsToTable();
         refreshTable();
     }
 
@@ -61,77 +62,115 @@ public class ViewAllReclamationsController {
         refreshTable();
     }
 
-    @FXML
-    private void handleDelete() {
-        Reclamation selectedReclamation = reclamationTable.getSelectionModel().getSelectedItem();
-        if (selectedReclamation != null) {
-            try {
-                reclamationService.deleteReclamation(selectedReclamation.getId());
+    private void addActionButtonsToTable() {
+        actionsColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+            private final Button modifyButton = new Button("Modify");
+            private final Button answerButton = new Button("Answer");
+            private final Button changeStatusButton = new Button("Change Status");
+            private final HBox buttonBox = new HBox(10, changeStatusButton, deleteButton, modifyButton, answerButton);
+
+            {
+                deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
+                modifyButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
+                answerButton.setStyle("-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
+                changeStatusButton.setStyle("-fx-background-color: #ffc107; -fx-text-fill: black; -fx-padding: 5; -fx-background-radius: 5;");
+
+                deleteButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    if (reclamation != null) {
+                        handleDelete(reclamation);
+                    }
+                });
+
+                modifyButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    if (reclamation != null) {
+                        handleModify(reclamation);
+                    }
+                });
+
+                answerButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    if (reclamation != null) {
+                        handleAnswer(reclamation);
+                    }
+                });
+
+                changeStatusButton.setOnAction(event -> {
+                    Reclamation reclamation = getTableView().getItems().get(getIndex());
+                    if (reclamation != null) {
+                        openEditStatusDialog(reclamation);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(buttonBox);
+                }
+            }
+        });
+    }
+
+    private void handleDelete(Reclamation reclamation) {
+        try {
+            reclamationService.deleteReclamation(reclamation.getId());
+            refreshTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to delete the reclamation.");
+        }
+    }
+
+    private void handleModify(Reclamation reclamation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/EditReclamationDialog.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            EditReclamationDialogController controller = loader.getController();
+            controller.setReclamation(reclamation);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Edit Reclamation");
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Reclamation updatedReclamation = controller.getUpdatedReclamation();
+                reclamationService.updateReclamation(updatedReclamation);
                 refreshTable();
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-        } else {
-            showAlert("No Selection", "Please select a reclamation to delete.");
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void handleModify() {
-        Reclamation selectedReclamation = reclamationTable.getSelectionModel().getSelectedItem();
-        if (selectedReclamation != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/EditReclamationDialog.fxml"));
-                DialogPane dialogPane = loader.load();
+    private void handleAnswer(Reclamation reclamation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/AnswerDialog.fxml"));
+            DialogPane dialogPane = loader.load();
 
-                EditReclamationDialogController controller = loader.getController();
-                controller.setReclamation(selectedReclamation);
+            AnswerDialogController controller = loader.getController();
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Edit Reclamation");
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Answer to Reclamation");
 
-                Optional<ButtonType> result = dialog.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    Reclamation updatedReclamation = controller.getUpdatedReclamation();
-                    reclamationService.updateReclamation(updatedReclamation);
-                    refreshTable();
-                }
-            } catch (IOException | SQLException e) {
-                e.printStackTrace();
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                String title = controller.getTitle();
+                String message = controller.getMessage();
+                // Here you can handle the title and message, e.g., send them to a service
+                System.out.println("Title: " + title);
+                System.out.println("Message: " + message);
             }
-        } else {
-            showAlert("No Selection", "Please select a reclamation to modify.");
-        }
-    }
-
-    @FXML
-    private void handleAnswer() {
-        Reclamation selectedReclamation = reclamationTable.getSelectionModel().getSelectedItem();
-        if (selectedReclamation != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/AnswerDialog.fxml"));
-                DialogPane dialogPane = loader.load();
-
-                AnswerDialogController controller = loader.getController();
-
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Answer to Reclamation");
-
-                Optional<ButtonType> result = dialog.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    String title = controller.getTitle();
-                    String message = controller.getMessage();
-                    // Here you can handle the title and message, e.g., send them to a service
-                    System.out.println("Title: " + title);
-                    System.out.println("Message: " + message);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            showAlert("No Selection", "Please select a reclamation to answer.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -150,31 +189,6 @@ public class ViewAllReclamationsController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    private void addChangeStatusButtonToTable() {
-        actionsColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button btn = new Button("Change Status");
-
-            {
-                btn.setOnAction(event -> {
-                    Reclamation reclamation = getTableView().getItems().get(getIndex());
-                    if (reclamation != null) {
-                        openEditStatusDialog(reclamation);
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
-            }
-        });
     }
 
     private void openEditStatusDialog(Reclamation reclamation) {
