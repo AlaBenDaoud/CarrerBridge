@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="center" prefHeight="412.0" prefWidth="560.0" spacing="20" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.example.testfx.HelloController">
+   <AnchorPane prefHeight="66.0" prefWidth="562.0" style="-fx-background-color: #4f937a;" translateX="-20.0" translateY="-85.0" />
+
+          <Label style="-fx-font-size: 18px;" text="Sélectionnez votre rôle" translateY="-60.0" />
+
+                                  <!-- Bouton Admin -->
+    <Button fx:id="adminButton" onAction="#handleAdmin" text="Admin" translateX="-100.0" translateY="-40.0" />
+
+                                  <!-- Bouton RH -->
+    <Button fx:id="rhButton" onAction="#handleRH" text="RH" translateY="-85.0" />
+
+                                              <!-- Bouton Utilisateur -->
+    <Button fx:id="userButton" onAction="#handleUser" text="Utilisateur" translateX="130.0" translateY="-130.0" />
+</VBox>

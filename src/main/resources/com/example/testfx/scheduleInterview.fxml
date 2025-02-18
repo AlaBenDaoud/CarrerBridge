@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testfx.ScheduleInterviewController">
+    <VBox spacing="10" layoutX="50" layoutY="50">
+        <Label text="Planifier un entretien" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <DatePicker fx:id="datePicker" promptText="Sélectionnez une date"/>
+        <TextField fx:id="timeField" promptText="Entrez l'heure (HH:mm)"/>
+        <Button fx:id="btnConfirm" text="Confirmer" onAction="#handleConfirmButtonClick"/>
+    </VBox>
+</AnchorPane>

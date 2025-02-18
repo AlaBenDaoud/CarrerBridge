@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="492.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testfx.UserDashController">
+   <top>
+      <AnchorPane prefHeight="45.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="35.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="29.0" fitWidth="25.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../Downloads/474841874_646453594442535_1375450741307832526_n.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="54.0" layoutY="14.0" text="CareerBridge">
+                     <font>
+                        <Font name="Tahoma" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnMoins" layoutX="634.0" layoutY="12.0" mnemonicParsing="false" text="moins">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSortie" layoutX="682.0" layoutY="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="48.0" text="sortie">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="-14.0" layoutY="14.0" prefHeight="446.0" prefWidth="214.0" styleClass="left-form" stylesheets="@../../../loginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="btnRetour" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="185.0" text="Retour "  />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="500.0" prefWidth="700.0">
+         <children>
+            <Button fx:id="btnChargerCV" layoutX="236.0" layoutY="282.0" mnemonicParsing="false" onAction="#handleChargerCV" text="Configurer critères" />
+            <Label layoutX="207.0" layoutY="49.0" text="Compétences requises :">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="227.0" layoutY="78.0" promptText="Compétences" />
+            <Label layoutX="183.0" layoutY="110.0" text="Expérience requise (années) :">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="227.0" layoutY="140.0" promptText="années" />
+            <Label layoutX="236.0" layoutY="177.0" text="Localisation :">
+               <font>
+                  <Font name="Tahoma" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="227.0" layoutY="210.0" promptText="Localisation " />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
