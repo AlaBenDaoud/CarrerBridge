@@ -122,4 +122,25 @@ public class ApplicantService {
         }
         return false;
     }
+
+    public boolean updateApplicant(Applicant applicant) {
+        String query = "UPDATE applicants SET job_id = ?, name = ?, email = ?, resume = ?, applied_date = ? WHERE id = ?";
+        try (Connection conn = DatabaseService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, applicant.getJobId());
+            stmt.setString(2, applicant.getName());
+            stmt.setString(3, applicant.getEmail());
+            stmt.setString(4, applicant.getResume());
+            stmt.setTimestamp(5, applicant.getAppliedDate());
+            stmt.setInt(6, applicant.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

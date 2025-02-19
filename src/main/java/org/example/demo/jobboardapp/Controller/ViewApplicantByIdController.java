@@ -1,13 +1,11 @@
 package org.example.demo.jobboardapp.Controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.example.demo.jobboardapp.Models.Applicant;
-import org.example.demo.jobboardapp.Models.Job;
 import org.example.demo.jobboardapp.Services.ApplicantService;
-import org.example.demo.jobboardapp.Services.JobService;
 
 public class ViewApplicantByIdController {
 
@@ -18,34 +16,24 @@ public class ViewApplicantByIdController {
     private VBox applicantDetails;
 
     @FXML
-    private Label idLabel;
+    private TextField jobIdField;
 
     @FXML
-    private Label jobIdLabel;
+    private TextField nameField;
 
     @FXML
-    private Label nameLabel;
+    private TextField emailField;
 
     @FXML
-    private Label emailLabel;
+    private TextField resumeField;
 
     @FXML
-    private Label resumeLabel;
+    private TextField appliedDateField;
 
     @FXML
-    private Label appliedDateLabel;
-
-    @FXML
-    private Label jobTitleLabel;
-
-    @FXML
-    private Label companyNameLabel;
-
-    @FXML
-    private Label jobDescriptionLabel;
+    private Button saveButton;
 
     private ApplicantService applicantService = new ApplicantService();
-    private JobService jobService = new JobService();
 
     private int currentApplicantId; // To track the currently displayed applicant
 
@@ -59,25 +47,13 @@ public class ViewApplicantByIdController {
             if (applicant != null) {
                 // Display applicant details
                 currentApplicantId = applicant.getId();
-                idLabel.setText("ID: " + applicant.getId());
-                jobIdLabel.setText("Job ID: " + applicant.getJobId());
-                nameLabel.setText("Name: " + applicant.getName());
-                emailLabel.setText("Email: " + applicant.getEmail());
-                resumeLabel.setText("Resume: " + applicant.getResume());
-                appliedDateLabel.setText("Applied Date: " + applicant.getAppliedDate());
+                jobIdField.setText(String.valueOf(applicant.getJobId()));
+                nameField.setText(applicant.getName());
+                emailField.setText(applicant.getEmail());
+                resumeField.setText(applicant.getResume());
+                appliedDateField.setText(applicant.getAppliedDate().toString());
 
-                // Fetch and display job details
-                Job job = jobService.getJobById(applicant.getJobId());
-                if (job != null) {
-                    jobTitleLabel.setText("Job Title: " + job.getTitle());
-                    companyNameLabel.setText("Company: " + job.getCompanyName());
-                    jobDescriptionLabel.setText("Description: " + job.getDescription());
-                } else {
-                    jobTitleLabel.setText("Job Title: Not Found");
-                    companyNameLabel.setText("Company: Not Found");
-                    jobDescriptionLabel.setText("Description: Not Found");
-                }
-
+                // Show details
                 applicantDetails.setVisible(true);
             } else {
                 applicantDetails.setVisible(false);
@@ -95,6 +71,49 @@ public class ViewApplicantByIdController {
                 applicantDetails.setVisible(false);
             } else {
                 System.out.println("Failed to delete applicant.");
+            }
+        }
+    }
+
+    @FXML
+    private void handleEditApplicant() {
+        // Enable editing of fields
+        jobIdField.setEditable(true);
+        nameField.setEditable(true);
+        emailField.setEditable(true);
+        resumeField.setEditable(true);
+        appliedDateField.setEditable(true);
+
+        // Show save button
+        saveButton.setVisible(true);
+    }
+
+    @FXML
+    private void handleSaveApplicant() {
+        if (currentApplicantId != 0) {
+            // Create an updated applicant object
+            Applicant updatedApplicant = new Applicant();
+            updatedApplicant.setId(currentApplicantId);
+            updatedApplicant.setJobId(Integer.parseInt(jobIdField.getText()));
+            updatedApplicant.setName(nameField.getText());
+            updatedApplicant.setEmail(emailField.getText());
+            updatedApplicant.setResume(resumeField.getText());
+            updatedApplicant.setAppliedDate(java.sql.Timestamp.valueOf(appliedDateField.getText()));
+
+            // Update in the database
+            boolean success = applicantService.updateApplicant(updatedApplicant);
+            if (success) {
+                System.out.println("Applicant updated successfully.");
+                saveButton.setVisible(false);
+
+                // Disable editing
+                jobIdField.setEditable(false);
+                nameField.setEditable(false);
+                emailField.setEditable(false);
+                resumeField.setEditable(false);
+                appliedDateField.setEditable(false);
+            } else {
+                System.out.println("Failed to update applicant.");
             }
         }
     }
