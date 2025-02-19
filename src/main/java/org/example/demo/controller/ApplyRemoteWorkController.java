@@ -29,16 +29,16 @@ public class ApplyRemoteWorkController {
     @FXML
     private Button submitButton; // Corresponds to fx:id="submitButton" in FXML
 
-    private LeaveRequest leaveRequest; // Store the LeaveRequest object
-    private OnlineJobService onlineJobService = new OnlineJobService(); // Service to handle database operations
+    private LeaveRequest leaveRequest; //  gérer les données relatives à une demande de congé.
+    private OnlineJobService onlineJobService = new OnlineJobService(); // une instance d'un service qui permet de gérer les opérations liées aux emplois en ligne dans la base de données.
 
-    // This method is called by the ViewMyRequestsPopupController to pass the LeaveRequest object
+    //  pour remplir les champs de l'interface avec les données de la demande de congé.
     public void setLeaveRequest(LeaveRequest leaveRequest) {
         this.leaveRequest = leaveRequest;
         populateFields(); // Populate fields with LeaveRequest data if needed
     }
 
-    // Populate fields with LeaveRequest data (if applicable)
+    // Populate fields with LeaveRequest data (if applicable):remplit les champs de l'interface avec les informations pertinentes
     private void populateFields() {
         if (leaveRequest != null) {
             // Example: Populate the title field with the leave request ID
@@ -99,6 +99,6 @@ public class ApplyRemoteWorkController {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
-        alert.showAndWait();
+        alert.showAndWait();// cliquant sur un bouton "OK"
     }
 }

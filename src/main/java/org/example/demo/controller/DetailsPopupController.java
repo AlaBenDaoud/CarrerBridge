@@ -1,4 +1,4 @@
-package org.example.demo.controller;
+package org.example.demo.controller;// Indique le package dans lequel cette classe est définie
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,14 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDDocument;//bibliothèque PDFBox pour manipuler des documents PDF
 import org.apache.pdfbox.rendering.PDFRenderer;
 import javafx.embed.swing.SwingFXUtils;
 import org.example.demo.model.LeaveRequest;
 import org.example.demo.service.LeaveRequestService;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.image.BufferedImage;//référence à l'Abstract Window Toolkit
+import java.io.File;//gérer l'entrée/sortie de données, telles que la lecture et l'écriture de fichiers.
 import java.io.IOException;
 
 public class DetailsPopupController {

@@ -44,7 +44,7 @@ public class PdfViewerController {
             // Close the document
             document.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();//Affiche la trace de l'exception dans la console pour aider à diagnostiquer le problème.
         }
     }
 }

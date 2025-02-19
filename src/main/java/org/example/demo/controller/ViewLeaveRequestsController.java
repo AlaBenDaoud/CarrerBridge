@@ -35,30 +35,29 @@ public class ViewLeaveRequestsController {
     }
 
     private HBox createCard(LeaveRequest request) {
-        // Create a card layout
-        HBox card = new HBox(10);
-        card.setStyle("-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+        // Create a sleek card layout with soft shadow and rounded corners
+        HBox card = new HBox(20);
+        card.setStyle("-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 5);");
 
-        // Left side: Details
-        VBox details = new VBox(5);
+        // Left side: Leave Request Details
+        VBox details = new VBox(12);
         details.getChildren().addAll(
-                createLabel("ID: " + request.getId(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("Employee ID: " + request.getEmployeeId(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("Start Date: " + request.getStartDate(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("End Date: " + request.getEndDate(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("Description: " + request.getDescription(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("Leave Type: " + request.getLeaveType(), "-fx-font-size: 14px; -fx-text-fill: #555555;"),
-                createLabel("Confirmed: " + (request.isConfirmed() ? "Yes" : "No"), "-fx-font-size: 14px; -fx-text-fill: #555555;")
+                createLabel("ID: " + request.getId(), "-fx-font-size: 18px; -fx-text-fill: #607d8b;"),
+                createLabel("Employee ID: " + request.getEmployeeId(), "-fx-font-size: 18px; -fx-text-fill: #607d8b;"),
+                createLabel("Start Date: " + request.getStartDate(), "-fx-font-size: 18px; -fx-text-fill: #607d8b;"),
+                createLabel("End Date: " + request.getEndDate(), "-fx-font-size: 18px; -fx-text-fill: #607d8b;"),
+                createLabel("Leave Type: " + request.getLeaveType(), "-fx-font-size: 18px; -fx-text-fill: #607d8b;"),
+                createLabel("Confirmed: " + (request.isConfirmed() ? "Yes" : "No"), "-fx-font-size: 18px; -fx-text-fill: #607d8b;")
         );
 
-        // Right side: Actions
-        VBox actions = new VBox(5);
+        // Right side: Actions (with hover effects and more intuitive layout)
+        VBox actions = new VBox(15);
         Hyperlink pdfLink = new Hyperlink("View PDF");
-        pdfLink.setStyle("-fx-font-size: 14px; -fx-text-fill: #0078d7;");
+        pdfLink.setStyle("-fx-font-size: 18px; -fx-text-fill: #00bcd4;");
         pdfLink.setOnAction(event -> openPdfViewer(request.getPdfPath()));
 
         Button viewDetailsButton = new Button("View Details");
-        viewDetailsButton.setStyle("-fx-font-size: 14px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10;");
+        viewDetailsButton.setStyle("-fx-font-size: 18px; -fx-background-color: #00bcd4; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 12 20; -fx-font-weight: bold;");
         viewDetailsButton.setOnAction(event -> openDetailsPopup(request));
 
         actions.getChildren().addAll(pdfLink, viewDetailsButton);
@@ -92,7 +91,7 @@ public class ViewLeaveRequestsController {
     private void openDetailsPopup(LeaveRequest request) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/views/details_popup.fxml"));
-            VBox root = loader.load();
+            VBox root = loader.load(); //VBox pour contenir l'interface utilisateur définie dans le fichier FXML
 
             DetailsPopupController controller = loader.getController();
             controller.setLeaveRequest(request); // Pass the leave request to the controller

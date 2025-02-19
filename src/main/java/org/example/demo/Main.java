@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.demo.service.DatabaseService;
 import org.example.demo.service.LeaveRequestService;
-import org.example.demo.service.OnlineJobService;
-
 
 public class Main extends Application {
 
@@ -19,7 +17,7 @@ public class Main extends Application {
 
         // Initialize the services
         LeaveRequestService leaveRequestService = new LeaveRequestService();
-        OnlineJobService onlineJobService = new OnlineJobService();
+
         // Load the FXML file for the leave request interface
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/views/leave_request.fxml"));
         Parent root = loader.load();

@@ -40,7 +40,7 @@ public class ModifyRemoteWorkController {
 
     @FXML
     private void handleSave() {
-        onlineJob.setTitle(titleField.getText());
+        onlineJob.setTitle(titleField.getText());//Récupère le texte saisi dans le champ
         onlineJob.setPost(postField.getText());
         onlineJob.setStartDate(startDatePicker.getValue());
         onlineJob.setEndDate(endDatePicker.getValue());

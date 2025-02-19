@@ -63,7 +63,7 @@ public class LeaveRequestController {
     }
 
     @FXML
-    public void handleSubmit() {
+    public void handleSubmit() {//Méthode appelée lors du clic sur le bouton de soumission
         try {
             int employeeId = Integer.parseInt(employeeIdField.getText());
             int companyId = Integer.parseInt(companyIdField.getText());
@@ -130,7 +130,8 @@ public class LeaveRequestController {
     public void handleViewMyRequests() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/views/view_my_requests_popup.fxml"));
-            VBox root = loader.load();
+            //Récupère l'URL du fichier FXML
+            VBox root = loader.load();// crée l'interface utilisateur à partir du fichier FXML
 
             Stage popupStage = new Stage();
             popupStage.setTitle("View My Requests");
