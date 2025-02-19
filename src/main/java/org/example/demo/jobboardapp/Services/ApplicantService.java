@@ -108,4 +108,18 @@ public class ApplicantService {
         }
         return null;
     }
+    public boolean deleteApplicantById(int id) {
+        String query = "DELETE FROM applicants WHERE id = ?";
+        try (Connection conn = DatabaseService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

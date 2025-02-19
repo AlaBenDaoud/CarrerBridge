@@ -45,7 +45,9 @@ public class ViewApplicantByIdController {
     private Label jobDescriptionLabel;
 
     private ApplicantService applicantService = new ApplicantService();
-    private JobService jobService = new JobService(); // To fetch job details
+    private JobService jobService = new JobService();
+
+    private int currentApplicantId; // To track the currently displayed applicant
 
     @FXML
     private void handleFetchApplicant() {
@@ -56,6 +58,7 @@ public class ViewApplicantByIdController {
 
             if (applicant != null) {
                 // Display applicant details
+                currentApplicantId = applicant.getId();
                 idLabel.setText("ID: " + applicant.getId());
                 jobIdLabel.setText("Job ID: " + applicant.getJobId());
                 nameLabel.setText("Name: " + applicant.getName());
@@ -77,9 +80,21 @@ public class ViewApplicantByIdController {
 
                 applicantDetails.setVisible(true);
             } else {
-                // Hide details if applicant not found
                 applicantDetails.setVisible(false);
                 System.out.println("Applicant not found for ID: " + id);
+            }
+        }
+    }
+
+    @FXML
+    private void handleDeleteApplicant() {
+        if (currentApplicantId != 0) {
+            boolean success = applicantService.deleteApplicantById(currentApplicantId);
+            if (success) {
+                System.out.println("Applicant deleted successfully.");
+                applicantDetails.setVisible(false);
+            } else {
+                System.out.println("Failed to delete applicant.");
             }
         }
     }
