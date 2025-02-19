@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.pi.models.Reclamation;
@@ -114,12 +115,15 @@ public class EditReclamationDialogController {
                 // Save the updated reclamation to the database
                 reclamationService.updateReclamation(reclamation);
 
+                // Show success alert
+                showAlert("Success", "Reclamation updated successfully!");
+
                 // Close the dialog
                 Stage stage = (Stage) userIdField.getScene().getWindow();
                 stage.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                // Optionally show an error dialog
+                showAlert("Error", "Failed to update the reclamation.");
             }
         }
     }
@@ -164,5 +168,13 @@ public class EditReclamationDialogController {
 
     private boolean isNumeric(String str) {
         return str.matches("\\d+");
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

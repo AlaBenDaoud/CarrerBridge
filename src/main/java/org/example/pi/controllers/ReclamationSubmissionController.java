@@ -5,6 +5,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import org.example.pi.models.Reclamation;
 import org.example.pi.services.ReclamationService;
@@ -120,10 +122,11 @@ public class ReclamationSubmissionController {
 
                 reclamationService.addReclamation(reclamation);
                 clearForm();
-                System.out.println("Reclamation submitted successfully!");
+
+                showAlert(AlertType.INFORMATION, "Submission Successful", "Your reclamation has been submitted successfully!");
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println("Error submitting reclamation.");
+                showAlert(AlertType.ERROR, "Submission Error", "There was an error submitting your reclamation.");
             }
         }
     }
@@ -151,6 +154,14 @@ public class ReclamationSubmissionController {
         clearErrors();
     }
 
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     @FXML
     public void handleViewAllReclamations() {
         try {
@@ -168,11 +179,8 @@ public class ReclamationSubmissionController {
     @FXML
     private void handleViewAllAnswers() {
         try {
-            // Load the FXML file for the view that displays all answers
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ReponseReclamationList.fxml"));
             Parent root = loader.load();
-
-            // Create a new scene and stage
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("View All Answers");

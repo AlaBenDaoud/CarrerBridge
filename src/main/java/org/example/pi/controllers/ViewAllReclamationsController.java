@@ -3,19 +3,17 @@ package org.example.pi.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.pi.models.Reclamation;
 import org.example.pi.models.ReponseReclamation;
-import org.example.pi.services.ReponseReclamationService;
-
 import org.example.pi.services.ReclamationService;
+
+import org.example.pi.services.ReponseReclamationService;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class ViewAllReclamationsController {
@@ -122,12 +120,21 @@ public class ViewAllReclamationsController {
     }
 
     private void handleDelete(Reclamation reclamation) {
-        try {
-            reclamationService.deleteReclamation(reclamation.getId());
-            refreshTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "Failed to delete the reclamation.");
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Deletion");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to delete this reclamation?");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                reclamationService.deleteReclamation(reclamation.getId());
+                showAlert("Success", "Reclamation deleted successfully.");
+                refreshTable();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to delete the reclamation.");
+            }
         }
     }
 
@@ -175,7 +182,6 @@ public class ViewAllReclamationsController {
             showAlert("Error", "Failed to open the response form.");
         }
     }
-
 
     private void refreshTable() {
         try {

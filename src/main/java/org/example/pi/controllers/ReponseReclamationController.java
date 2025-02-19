@@ -47,6 +47,7 @@ public class ReponseReclamationController {
             if (submitButtonType != null) {
                 Button submitButton = (Button) dialogPane.lookupButton(submitButtonType);
                 submitButton.setOnAction(event -> handleSubmit());
+                submitButton.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5;"); // Green button
             }
         } else {
             System.err.println("DialogPane is not initialized!");

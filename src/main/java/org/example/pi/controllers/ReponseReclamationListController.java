@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import org.example.pi.models.ReponseReclamation;
 import org.example.pi.services.ReponseReclamationService;
@@ -62,9 +61,18 @@ public class ReponseReclamationListController {
                     setGraphic(null);
                 } else {
                     ReponseReclamation response = getTableRow().getItem();
+
+                    // Styling the buttons
+                    editButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5; -fx-border-radius: 5;");
                     editButton.setOnAction(event -> modifierReponse(response));
-                    deleteButton.setOnAction(event -> supprimerReponse(response));
-                    setGraphic(new HBox(editButton, deleteButton));
+
+                    deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 5; -fx-border-radius: 5; -fx-margin-left: 5;"); // Add margin to the delete button
+                    deleteButton.setOnAction(event -> confirmDeleteReponse(response));
+
+                    // Add spacing between buttons
+                    HBox buttonContainer = new HBox(editButton, deleteButton);
+                    buttonContainer.setSpacing(10); // Set spacing between buttons
+                    setGraphic(buttonContainer);
                 }
             }
         });
@@ -87,6 +95,19 @@ public class ReponseReclamationListController {
             showAlert("Error", "Unable to load responses", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
+    }
+
+    private void confirmDeleteReponse(ReponseReclamation response) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Deletion");
+        confirmationAlert.setHeaderText(null);
+        confirmationAlert.setContentText("Are you sure you want to delete this response?");
+
+        confirmationAlert.showAndWait().ifPresent(responseType -> {
+            if (responseType == ButtonType.OK) {
+                supprimerReponse(response);
+            }
+        });
     }
 
     private void supprimerReponse(ReponseReclamation response) {

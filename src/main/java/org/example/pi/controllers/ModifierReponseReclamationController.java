@@ -12,8 +12,10 @@ import java.sql.SQLException;
 
 public class ModifierReponseReclamationController {
 
-    @FXML private TextField txtId;
-    @FXML private TextArea txtReponse;
+    @FXML
+    private TextField txtId;
+    @FXML
+    private TextArea txtReponse;
 
     private ReponseReclamation selectedReponse;
     private final ReponseReclamationService service = new ReponseReclamationService();
@@ -33,10 +35,10 @@ public class ModifierReponseReclamationController {
 
             try {
                 service.updateReponseReclamation(selectedReponse);
-                showAlert("Succès", "Réponse modifiée avec succès", Alert.AlertType.INFORMATION);
+                showAlert("Success", "Response modified successfully.", Alert.AlertType.INFORMATION);
                 fermerFenetre();
             } catch (SQLException e) {
-                showAlert("Erreur", "Impossible de modifier la réponse", Alert.AlertType.ERROR);
+                showAlert("Error", "Failed to modify the response.", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         }
@@ -51,6 +53,7 @@ public class ModifierReponseReclamationController {
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
+        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
