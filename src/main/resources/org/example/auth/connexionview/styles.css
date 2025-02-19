@@ -1,0 +1,78 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #F5F5F5;
+}
+
+.navbar {
+    -fx-background-color: #3C8DBC;
+    -fx-padding: 20;
+}
+
+.menu-bar {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu-item {
+    -fx-font-size: 14px;
+}
+
+.content-area {
+    -fx-background-color: white;
+    -fx-padding: 30px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 10);
+}
+
+.welcome-text-small {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.welcome-text-large {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C8DBC;
+}
+
+.welcome-description {
+    -fx-font-size: 18px;
+    -fx-text-fill: #777;
+    -fx-wrap-text: true;
+}
+
+.feature-card {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #EEE;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-min-width: 250px;
+    -fx-max-width: 300px;
+}
+
+.card-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C8DBC;
+}
+
+.card-description {
+    -fx-font-size: 16px;
+    -fx-text-fill: #777;
+}
+
+.cta-button {
+    -fx-font-size: 18px;
+    -fx-background-color: #3C8DBC;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 15px 30px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.cta-button:hover {
+    -fx-background-color: #1D6BA5;
+}

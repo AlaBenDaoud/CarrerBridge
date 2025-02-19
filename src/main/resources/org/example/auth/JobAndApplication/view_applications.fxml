@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ComboBox?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.JobAndApplicantion.ViewApplicationsController"
+      spacing="20" alignment="CENTER" style="-fx-background-color: #ffffff;">
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Title -->
+    <Text text="View Applications by Company" style="-fx-fill: #2c3e50;">
+        <font>
+            <Font name="Roboto" size="28" />
+        </font>
+    </Text>
+
+    <!-- Applications Table -->
+    <TableView fx:id="applicationsTable" prefWidth="800" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+            <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100" />
+            <TableColumn fx:id="jobIdColumn" text="Job ID" prefWidth="100" />
+            <TableColumn fx:id="companyIdColumn" text="Company ID" prefWidth="100" />
+            <TableColumn fx:id="commentColumn" text="Comment" prefWidth="200" />
+            <TableColumn fx:id="additionalFileColumn" text="Additional File" prefWidth="150" />
+            <TableColumn fx:id="appliedDateColumn" text="Applied Date" prefWidth="150" />
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <!-- Status ComboBox -->
+    <ComboBox fx:id="statusComboBox" promptText="Select Status" prefWidth="200" onAction="#handleChangeStatus"/>
+</VBox>

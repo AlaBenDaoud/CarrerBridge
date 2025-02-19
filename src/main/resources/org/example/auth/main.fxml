@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.MainController"
+      styleClass="root"
+      stylesheets="@connexionview/styles.css">
+
+    <!-- Navigation Bar -->
+    <HBox styleClass="navbar" spacing="15" alignment="CENTER">
+        <MenuBar styleClass="menu-bar">
+            <menus>
+                <Menu text="Admin">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleAdminLogin"/>
+                    </items>
+                </Menu>
+                <Menu text="Company">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleCompanyLogin"/>
+                        <MenuItem text="Register" onAction="#handleCompanyRegister"/>
+                    </items>
+                </Menu>
+                <Menu text="User">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleUserLogin"/>
+                        <MenuItem text="Register" onAction="#handleUserRegister"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </HBox>
+
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="40" styleClass="content-area">
+        <!-- Welcome Text -->
+        <VBox alignment="CENTER" spacing="20">
+            <Label text="Welcome to" styleClass="welcome-text-small"/>
+            <Label text="Business Management System" styleClass="welcome-text-large"/>
+            <Label text="Streamline your business operations with our comprehensive solution"
+                   styleClass="welcome-description"/>
+        </VBox>
+
+        <!-- Feature Cards -->
+        <HBox spacing="40" alignment="CENTER">
+            <VBox styleClass="feature-card">
+                <Label text="For Administrators" styleClass="card-title"/>
+                <Label text="Manage system settings and user permissions"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="feature-card">
+                <Label text="For Companies" styleClass="card-title"/>
+                <Label text="Track resources and manage operations"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="feature-card">
+                <Label text="For Users" styleClass="card-title"/>
+                <Label text="Access services and manage personal accounts"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+        </HBox>
+
+        <!-- Call to Action Button -->
+        <Button text="Get Started" styleClass="cta-button" maxWidth="300"/>
+    </VBox>
+
+</VBox>

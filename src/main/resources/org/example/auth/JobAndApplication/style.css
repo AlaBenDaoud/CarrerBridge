@@ -1,0 +1,14 @@
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #27ae60; /* Darker green for Post Job */
+}
+
+#handleBackButton:hover {
+    -fx-background-color: #2980b9; /* Darker blue for Back to Main */
+}
+
+/* General button styling */
+.button {
+    -fx-cursor: hand; /* Change cursor to pointer on hover */
+    -fx-transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.auth.controllers.connexion.AdminDashboardController">
+    <children>
+        <!-- Dashboard Title -->
+        <Label text="Admin Dashboard" layoutX="20" layoutY="20" />
+
+        <!-- View Reclamation Button -->
+        <Button text="View Reclamations" layoutX="20" layoutY="60" fx:id="viewReclamationButton" onAction="#handleViewReclamation"/>
+
+        <!-- View Company & Employee Button -->
+        <Button text="View Company et Employee" layoutX="20" layoutY="120" fx:id="viewCompanyEmployeeButton" onAction="#handleViewCompanyEmployee"/>
+
+        <!-- View User Button -->
+        <Button text="View Users" layoutX="20" layoutY="180" fx:id="viewUserButton" onAction="#handleViewUser"/>
+    </children>
+</AnchorPane>

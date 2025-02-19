@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.auth.controllers.connexion.CompanyListController">
+    <children>
+        <!-- Label for the title -->
+        <Label text="List of Companies" layoutX="20" layoutY="20"/>
+
+        <!-- ListView to display company names and emails -->
+        <ListView fx:id="companyListView" layoutX="20" layoutY="60" prefWidth="500" prefHeight="300"/>
+
+        <!-- Back Button -->
+        <Button text="Back" layoutX="20" layoutY="380" onAction="#handleBackButton"/>
+    </children>
+</AnchorPane>

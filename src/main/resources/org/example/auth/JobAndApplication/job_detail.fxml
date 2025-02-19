@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.auth.controllers.JobAndApplicantion.JobDetailController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="10" layoutX="20" layoutY="20">
+        <Label text="Title:"/>
+        <Label fx:id="titleLabel"/>
+
+        <Label text="Description:"/>
+        <Label fx:id="descriptionLabel"/>
+
+        <Label text="Company:"/>
+        <Label fx:id="companyLabel"/>
+
+        <Label text="Location:"/>
+        <Label fx:id="locationLabel"/>
+
+        <Label text="Posted Date:"/>
+        <Label fx:id="postedDateLabel"/>
+
+        <Button text="Apply" fx:id="applyButton" onAction="#handleApply"/>
+        <Button text="Back Main" fx:id="backButton" onAction="#handleBackButton"/>
+
+    </VBox>
+
+</AnchorPane>

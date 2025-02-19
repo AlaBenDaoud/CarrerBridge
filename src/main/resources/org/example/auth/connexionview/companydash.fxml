@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.CompanyDashController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Button text="Post an Offer" fx:id="postOfferButton" onAction="#handlePostOffer" prefWidth="200" prefHeight="50">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Button>
+
+    <Button text="View My Posts" fx:id="viewPostsButton" onAction="#handleViewPosts" prefWidth="200" prefHeight="50">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Button>
+
+    <Button text="View Applicants" fx:id="viewApplicantsButton" onAction="#handleViewApplicants" prefWidth="200" prefHeight="50">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Button>
+
+    <Button text="View Employees" fx:id="viewEmployeesButton" onAction="#handleViewEmployees" prefWidth="200" prefHeight="50">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Button>
+</VBox>
