@@ -18,9 +18,9 @@ public class ModifierReponseReclamationController {
     private ReponseReclamation selectedReponse;
     private final ReponseReclamationService service = new ReponseReclamationService();
 
-    public void initData(ReponseReclamation reponse) {
+    public void setResponse(ReponseReclamation reponse) {
+        this.selectedReponse = reponse;
         if (reponse != null) {
-            this.selectedReponse = reponse;
             txtId.setText(String.valueOf(reponse.getId()));
             txtReponse.setText(reponse.getReponse());
         }

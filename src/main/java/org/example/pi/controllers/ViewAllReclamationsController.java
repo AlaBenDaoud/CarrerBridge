@@ -7,11 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.pi.models.Reclamation;
+import org.example.pi.models.ReponseReclamation;
+import org.example.pi.services.ReponseReclamationService;
+
 import org.example.pi.services.ReclamationService;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class ViewAllReclamationsController {
@@ -152,10 +156,11 @@ public class ViewAllReclamationsController {
 
     private void handleAnswer(Reclamation reclamation) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/AnswerDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/reponse_reclamation_form.fxml"));
             DialogPane dialogPane = loader.load();
 
-            AnswerDialogController controller = loader.getController();
+            ReponseReclamationController controller = loader.getController();
+            controller.setReclamation(reclamation); // Pass the reclamation to the controller
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -163,16 +168,14 @@ public class ViewAllReclamationsController {
 
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                String title = controller.getTitle();
-                String message = controller.getMessage();
-                // Here you can handle the title and message, e.g., send them to a service
-                System.out.println("Title: " + title);
-                System.out.println("Message: " + message);
+                refreshTable(); // Refresh the table after submitting the response
             }
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Failed to open the response form.");
         }
     }
+
 
     private void refreshTable() {
         try {
@@ -193,19 +196,23 @@ public class ViewAllReclamationsController {
 
     private void openEditStatusDialog(Reclamation reclamation) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/reponse_reclamation_form.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(loader.load());
-            stage.setScene(scene);
-            stage.setTitle("Edit Reclamation Status");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/EditReclamationStatusDialog.fxml"));
+            DialogPane dialogPane = loader.load();
 
-            EditReclamationStateDialogController controller = loader.getController();
+            EditReclamationStatusDialogController controller = loader.getController();
             controller.setReclamation(reclamation);
 
-            stage.showAndWait();
-            refreshTable(); // Refresh the table after editing
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Edit Reclamation Status");
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                refreshTable(); // Refresh the table after editing
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Failed to open the edit status dialog.");
         }
     }
 }

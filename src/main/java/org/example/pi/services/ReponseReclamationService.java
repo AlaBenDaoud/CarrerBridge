@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.pi.models.Reclamation;
 import org.example.pi.models.ReponseReclamation;
 
 public class ReponseReclamationService {
@@ -69,7 +71,7 @@ public class ReponseReclamationService {
     }
 
     public void addReponseReclamation(ReponseReclamation reponseReclamation) throws SQLException {
-        String query = "INSERT INTO reponse_reclamations (id_rec, id_user, id_receiver, reponse, pdf_path, date) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO reponse_reclamations (id_rec, id_user, id_receiver, reponse, pdf_path, date, statue_of_reponse_reclamation) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = databaseService.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, reponseReclamation.getIdRec());
@@ -78,6 +80,12 @@ public class ReponseReclamationService {
             pstmt.setString(4, reponseReclamation.getReponse());
             pstmt.setString(5, reponseReclamation.getPdfPath());
             pstmt.setObject(6, reponseReclamation.getDate());
+            pstmt.setString(7, reponseReclamation.getStatueOfReponseReclamation());
+
+            // Debug: Print the query and parameters
+            System.out.println("Executing query: " + query);
+            System.out.println("Parameters: " + reponseReclamation);
+
             pstmt.executeUpdate();
         }
     }

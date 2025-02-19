@@ -9,6 +9,7 @@ import javafx.stage.FileChooser;
 import org.example.pi.models.Reclamation;
 import org.example.pi.services.ReclamationService;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;
@@ -160,6 +161,23 @@ public class ReclamationSubmissionController {
             stage.setTitle("View All Reclamations");
             stage.show();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleViewAllAnswers() {
+        try {
+            // Load the FXML file for the view that displays all answers
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ReponseReclamationList.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("View All Answers");
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

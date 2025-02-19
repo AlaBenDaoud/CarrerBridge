@@ -56,5 +56,7 @@
                 style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
         <Button text="View All Reclamations" onAction="#handleViewAllReclamations"
                 style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+        <Button text="View All Answers" onAction="#handleViewAllAnswers"
+                style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
     </HBox>
 </VBox>

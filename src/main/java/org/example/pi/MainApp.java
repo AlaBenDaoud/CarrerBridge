@@ -11,7 +11,7 @@ import java.util.Objects;
 public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/pi/reponse_reclamation_form.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/pi/ReclamationSubmissionView.fxml")));
         primaryStage.setTitle("Submit Reclamation");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();

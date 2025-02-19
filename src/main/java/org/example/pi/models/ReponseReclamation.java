@@ -13,7 +13,7 @@ public class ReponseReclamation {
     private String statueOfReponseReclamation;
 
     // Getters and Setters
-    public int getId() {return id;}
+    public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public int getIdRec() { return idRec; }

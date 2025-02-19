@@ -127,4 +127,13 @@ public class ReclamationService {
             pstmt.executeUpdate();
         }
     }
+    public void updateReclamationStatus(Reclamation reclamation) throws SQLException {
+        String query = "UPDATE reclamations SET statue_of_reclamation = ? WHERE id = ?";
+        try (Connection conn = databaseService.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, reclamation.getStatueOfReclamation());
+            pstmt.setInt(2, reclamation.getId());
+            pstmt.executeUpdate();
+        }
+    }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<DialogPane fx:id="dialogPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.EditReclamationStatusDialogController">
+    <content>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="Change Reclamation Status" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="statusComboBox" promptText="Select Status"/>
+        </VBox>
+    </content>
+    <buttonTypes>
+        <ButtonType buttonData="OK_DONE" text="Save"/>
+        <ButtonType buttonData="CANCEL_CLOSE" text="Cancel"/>
+    </buttonTypes>
+</DialogPane>

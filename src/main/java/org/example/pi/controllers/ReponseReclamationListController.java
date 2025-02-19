@@ -3,9 +3,15 @@ package org.example.pi.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import org.example.pi.models.ReponseReclamation;
 import org.example.pi.services.ReponseReclamationService;
 
@@ -30,11 +36,7 @@ public class ReponseReclamationListController {
     @FXML
     private TableColumn<ReponseReclamation, String> colStatut;
     @FXML
-    private Button btnModifier;
-    @FXML
-    private Button btnSupprimer;
-    @FXML
-    private Button btnRefresh;
+    private TableColumn<ReponseReclamation, Void> colActions; // For action buttons
 
     private final ReponseReclamationService service = new ReponseReclamationService();
     private ObservableList<ReponseReclamation> observableList;
@@ -47,6 +49,25 @@ public class ReponseReclamationListController {
         colReponse.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getReponse()));
         colPdfPath.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getPdfPath()));
         colStatut.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getStatueOfReponseReclamation()));
+
+        // Adding action buttons in the table
+        colActions.setCellFactory(column -> new TableCell<>() {
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                    setGraphic(null);
+                } else {
+                    ReponseReclamation response = getTableRow().getItem();
+                    editButton.setOnAction(event -> modifierReponse(response));
+                    deleteButton.setOnAction(event -> supprimerReponse(response));
+                    setGraphic(new HBox(editButton, deleteButton));
+                }
+            }
+        });
 
         VBox.setVgrow(tableViewReponses, Priority.ALWAYS);
         loadReponses();
@@ -63,31 +84,40 @@ public class ReponseReclamationListController {
             observableList = FXCollections.observableArrayList(reponses);
             tableViewReponses.setItems(observableList);
         } catch (SQLException e) {
-            showAlert("Erreur", "Impossible de charger les réponses", Alert.AlertType.ERROR);
+            showAlert("Error", "Unable to load responses", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
 
-    @FXML
-    private void supprimerReponse() {
-        ReponseReclamation selected = tableViewReponses.getSelectionModel().getSelectedItem();
-        if (selected != null) {
+    private void supprimerReponse(ReponseReclamation response) {
+        if (response != null) {
             try {
-                service.deleteReponseReclamation(selected.getId());
-                observableList.remove(selected);
-                showAlert("Succès", "Réponse supprimée avec succès", Alert.AlertType.INFORMATION);
+                service.deleteReponseReclamation(response.getId());
+                observableList.remove(response);
+                showAlert("Success", "Response deleted successfully", Alert.AlertType.INFORMATION);
             } catch (SQLException e) {
-                showAlert("Erreur", "Échec de la suppression", Alert.AlertType.ERROR);
+                showAlert("Error", "Failed to delete", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
-        } else {
-            showAlert("Aucune sélection", "Veuillez sélectionner une réponse à supprimer", Alert.AlertType.WARNING);
         }
     }
 
-    @FXML
-    private void modifierReponse() {
-        // Implementation of modifierReponse logic
+    private void modifierReponse(ReponseReclamation response) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ModifierReponseReclamation.fxml"));
+            VBox root = loader.load();
+
+            ModifierReponseReclamationController controller = loader.getController();
+            controller.setResponse(response);  // Set the response to be edited
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Response");
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Error", "Unable to load edit window", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {

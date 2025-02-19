@@ -4,11 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.pi.models.Reclamation;
 import org.example.pi.models.ReponseReclamation;
 import org.example.pi.services.ReponseReclamationService;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -17,22 +15,59 @@ import java.time.LocalDateTime;
 public class ReponseReclamationController {
 
     @FXML
+    private DialogPane dialogPane; // Ensure this matches the fx:id in the FXML file
+
+    @FXML
     private TextField idRecField, idUserField, idReceiverField;
     @FXML
     private TextArea reponseField;
     @FXML
     private Label pdfPathLabel;
     @FXML
-    private Label idRecError, idUserError, idReceiverError, reponseError, pdfError;
+    private Label pdfError;
 
-    private String pdfPath = null;
-    private final ReponseReclamationService reponseService = new ReponseReclamationService();
+    private String pdfPath = null; // Path to the selected PDF file
+    private final ReponseReclamationService reponseService = new ReponseReclamationService(); // Service for database operations
 
+    private Reclamation reclamation; // Object to store reclamation data
+
+    /**
+     * Initialize the controller and set up button handlers.
+     */
     @FXML
     public void initialize() {
-        // Initialization logic if needed
+        // Ensure dialogPane is not null
+        if (dialogPane != null) {
+            // Add event handler for the Submit button
+            ButtonType submitButtonType = dialogPane.getButtonTypes().stream()
+                    .filter(buttonType -> "Submit".equals(buttonType.getText()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (submitButtonType != null) {
+                Button submitButton = (Button) dialogPane.lookupButton(submitButtonType);
+                submitButton.setOnAction(event -> handleSubmit());
+            }
+        } else {
+            System.err.println("DialogPane is not initialized!");
+        }
     }
 
+    /**
+     * Set reclamation data to populate the form fields.
+     *
+     * @param reclamation the Reclamation object containing the data
+     */
+    public void setReclamation(Reclamation reclamation) {
+        this.reclamation = reclamation;
+        idRecField.setText(String.valueOf(reclamation.getId()));
+        idUserField.setText(String.valueOf(reclamation.getUserId()));
+        // Do not set the idReceiverField here, let the user input it
+    }
+
+    /**
+     * Handle the PDF file selection by opening a file chooser window.
+     */
     @FXML
     private void handleSelectPdf() {
         FileChooser fileChooser = new FileChooser();
@@ -42,115 +77,85 @@ public class ReponseReclamationController {
         if (selectedFile != null) {
             pdfPath = selectedFile.getAbsolutePath();
             pdfPathLabel.setText(selectedFile.getName());
-            pdfError.setText(""); // Clear any previous error
+            pdfError.setText(""); // Clear any previous error message
         } else {
-            pdfPathLabel.setText("Aucun fichier sélectionné");
+            pdfPathLabel.setText("No file selected");
         }
     }
 
-    @FXML
+    /**
+     * Handle form submission to save the response data to the database.
+     */
     private void handleSubmit() {
-        clearErrors(); // Clear previous error messages
-        boolean isValid = true;
+        // Validate the response field
+        if (reponseField.getText().isEmpty()) {
+            pdfError.setText("Response cannot be empty.");
+            return;
+        }
+
+        // Validate PDF file selection
+        if (pdfPath == null) {
+            pdfError.setText("Please select a PDF file.");
+            return;
+        }
+
+        // Validate receiver ID
+        int receiverId;
+        try {
+            receiverId = Integer.parseInt(idReceiverField.getText());
+        } catch (NumberFormatException e) {
+            pdfError.setText("Invalid receiver ID format.");
+            return;
+        }
 
         try {
-            // Validate IDs
-            int idRec = validateIntegerField(idRecField, idRecError, "ID Réclamation invalide.");
-            int idUser = validateIntegerField(idUserField, idUserError, "ID Utilisateur invalide.");
-            int idReceiver = validateIntegerField(idReceiverField, idReceiverError, "ID Récepteur invalide.");
-            String reponse = reponseField.getText();
-
-            // Validate response
-            if (reponse.isEmpty()) {
-                reponseError.setText("La réponse ne peut pas être vide.");
-                isValid = false;
-            }
-
-            // Validate PDF path
-            if (pdfPath == null) {
-                pdfError.setText("Veuillez choisir un fichier PDF.");
-                isValid = false;
-            }
-
-            if (!isValid) {
-                return; // Stop processing if validation fails
-            }
-
-            LocalDateTime date = LocalDateTime.now();
-
-            // Create ReponseReclamation object
+            // Create a new ReponseReclamation object
             ReponseReclamation reponseReclamation = new ReponseReclamation();
-            reponseReclamation.setIdRec(idRec);
-            reponseReclamation.setIdUser(idUser);
-            reponseReclamation.setIdReceiver(idReceiver);
-            reponseReclamation.setReponse(reponse);
+            reponseReclamation.setIdRec(reclamation.getId());
+            reponseReclamation.setIdUser(reclamation.getUserId());
+            reponseReclamation.setIdReceiver(receiverId); // Use the user-input receiver ID
+            reponseReclamation.setReponse(reponseField.getText());
             reponseReclamation.setPdfPath(pdfPath);
-            reponseReclamation.setDate(date);
-            reponseReclamation.setStatueOfReponseReclamation("Not Treated");
+            reponseReclamation.setDate(LocalDateTime.now());
+            reponseReclamation.setStatueOfReponseReclamation("Pending");
 
-            // Save to database
+            // Debugging: Print the ReponseReclamation object to verify data
+            System.out.println("ReponseReclamation to be saved: " + reponseReclamation);
+
+            // Save the response to the database
             reponseService.addReponseReclamation(reponseReclamation);
 
-            showAlert(Alert.AlertType.INFORMATION, "Succès", "Réponse soumise avec succès !");
-            clearForm();
+            // Show success message
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Response submitted successfully!");
 
+            // Close the dialog
+            closeDialog();
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Problème lors de l'enregistrement de la réponse.");
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to save the response.");
         }
     }
 
-    private int validateIntegerField(TextField field, Label errorLabel, String errorMessage) {
-        try {
-            return Integer.parseInt(field.getText());
-        } catch (NumberFormatException e) {
-            errorLabel.setText(errorMessage);
-            return -1; // Indicate an invalid value
-        }
+    /**
+     * Close the current dialog window.
+     */
+    private void closeDialog() {
+        Stage stage = (Stage) idRecField.getScene().getWindow();
+        stage.close();
     }
 
-    @FXML
-    private void handleCancel() {
-        clearForm();
-    }
-
-    private void clearForm() {
-        idRecField.clear();
-        idUserField.clear();
-        idReceiverField.clear();
-        reponseField.clear();
-        pdfPathLabel.setText("Aucun fichier sélectionné");
-        pdfPath = null;
-        clearErrors();
-    }
-
-    private void clearErrors() {
-        idRecError.setText("");
-        idUserError.setText("");
-        idReceiverError.setText("");
-        reponseError.setText("");
-        pdfError.setText("");
-    }
-
+    /**
+     * Show an alert dialog with the specified type, title, and message.
+     *
+     * @param type    the type of the alert (e.g., INFORMATION, ERROR)
+     * @param title   the title of the alert
+     * @param message the content message of the alert
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    private void handleViewAllResponses() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ReponseReclamationList.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Voir Toutes les Réponses");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
