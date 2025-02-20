@@ -24,6 +24,10 @@ public class UserDashController {
     @FXML
     private Button consultWorkButton;
 
+    @FXML
+    private Button createPostButton;
+
+
     private EmployeeService employeeService;
 
     public UserDashController() {
@@ -81,6 +85,20 @@ public class UserDashController {
     private void handleConsultWork() {
         showAlert(Alert.AlertType.INFORMATION, "Consult My Work", "Consult My Work button clicked.");
         // Add logic to handle consulting work
+    }
+
+    @FXML
+    private void handleCreatePost() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/post_form.fxml"));
+            Stage postStage = new Stage();
+            postStage.setScene(new Scene(loader.load()));
+            postStage.setTitle("Create Post");
+            postStage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Create Post window.");
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

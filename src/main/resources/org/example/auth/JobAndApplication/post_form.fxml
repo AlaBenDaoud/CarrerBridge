@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.JobAndApplicantion.PostFormController"
+      spacing="10"
+      alignment="CENTER">
 
-</AnchorPane>
+    <!-- Title -->
+    <Label text="Create a New Post" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Post Content -->
+    <TextArea fx:id="postContent" promptText="Write your post..." wrapText="true" prefHeight="120"/>
+
+    <!-- Upload Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="📷 Upload Image" onAction="#handleUploadImage"/>
+        <Button text="📄 Upload PDF" onAction="#handleUploadPdf"/>
+    </HBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="✅ Submit Post" onAction="#handleSubmitPost" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+        <Button text="❌ Cancel" onAction="#handleCancel" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+    </HBox>
+
+</VBox>

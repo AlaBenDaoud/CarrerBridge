@@ -8,27 +8,42 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.fxml.FXMLLoader?>
+<?import javafx.scene.Parent?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.UserDashController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.auth.controllers.connexion.UserDashController">
+
     <!-- Top Navigation Bar -->
     <top>
         <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
-            <Button text="Search for Job" fx:id="searchJobButton" onAction="#handleSearchJob" style="-fx-text-fill: white; -fx-background-color: #3498db;">
+            <Button text="Search for Job" fx:id="searchJobButton" onAction="#handleSearchJob"
+                    style="-fx-text-fill: white; -fx-background-color: #3498db;">
                 <font>
                     <Font size="14"/>
                 </font>
             </Button>
-            <Button text="View My Applications" fx:id="viewApplicationsButton" onAction="#handleViewApplications" style="-fx-text-fill: white; -fx-background-color: #3498db;">
+            <Button text="View My Applications" fx:id="viewApplicationsButton" onAction="#handleViewApplications"
+                    style="-fx-text-fill: white; -fx-background-color: #3498db;">
                 <font>
                     <Font size="14"/>
                 </font>
             </Button>
-            <Button text="Edit My Profile" fx:id="editProfileButton" onAction="#handleEditProfile" style="-fx-text-fill: white; -fx-background-color: #3498db;">
+            <Button text="Edit My Profile" fx:id="editProfileButton" onAction="#handleEditProfile"
+                    style="-fx-text-fill: white; -fx-background-color: #3498db;">
                 <font>
                     <Font size="14"/>
                 </font>
             </Button>
-            <Button text="Consult My Work" fx:id="consultWorkButton" onAction="#handleConsultWork" style="-fx-text-fill: white; -fx-background-color: #3498db;" visible="false">
+            <Button text="Consult My Work" fx:id="consultWorkButton" onAction="#handleConsultWork"
+                    style="-fx-text-fill: white; -fx-background-color: #3498db;" visible="false">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Button>
+            <Button text="Create Post" fx:id="createPostButton" onAction="#handleCreatePost"
+                    style="-fx-text-fill: white; -fx-background-color: #27ae60;">
                 <font>
                     <Font size="14"/>
                 </font>
@@ -36,11 +51,9 @@
         </HBox>
     </top>
 
-    <!-- Center Content -->
+    <!-- Main Content Area (Loads Other Pages) -->
     <center>
-        <VBox alignment="CENTER" spacing="20">
-            <Text text="Welcome to Your Dashboard" style="-fx-font-size: 24; -fx-fill: #2c3e50;"/>
-            <Text text="Please use the navigation bar above to explore your options." style="-fx-font-size: 16; -fx-fill: #7f8c8d;"/>
-        </VBox>
+        <fx:include source="../JobAndApplication/post_view.fxml"/>
     </center>
+
 </BorderPane>
