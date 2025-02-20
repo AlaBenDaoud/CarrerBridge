@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.JobAndApplicantion.UpdateReplyController" spacing="10" style="-fx-padding: 20;">
+    <Label text="Modifier votre réponse" />
+    <TextArea fx:id="replyContentArea" promptText="Écrivez votre réponse ici" wrapText="true" prefHeight="100" />
+    <Button text="Mettre à jour" onAction="#handleUpdateReply" />
+    <Button text="Annuler" onAction="#handleCancel" />
+</VBox>

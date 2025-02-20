@@ -13,6 +13,8 @@ module org.example.auth {
     requires java.desktop;
     requires javafx.base;
     requires javafx.graphics;
+    requires org.apache.pdfbox; // Add this line for PDFBox
+    requires javafx.swing;
     // Open the package for reflection by javafx.fxml
     opens org.example.auth.controllers to javafx.fxml;
     opens org.example.auth to javafx.fxml;

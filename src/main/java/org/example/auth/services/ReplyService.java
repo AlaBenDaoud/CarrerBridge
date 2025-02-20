@@ -66,6 +66,29 @@ public class ReplyService {
 
         return replies;
     }
+    /**
+     * Updates a reply's content.
+     *
+     * @param reply The reply with updated content.
+     * @return True if the reply was updated successfully, false otherwise.
+     */
+    public boolean updateReply(Reply reply) {
+        String query = "UPDATE replies SET content = ? WHERE id = ?";
+
+        try (Connection conn = databaseService.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, reply.getContent());
+            stmt.setInt(2, reply.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error while updating reply: " + e.getMessage());
+            return false;
+        }
+    }
 
     /**
      * Retrieves a single reply by its ID.
