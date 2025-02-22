@@ -59,21 +59,25 @@ public class PostController {
 
     private VBox createPostCard(Post post) {
         VBox card = new VBox();
-        card.setSpacing(5);
-        card.setStyle("-fx-padding: 10; -fx-background-color: #f8f9fa; -fx-border-radius: 10; -fx-border-color: #ddd; -fx-background-radius: 10;");
+        card.setSpacing(10);
+        card.setStyle("-fx-padding: 15; -fx-background-color: rgba(30, 41, 59, 0.7); -fx-border-radius: 10; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-background-radius: 10;");
         card.setPrefWidth(600);
 
         Label content = new Label(post.getContent());
         content.setWrapText(true);
-        content.setPrefWidth(580);
+        content.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #f8fafc;");
 
         Label createdAt = new Label("Publié le : " + post.getCreatedAt());
-        createdAt.setStyle("-fx-font-size: 12px; -fx-text-fill: gray;");
+        createdAt.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-text-fill: #94a3b8;");
 
         HBox interactionBox = new HBox(10);
         Button likeButton = new Button("👍 " + post.getLikeCount());
         Button dislikeButton = new Button("👎 " + post.getDislikeCount());
         Button replyButton = new Button("💬 Répondre");
+
+        likeButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
+        dislikeButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
+        replyButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
 
         likeButton.setOnAction(e -> updateLikeCount(post.getId(), true, likeButton));
         dislikeButton.setOnAction(e -> updateDislikeCount(post.getId(), true, dislikeButton));
@@ -83,7 +87,7 @@ public class PostController {
 
         // Create a VBox for replies to be added under each post
         VBox repliesContainer = new VBox(5);
-        repliesContainer.setStyle("-fx-padding: 10; -fx-background-color: #f1f1f1; -fx-border-radius: 10; -fx-background-radius: 10;");
+        repliesContainer.setStyle("-fx-padding: 10; -fx-background-color: rgba(30, 41, 59, 0.5); -fx-border-radius: 10; -fx-background-radius: 10;");
 
         // Load and display replies under the post
         loadRepliesForPost(post.getId(), repliesContainer);
@@ -228,12 +232,15 @@ public class PostController {
         // Iterate through the replies and add them as labels
         for (Reply reply : replies) {
             Label replyContent = new Label(reply.getContent());
-            replyContent.setStyle("-fx-font-size: 12px; -fx-text-fill: #333; -fx-wrap-text: true;");
+            replyContent.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-text-fill: #f8fafc; -fx-wrap-text: true;");
 
             // Create buttons for delete and update if the logged-in user is the author
             if (reply.getUserId() == loggedInUserId) {
                 Button updateButton = new Button("Modifier");
                 Button deleteButton = new Button("Supprimer");
+
+                updateButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 6px 12px; -fx-background-radius: 15px; -fx-cursor: hand;");
+                deleteButton.setStyle("-fx-text-fill: white; -fx-background-color: #ef4444; -fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 6px 12px; -fx-background-radius: 15px; -fx-cursor: hand;");
 
                 updateButton.setOnAction(e -> openUpdateReplyPopup(reply.getId()));
                 deleteButton.setOnAction(e -> deleteReply(reply.getId(), repliesContainer));

@@ -45,7 +45,6 @@
                     <Label text="Business Management System" styleClass="welcome-text-large"/>
                     <Label text="Streamline your business operations with our comprehensive solution"
                            styleClass="welcome-description"/>
-                    <Button text="Explore Now" styleClass="hero-button"/>
                 </VBox>
             </StackPane>
 
@@ -55,21 +54,18 @@
                     <Label text="Admin" styleClass="card-title"/>
                     <Label text="Manage system settings and user permissions with advanced controls"
                            styleClass="card-description"/>
-                    <Button text="Learn More" styleClass="card-button"/>
                 </VBox>
 
                 <VBox styleClass="feature-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <Label text="Company" styleClass="card-title"/>
                     <Label text="Optimize resources and streamline business operations efficiently"
                            styleClass="card-description"/>
-                    <Button text="Learn More" styleClass="card-button"/>
                 </VBox>
 
                 <VBox styleClass="feature-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
                     <Label text="User" styleClass="card-title"/>
                     <Label text="Access powerful tools and manage accounts seamlessly"
                            styleClass="card-description"/>
-                    <Button text="Learn More" styleClass="card-button"/>
                 </VBox>
             </GridPane>
 
@@ -78,7 +74,6 @@
                 <VBox alignment="CENTER" spacing="20">
                     <Label text="Ready to Transform Your Business?" styleClass="cta-title"/>
                     <Label text="Join thousands of satisfied customers today" styleClass="cta-subtitle"/>
-                    <Button text="Get Started" styleClass="cta-button"/>
                 </VBox>
             </StackPane>
         </VBox>

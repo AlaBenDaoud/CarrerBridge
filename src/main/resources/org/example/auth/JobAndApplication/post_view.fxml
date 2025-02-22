@@ -6,22 +6,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.auth.controllers.JobAndApplicantion.PostController">
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.text.Font?>
 
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.auth.controllers.JobAndApplicantion.PostController"
+            style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);">
+
+    <!-- Top Section -->
     <top>
-        <HBox spacing="10" style="-fx-padding: 10;">
-            <Button text="Actualiser" onAction="#refreshPosts"/>
+        <HBox spacing="15" style="-fx-padding: 15; -fx-background-color: rgba(30, 41, 59, 0.95); -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 3);" alignment="CENTER">
+            <Button text="Actualiser" onAction="#refreshPosts"
+                    style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
+            </Button>
         </HBox>
     </top>
 
+    <!-- Center Section -->
     <center>
-        <ScrollPane fitToWidth="true">
-            <VBox fx:id="postContainer" spacing="10" style="-fx-padding: 10;">
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox fx:id="postContainer" spacing="15" style="-fx-padding: 20;">
                 <!-- Les cartes des publications seront ajoutées ici dynamiquement -->
             </VBox>
         </ScrollPane>
     </center>
 
 </BorderPane>
-

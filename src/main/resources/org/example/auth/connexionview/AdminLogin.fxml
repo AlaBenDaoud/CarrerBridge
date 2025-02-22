@@ -7,15 +7,42 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.AdminLoginController" spacing="10" alignment="CENTER">
-    <GridPane hgap="10" vgap="10">
-        <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="emailField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.connexion.AdminLoginController"
+      spacing="20"
+      alignment="CENTER"
+      style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b); -fx-padding: 40px;">
 
-        <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <!-- Title -->
+    <Label text="Admin Login"
+           style="-fx-font-family: 'Segoe UI'; -fx-font-size: 32px; -fx-text-fill: #f8fafc; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 2);"/>
+
+    <!-- Login Form -->
+    <GridPane hgap="15" vgap="15" alignment="CENTER">
+        <!-- Email Field -->
+        <Label text="Email:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField"
+                   style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <!-- Password Field -->
+        <Label text="Password:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField"
+                       style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     </GridPane>
 
-    <Button text="Login" onAction="#handleLogin"/>
+    <!-- Login Button -->
+    <Button text="Login"
+            onAction="#handleLogin"
+            style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10px 30px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 4);"/>
 </VBox>
