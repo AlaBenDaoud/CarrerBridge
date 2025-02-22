@@ -83,8 +83,16 @@ public class UserDashController {
 
     @FXML
     private void handleConsultWork() {
-        showAlert(Alert.AlertType.INFORMATION, "Consult My Work", "Consult My Work button clicked.");
-        // Add logic to handle consulting work
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/consult_work.fxml"));
+            Scene consultWorkScene = new Scene(loader.load());
+            Stage currentStage = (Stage) consultWorkButton.getScene().getWindow();
+            currentStage.setScene(consultWorkScene);
+            currentStage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Consult My Work view.");
+            e.printStackTrace();
+        }
     }
 
     @FXML

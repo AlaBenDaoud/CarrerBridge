@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.auth.controllers.MainController"
       styleClass="root"
-      stylesheets="@connexionview/styles.css">
+      stylesheets="@styles.css">
 
-    <!-- Navigation Bar -->
-    <HBox styleClass="navbar" spacing="15" alignment="CENTER">
+    <!-- Fixed Navigation Bar -->
+    <HBox styleClass="navbar" alignment="CENTER">
         <MenuBar styleClass="menu-bar">
             <menus>
-                <Menu text="Admin">
+                <Menu text="Admin" styleClass="menu-item">
                     <items>
                         <MenuItem text="Login" onAction="#handleAdminLogin"/>
                     </items>
                 </Menu>
-                <Menu text="Company">
+                <Menu text="Company" styleClass="menu-item">
                     <items>
                         <MenuItem text="Login" onAction="#handleCompanyLogin"/>
                         <MenuItem text="Register" onAction="#handleCompanyRegister"/>
                     </items>
                 </Menu>
-                <Menu text="User">
+                <Menu text="User" styleClass="menu-item">
                     <items>
                         <MenuItem text="Login" onAction="#handleUserLogin"/>
                         <MenuItem text="Register" onAction="#handleUserRegister"/>
@@ -38,39 +35,52 @@
         </MenuBar>
     </HBox>
 
-    <!-- Main Content -->
-    <VBox alignment="CENTER" spacing="40" styleClass="content-area">
-        <!-- Welcome Text -->
-        <VBox alignment="CENTER" spacing="20">
-            <Label text="Welcome to" styleClass="welcome-text-small"/>
-            <Label text="Business Management System" styleClass="welcome-text-large"/>
-            <Label text="Streamline your business operations with our comprehensive solution"
-                   styleClass="welcome-description"/>
+    <!-- Scrollable Content -->
+    <ScrollPane fitToWidth="true" styleClass="content-scroll-pane">
+        <VBox>
+            <!-- Hero Section -->
+            <StackPane styleClass="hero-section">
+                <VBox styleClass="hero-content">
+                    <Label text="Welcome to" styleClass="welcome-text-small"/>
+                    <Label text="Business Management System" styleClass="welcome-text-large"/>
+                    <Label text="Streamline your business operations with our comprehensive solution"
+                           styleClass="welcome-description"/>
+                    <Button text="Explore Now" styleClass="hero-button"/>
+                </VBox>
+            </StackPane>
+
+            <!-- Feature Cards Section -->
+            <GridPane styleClass="features-grid">
+                <VBox styleClass="feature-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Admin" styleClass="card-title"/>
+                    <Label text="Manage system settings and user permissions with advanced controls"
+                           styleClass="card-description"/>
+                    <Button text="Learn More" styleClass="card-button"/>
+                </VBox>
+
+                <VBox styleClass="feature-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Company" styleClass="card-title"/>
+                    <Label text="Optimize resources and streamline business operations efficiently"
+                           styleClass="card-description"/>
+                    <Button text="Learn More" styleClass="card-button"/>
+                </VBox>
+
+                <VBox styleClass="feature-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="User" styleClass="card-title"/>
+                    <Label text="Access powerful tools and manage accounts seamlessly"
+                           styleClass="card-description"/>
+                    <Button text="Learn More" styleClass="card-button"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Call to Action Section -->
+            <StackPane styleClass="cta-section">
+                <VBox alignment="CENTER" spacing="20">
+                    <Label text="Ready to Transform Your Business?" styleClass="cta-title"/>
+                    <Label text="Join thousands of satisfied customers today" styleClass="cta-subtitle"/>
+                    <Button text="Get Started" styleClass="cta-button"/>
+                </VBox>
+            </StackPane>
         </VBox>
-
-        <!-- Feature Cards -->
-        <HBox spacing="40" alignment="CENTER">
-            <VBox styleClass="feature-card">
-                <Label text="For Administrators" styleClass="card-title"/>
-                <Label text="Manage system settings and user permissions"
-                       styleClass="card-description" wrapText="true"/>
-            </VBox>
-
-            <VBox styleClass="feature-card">
-                <Label text="For Companies" styleClass="card-title"/>
-                <Label text="Track resources and manage operations"
-                       styleClass="card-description" wrapText="true"/>
-            </VBox>
-
-            <VBox styleClass="feature-card">
-                <Label text="For Users" styleClass="card-title"/>
-                <Label text="Access services and manage personal accounts"
-                       styleClass="card-description" wrapText="true"/>
-            </VBox>
-        </HBox>
-
-        <!-- Call to Action Button -->
-        <Button text="Get Started" styleClass="cta-button" maxWidth="300"/>
-    </VBox>
-
+    </ScrollPane>
 </VBox>

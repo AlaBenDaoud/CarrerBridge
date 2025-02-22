@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Congee.DetailsPopupController" style="-fx-background-color: #f4f4f4; -fx-padding: 20;">
+    <Label text="Leave Request Details" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #cccccc; -fx-border-radius: 5; -fx-background-radius: 5;">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="ID:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="idLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Employee ID:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="employeeIdLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Start Date:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="startDateLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="End Date:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="endDateLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Description:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="descriptionLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Leave Type:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="leaveTypeLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="PDF Path:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="pdfPathLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Confirmed:" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+            <Label fx:id="isConfirmedLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" />
+        </HBox>
+    </VBox>
+
+    <ImageView fx:id="pdfImageView" fitWidth="300" fitHeight="400" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" />
+
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 10;">
+        <Button text="Confirm" onAction="#handleConfirm" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;" />
+        <Button text="Not Confirm" onAction="#handleNotConfirm" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="closeButton" text="Close" onAction="#handleClose" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;" />
+    </HBox>
+</VBox>

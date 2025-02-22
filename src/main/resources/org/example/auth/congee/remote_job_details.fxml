@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Congee.RemoteJobDetailsController" style="-fx-background-color: #f4f4f4;">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Remote Job Details" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" alignment="CENTER">
+        <font>
+            <Font name="Arial" size="18"/>
+        </font>
+    </Label>
+
+    <!-- Details -->
+    <Label text="Title:" style="-fx-font-size: 14px;"/>
+    <Label fx:id="titleLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <Label text="Description:" style="-fx-font-size: 14px;"/>
+    <TextArea fx:id="postArea" style="-fx-font-size: 14px;" editable="false"/>
+
+    <Label text="Start Date:" style="-fx-font-size: 14px;"/>
+    <Label fx:id="startDateLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <Label text="End Date:" style="-fx-font-size: 14px;"/>
+    <Label fx:id="endDateLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <Label text="Confirmed:" style="-fx-font-size: 14px;"/>
+    <Label fx:id="confirmedLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Modify" onAction="#handleModify" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+        <Button text="Delete" onAction="#handleDelete" style="-fx-font-size: 12px; -fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
+    </HBox>
+</VBox>

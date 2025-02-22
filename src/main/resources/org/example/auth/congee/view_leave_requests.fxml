@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Congee.ViewLeaveRequestsController" style="-fx-background-color: #f4f4f4;">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Leave Requests" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;">
+        <font>
+            <Font name="Arial" size="18"/>
+        </font>
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.1)" radius="3" offsetX="1" offsetY="1"/>
+        </effect>
+    </Label>
+
+    <!-- Scrollable Cards Container -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-padding: 0;" prefWidth="400" prefHeight="300">
+        <VBox fx:id="cardsContainer" spacing="5" style="-fx-background-color: transparent;" prefWidth="380"/>
+    </ScrollPane>
+
+    <!-- Back Button -->
+    <Button text="Back to Main" onAction="#handleBackToMain" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;" alignment="CENTER"/>
+</VBox>

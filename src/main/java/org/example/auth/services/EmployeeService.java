@@ -137,4 +137,31 @@ public class EmployeeService {
         }
         return null; // Return null if no employee found with the given ID
     }
+
+    // Method to get all employees for a given user ID
+    public List<Employee> getEmployeesByUserId(int userId) {
+        String sql = "SELECT * FROM employees WHERE user_id = ?";
+        List<Employee> employees = new ArrayList<>();
+
+        try (Connection connection = databaseService.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Employee employee = new Employee(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("company_id"),
+                        resultSet.getInt("user_id"),
+                        resultSet.getInt("job_id")
+                );
+                employees.add(employee);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
 }
