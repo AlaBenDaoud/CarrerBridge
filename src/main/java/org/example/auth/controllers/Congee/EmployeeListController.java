@@ -3,15 +3,13 @@ package org.example.auth.controllers.Congee;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.auth.models.Employee;
 import org.example.auth.services.EmployeeService;
 import org.example.auth.controllers.connexion.AuthUserController;
@@ -21,7 +19,7 @@ import java.util.List;
 public class EmployeeListController {
 
     @FXML
-    private ListView<Employee> employeeListView;
+    private VBox employeeContainer;
 
     private EmployeeService employeeService;
 
@@ -31,53 +29,60 @@ public class EmployeeListController {
 
     @FXML
     public void initialize() {
-        // Fetch employees based on the logged-in user's ID and update the ListView
+        // Fetch employees based on the logged-in user's ID and update the card layout
         int loggedInUserId = AuthUserController.getLoggedInUserId();
         List<Employee> employees = employeeService.getEmployeesByUserId(loggedInUserId);
-        setEmployees(employees);
-
-        // Set custom cell factory
-        employeeListView.setCellFactory(new Callback<ListView<Employee>, ListCell<Employee>>() {
-            @Override
-            public ListCell<Employee> call(ListView<Employee> param) {
-                return new EmployeeListCell();
-            }
-        });
+        loadEmployees(employees);
     }
 
-    public void setEmployees(List<Employee> employees) {
-        employeeListView.getItems().clear();
-        employeeListView.getItems().addAll(employees);
-    }
+    /**
+     * Loads employees into the card layout.
+     *
+     * @param employees The list of employees to display.
+     */
+    private void loadEmployees(List<Employee> employees) {
+        employeeContainer.getChildren().clear(); // Clear existing cards
 
-    // Custom ListCell to display employee information and a button
-    private class EmployeeListCell extends ListCell<Employee> {
-        @Override
-        protected void updateItem(Employee employee, boolean empty) {
-            super.updateItem(employee, empty);
-
-            if (empty || employee == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                // Create a button for submitting a leave request
-                Button submitButton = new Button("Submit Leave Request");
-                submitButton.setOnAction(event -> {
-                    // Open the leave request form with the employee's ID and company ID
-                    openLeaveRequestForm(employee.getId(), employee.getCompanyId());
-                });
-
-                // Create a label to display employee information
-                Label employeeLabel = new Label(employee.toString());
-
-                // Create an HBox to hold the label and button
-                HBox hbox = new HBox(10, employeeLabel, submitButton);
-                hbox.setAlignment(Pos.CENTER_LEFT);
-
-                // Set the HBox as the graphic for the cell
-                setGraphic(hbox);
+        if (!employees.isEmpty()) {
+            for (Employee employee : employees) {
+                employeeContainer.getChildren().add(createEmployeeCard(employee));
             }
+        } else {
+            Label noEmployeesLabel = new Label("No employees found.");
+            noEmployeesLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
+            employeeContainer.getChildren().add(noEmployeesLabel);
         }
+    }
+
+    /**
+     * Creates a card for the given employee.
+     *
+     * @param employee The employee to display.
+     * @return A VBox representing the employee card.
+     */
+    private VBox createEmployeeCard(Employee employee) {
+        VBox card = new VBox();
+        card.setSpacing(10);
+        card.setStyle("-fx-padding: 15; -fx-background-color: rgba(30, 41, 59, 0.7); -fx-border-radius: 10; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-background-radius: 10;");
+        card.setPrefWidth(760);
+
+
+        // Employee ID
+        Label idLabel = new Label("ID: " + employee.getId());
+        idLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
+
+        // Company ID
+        Label companyIdLabel = new Label("Company ID: " + employee.getCompanyId());
+        companyIdLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
+
+        // Submit Leave Request Button
+        Button submitButton = new Button("Submit Leave Request");
+        submitButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
+        submitButton.setOnAction(event -> openLeaveRequestForm(employee.getId(), employee.getCompanyId()));
+
+        // Add all elements to the card
+        card.getChildren().addAll( idLabel, companyIdLabel, submitButton);
+        return card;
     }
 
     private void openLeaveRequestForm(int employeeId, int companyId) {
@@ -97,6 +102,23 @@ public class EmployeeListController {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handles the "Back to Dashboard" button click event.
+     */
+    @FXML
+    private void handleBackButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/connexionview/userdash.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) employeeContainer.getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        } catch (Exception e) {
+            System.err.println("Failed to navigate back to the dashboard: " + e.getMessage());
         }
     }
 }

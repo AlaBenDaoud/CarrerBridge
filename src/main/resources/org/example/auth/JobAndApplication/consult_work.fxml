@@ -3,10 +3,36 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.JobAndApplicantion.ConsultWorkController"
-      alignment="CENTER" spacing="20">
-    <Button fx:id="viewWorkButton" text="View Work" onAction="#handleViewWork"/>
-    <Button fx:id="editWorkButton" text="Edit Work" onAction="#handleEditWork"/>
-    <Button fx:id="deleteWorkButton" text="Delete Work" onAction="#handleDeleteWork"/>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.JobAndApplicantion.ConsultWorkController"
+      alignment="CENTER" spacing="20" style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);">
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Title -->
+    <Text text="Consult Work" style="-fx-fill: #f8fafc;">
+        <font>
+            <Font name="Segoe UI" size="28" />
+        </font>
+    </Text>
+
+    <!-- View Work Button -->
+    <Button fx:id="viewWorkButton" text="View Work" onAction="#handleViewWork"
+            style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
+
+    <!-- Edit Work Button -->
+    <Button fx:id="editWorkButton" text="Edit Work" onAction="#handleEditWork"
+            style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
+
+    <!-- Delete Work Button -->
+    <Button fx:id="deleteWorkButton" text="Delete Work" onAction="#handleDeleteWork"
+            style="-fx-text-fill: white; -fx-background-color: #ef4444; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
+
+    <!-- Back Button -->
+    <Button text="Back to Dashboard" onAction="#handleBackButton"
+            style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
 </VBox>

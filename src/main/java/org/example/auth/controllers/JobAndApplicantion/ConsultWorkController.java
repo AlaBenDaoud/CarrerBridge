@@ -24,7 +24,6 @@ public class ConsultWorkController {
 
     @FXML
     private void handleViewWork() {
-        showAlert(Alert.AlertType.INFORMATION, "View Work", "View Work button clicked.");
         // Add logic to navigate to a new FXML page
         try {
             // Load the new FXML file
@@ -47,8 +46,24 @@ public class ConsultWorkController {
 
     @FXML
     private void handleEditWork() {
-        showAlert(Alert.AlertType.INFORMATION, "Edit Work", "Edit Work button clicked.");
-        // Add logic to handle editing work
+        // Add logic to navigate to a new FXML page
+        try {
+            // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/congee/view_my_requests_popup.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) viewWorkButton.getScene().getWindow();
+
+            // Create a new scene with the loaded FXML
+            Scene scene = new Scene(root);
+
+            // Set the new scene to the current stage
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the new page.");
+        }
     }
 
     @FXML
@@ -63,5 +78,19 @@ public class ConsultWorkController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleBackButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/connexionview/userdash.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) viewWorkButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to navigate back to the dashboard: " + e.getMessage());
+        }
     }
 }

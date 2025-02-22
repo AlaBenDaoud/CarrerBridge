@@ -48,7 +48,7 @@ public class JobDetailController {
     }
     @FXML
     public void handleBackButton(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/jobboardapp/views/view_jobs.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/connexionview/userdash.fxml"));
         Parent root = loader.load();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

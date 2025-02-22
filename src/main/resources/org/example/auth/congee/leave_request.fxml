@@ -15,48 +15,40 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.effect.DropShadow?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Congee.LeaveRequestController" style="-fx-background-color: #f4f4f4;">
+<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Congee.LeaveRequestController"
+      style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);">
     <padding>
-        <Insets top="10" right="10" bottom="10" left="10"/>
+        <Insets top="40" right="40" bottom="40" left="40"/>
     </padding>
 
     <!-- Title -->
-    <Label text="Leave Request Form" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" alignment="CENTER">
-        <font>
-            <Font name="Arial" size="18"/>
-        </font>
-        <effect>
-            <DropShadow color="rgba(0,0,0,0.1)" radius="3" offsetX="1" offsetY="1"/>
-        </effect>
-    </Label>
+    <Label text="Leave Request Form" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f8fafc; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 2);" alignment="CENTER"/>
 
     <!-- Form Grid -->
-    <GridPane hgap="10" vgap="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
-        <Label text="Employee ID:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="employeeIdField" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <GridPane hgap="15" vgap="15" style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-padding: 20; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: rgba(59, 130, 246, 0.2);">
+        <!-- Start Date -->
+        <Label text="Start Date:" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="startDatePicker" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-padding: 8px;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <Label text="Company ID:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="companyIdField" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <!-- End Date -->
+        <Label text="End Date:" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="endDatePicker" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-padding: 8px;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Start Date:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="startDatePicker" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <!-- Description -->
+        <Label text="Description:" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextArea fx:id="descriptionArea" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-padding: 8px;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="End Date:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="endDatePicker" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <!-- Leave Type -->
+        <Label text="Leave Type:" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="leaveTypeComboBox" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-padding: 8px;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <Label text="Description:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextArea fx:id="descriptionArea" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-        <Label text="Leave Type:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="leaveTypeComboBox" style="-fx-font-size: 12px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-border-color: #cccccc; -fx-padding: 5;" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
-        <Label text="Upload PDF:" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-        <Button text="Upload" onAction="#handleUploadPdf" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-        <Label fx:id="pdfPathLabel" style="-fx-font-size: 12px; -fx-text-fill: #555555;" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <!-- Upload PDF -->
+        <Label text="Upload PDF:" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <Button text="Upload" onAction="#handleUploadPdf" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 20px; -fx-padding: 8px 16px; -fx-cursor: hand;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label fx:id="pdfPathLabel" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
     </GridPane>
 
-    <!-- Buttons -->
-    <VBox spacing="5" alignment="CENTER">
-        <Button fx:id="submitButton" text="Submit" onAction="#handleSubmit" style="-fx-font-size: 12px; -fx-background-color: #0078d7; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 5 10;"/>
-    </VBox>
+    <!-- Submit Button -->
+    <Button fx:id="submitButton" text="Submit" onAction="#handleSubmit"
+            style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
 </VBox>

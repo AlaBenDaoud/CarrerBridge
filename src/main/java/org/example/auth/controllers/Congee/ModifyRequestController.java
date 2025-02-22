@@ -31,6 +31,19 @@ public class ModifyRequestController {
     public void initialize() {
         // Populate the leave type ComboBox
         leaveTypeComboBox.getItems().addAll("maladie", "maternite", "paternite", "normal");
+
+        // Disable editing for the ComboBox and DatePickers
+        leaveTypeComboBox.setEditable(false);
+        leaveTypeComboBox.setMouseTransparent(true);
+        leaveTypeComboBox.setFocusTraversable(false);
+
+        startDatePicker.setEditable(false);
+        startDatePicker.setMouseTransparent(true);
+        startDatePicker.setFocusTraversable(false);
+
+        endDatePicker.setEditable(false);
+        endDatePicker.setMouseTransparent(true);
+        endDatePicker.setFocusTraversable(false);
     }
 
     public void setLeaveRequest(LeaveRequest request) {
@@ -57,10 +70,7 @@ public class ModifyRequestController {
     @FXML
     public void handleSaveChanges() {
         // Update the leave request
-        leaveRequest.setStartDate(startDatePicker.getValue());
-        leaveRequest.setEndDate(endDatePicker.getValue());
         leaveRequest.setDescription(descriptionArea.getText());
-        leaveRequest.setLeaveType(leaveTypeComboBox.getValue());
         leaveRequest.setPdfPath(pdfPathLabel.getText());
 
         // Save changes to the database

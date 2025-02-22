@@ -7,12 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.example.auth.models.Job;
 import org.example.auth.services.JobService;
 import org.example.auth.utils.AlertUtils;
@@ -23,25 +21,7 @@ import java.util.List;
 public class ViewJobsController {
 
     @FXML
-    private TableView<Job> jobsTable;
-
-    @FXML
-    private TableColumn<Job, Integer> idColumn;
-
-    @FXML
-    private TableColumn<Job, String> titleColumn;
-
-    @FXML
-    private TableColumn<Job, String> companyColumn;
-
-    @FXML
-    private TableColumn<Job, String> locationColumn;
-
-    @FXML
-    private TableColumn<Job, String> postedDateColumn;
-
-    @FXML
-    private TableColumn<Job, Void> actionColumn;
+    private VBox jobsContainer;
 
     @FXML
     private Button backButton;
@@ -50,27 +30,18 @@ public class ViewJobsController {
 
     @FXML
     public void initialize() {
-        // Set up column mappings
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        companyColumn.setCellValueFactory(new PropertyValueFactory<>("position")); // Map to 'position' field
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        postedDateColumn.setCellValueFactory(new PropertyValueFactory<>("postedDate"));
-
-        // Add "View Details" button to the action column
-        addViewDetailsButton();
-
-        // Load jobs into the table
-        loadJobs();
+        loadJobs(); // Load jobs into the card layout
     }
 
     /**
-     * Loads jobs from the database into the TableView.
+     * Loads jobs from the database and displays them as cards.
      */
     private void loadJobs() {
         try {
             List<Job> jobs = jobService.getAllJobs(); // Fetch jobs from the database
-            jobsTable.setItems(javafx.collections.FXCollections.observableArrayList(jobs));
+            for (Job job : jobs) {
+                jobsContainer.getChildren().add(createJobCard(job));
+            }
         } catch (Exception e) {
             AlertUtils.showError("Failed to load jobs. Please try again.");
             e.printStackTrace();
@@ -78,36 +49,41 @@ public class ViewJobsController {
     }
 
     /**
-     * Adds a "View Details" button to the action column.
+     * Creates a job card for the given job.
+     *
+     * @param job The job to display.
+     * @return A VBox representing the job card.
      */
-    private void addViewDetailsButton() {
-        Callback<TableColumn<Job, Void>, TableCell<Job, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Job, Void> call(final TableColumn<Job, Void> param) {
-                return new TableCell<>() {
-                    private final Button viewButton = new Button("View Details");
+    private VBox createJobCard(Job job) {
+        VBox card = new VBox();
+        card.setSpacing(10);
+        card.setStyle("-fx-padding: 15; -fx-background-color: rgba(30, 41, 59, 0.7); -fx-border-radius: 10; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-background-radius: 10;");
+        card.setPrefWidth(760);
 
-                    {
-                        viewButton.setOnAction(event -> {
-                            Job job = getTableView().getItems().get(getIndex());
-                            openJobDetails(job.getId(), event);
-                        });
-                    }
+        // Job Title
+        Label titleLabel = new Label(job.getTitle());
+        titleLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;");
 
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(viewButton);
-                        }
-                    }
-                };
-            }
-        };
+        // Job Position
+        Label positionLabel = new Label("Position: " + job.getPosition());
+        positionLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
 
-        actionColumn.setCellFactory(cellFactory);
+        // Job Location
+        Label locationLabel = new Label("Location: " + job.getLocation());
+        locationLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
+
+        // Posted Date
+        Label postedDateLabel = new Label("Posted on: " + job.getPostedDate());
+        postedDateLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-text-fill: #94a3b8;");
+
+        // View Details Button
+        Button viewButton = new Button("View Details");
+        viewButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
+        viewButton.setOnAction(event -> openJobDetails(job.getId(), event));
+
+        // Add all elements to the card
+        card.getChildren().addAll(titleLabel, positionLabel, locationLabel, postedDateLabel, viewButton);
+        return card;
     }
 
     /**
@@ -127,7 +103,7 @@ public class ViewJobsController {
 
             // Load new scene
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 800, 600));
             stage.show();
         } catch (IOException e) {
             AlertUtils.showError("Failed to open job details. Please try again.");
@@ -147,7 +123,7 @@ public class ViewJobsController {
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 800, 600));
             stage.show();
         } catch (IOException e) {
             AlertUtils.showError("Failed to navigate back. Please try again.");

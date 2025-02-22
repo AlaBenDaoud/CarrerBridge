@@ -12,10 +12,6 @@ import java.time.LocalDate;
 public class LeaveRequestController {
 
     @FXML
-    private TextField employeeIdField;
-    @FXML
-    private TextField companyIdField;
-    @FXML
     private DatePicker startDatePicker;
     @FXML
     private DatePicker endDatePicker;
@@ -28,6 +24,9 @@ public class LeaveRequestController {
     @FXML
     private Button submitButton;
 
+    private int employeeId;
+    private int companyId;
+
     private LeaveRequestService leaveRequestService = new LeaveRequestService();
 
     @FXML
@@ -39,8 +38,6 @@ public class LeaveRequestController {
         submitButton.setDisable(true);
 
         // Add listeners to enable/disable submit button based on input
-        employeeIdField.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
-        companyIdField.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
         startDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> validateInputs());
         endDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> validateInputs());
         descriptionArea.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
@@ -49,11 +46,11 @@ public class LeaveRequestController {
     }
 
     public void setEmployeeId(int employeeId) {
-        employeeIdField.setText(String.valueOf(employeeId));
+        this.employeeId = employeeId;
     }
 
     public void setCompanyId(int companyId) {
-        companyIdField.setText(String.valueOf(companyId));
+        this.companyId = companyId;
     }
 
     @FXML
@@ -70,8 +67,6 @@ public class LeaveRequestController {
     @FXML
     public void handleSubmit() {
         try {
-            int employeeId = Integer.parseInt(employeeIdField.getText());
-            int companyId = Integer.parseInt(companyIdField.getText());
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
             String description = descriptionArea.getText();
@@ -101,8 +96,6 @@ public class LeaveRequestController {
             leaveRequestService.addLeaveRequest(leaveRequest);
 
             // Clear form
-            employeeIdField.clear();
-            companyIdField.clear();
             startDatePicker.setValue(null);
             endDatePicker.setValue(null);
             descriptionArea.clear();
@@ -110,8 +103,6 @@ public class LeaveRequestController {
             pdfPathLabel.setText("");
 
             showAlert("Success", "Leave request submitted successfully!");
-        } catch (NumberFormatException e) {
-            showAlert("Error", "Employee ID and Company ID must be valid numbers.");
         } catch (Exception e) {
             showAlert("Error", "An error occurred while submitting the leave request.");
             e.printStackTrace();
@@ -119,9 +110,7 @@ public class LeaveRequestController {
     }
 
     private void validateInputs() {
-        boolean isValid = !employeeIdField.getText().isEmpty() &&
-                !companyIdField.getText().isEmpty() &&
-                startDatePicker.getValue() != null &&
+        boolean isValid = startDatePicker.getValue() != null &&
                 endDatePicker.getValue() != null &&
                 !descriptionArea.getText().isEmpty() &&
                 leaveTypeComboBox.getValue() != null &&
