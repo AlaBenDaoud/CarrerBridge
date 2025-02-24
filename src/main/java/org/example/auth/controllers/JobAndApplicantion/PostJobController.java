@@ -91,7 +91,7 @@ public class PostJobController {
     private void handleBackButton(ActionEvent event) {
         try {
             // Load the main dashboard view
-            Parent root = FXMLLoader.load(getClass().getResource("/org/example/demo/jobboardapp/views/main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/org/example/auth/connexionview/companydash.fxml"));
             Stage stage = (Stage) titleField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Job Board Application");

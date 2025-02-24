@@ -119,7 +119,7 @@ public class RHViewDetailsController implements Initializable {
     private void handleModifyJob(Job job) {
         try {
             // Load the edit form
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/jobboardapp/views/edit_job.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/edit_job.fxml"));
             Parent root = loader.load();
 
             // Get the controller and pass the job to it
@@ -150,7 +150,7 @@ public class RHViewDetailsController implements Initializable {
     @FXML
     public void handleBackButton(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/jobboardapp/views/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/connexionview/companydash.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

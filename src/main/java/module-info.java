@@ -15,6 +15,9 @@ module org.example.auth {
     requires javafx.graphics;
     requires org.apache.pdfbox; // Add this line for PDFBox
     requires javafx.swing;
+    requires java.net.http; // Add this line
+    requires org.json;       // Required for org.json library
+
     // Open the package for reflection by javafx.fxml
     opens org.example.auth.controllers to javafx.fxml;
     opens org.example.auth to javafx.fxml;

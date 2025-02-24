@@ -48,6 +48,34 @@ public class UserService {
         }
     }
 
+    // Retrieve a user by ID
+    public User getUserById(int id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+
+        try (Connection connection = databaseService.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Map the row to a User object
+                    return new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password"),
+                            resultSet.getString("cv")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving user by ID: " + e.getMessage());
+        }
+
+        return null; // Return null if no user is found
+    }
+
     // Retrieve a user by email
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";

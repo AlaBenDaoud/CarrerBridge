@@ -33,6 +33,10 @@ public class ViewJobsController {
         loadJobs(); // Load jobs into the card layout
     }
 
+    @FXML
+    private Button bestMatchButton;
+
+
     /**
      * Loads jobs from the database and displays them as cards.
      */
@@ -127,6 +131,28 @@ public class ViewJobsController {
             stage.show();
         } catch (IOException e) {
             AlertUtils.showError("Failed to navigate back. Please try again.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleBestMatchButton(ActionEvent event) {
+        try {
+            // Load the pop-up FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/best_match_popup.fxml"));
+            Parent root = loader.load();
+
+            // Load the best match job details
+            BestMatchPopupController controller = loader.getController();
+            controller.loadBestMatchJobs();
+
+            // Create a new stage for the pop-up
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Best Match Job");
+            popupStage.setScene(new Scene(root, 400, 300));
+            popupStage.show();
+        } catch (IOException e) {
+            AlertUtils.showError("Failed to open best match pop-up. Please try again.");
             e.printStackTrace();
         }
     }

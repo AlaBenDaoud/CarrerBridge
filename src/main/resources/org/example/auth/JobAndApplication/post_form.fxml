@@ -31,6 +31,9 @@
         <Button text="📄 Upload PDF"
                 onAction="#handleUploadPdf"
                 style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
+        <Button text="🤖 Generate Text"
+                onAction="#handleGenerateText"
+                style="-fx-text-fill: white; -fx-background-color: #8e44ad; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
     </HBox>
 
     <!-- Action Buttons -->

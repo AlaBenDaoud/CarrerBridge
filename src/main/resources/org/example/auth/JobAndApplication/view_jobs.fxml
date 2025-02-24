@@ -20,6 +20,10 @@
         <Button text="Back to Main" fx:id="backButton" onAction="#handleBackButton"
                 style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
 
+        <!-- Show My Best Match Button -->
+        <Button text="Show My Best Match" fx:id="bestMatchButton" onAction="#handleBestMatchButton"
+                style="-fx-text-fill: white; -fx-background-color: #10b981; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
+
         <!-- ScrollPane for Job Cards -->
         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
             <VBox fx:id="jobsContainer" spacing="15" style="-fx-padding: 10;">
