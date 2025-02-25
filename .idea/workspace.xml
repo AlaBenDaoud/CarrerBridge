@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b3b216ad-1aaf-4e37-ac94-5b9e36a44bda" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/EditReclamationDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/EditReclamationDialogController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ModifierReponseReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ModifierReponseReclamationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReclamationSubmissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReclamationSubmissionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationListController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ViewAllReclamationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ViewAllReclamationsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/pi/ModifierReponseReclamation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/pi/ModifierReponseReclamation.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/pi/ReponseReclamationList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/pi/ReponseReclamationList.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,15 +46,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.MainApp.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ala",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Projet Integré/pi"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ala&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Projet Integré/pi&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -71,5 +65,16 @@
       <updated>1739464135368</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

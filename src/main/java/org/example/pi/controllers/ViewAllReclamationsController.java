@@ -201,24 +201,42 @@ public class ViewAllReclamationsController {
     }
 
     private void openEditStatusDialog(Reclamation reclamation) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/EditReclamationStatusDialog.fxml"));
-            DialogPane dialogPane = loader.load();
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Change Reclamation Status");
+        dialog.setHeaderText("Change the status of the reclamation");
 
-            EditReclamationStatusDialogController controller = loader.getController();
-            controller.setReclamation(reclamation);
+        // Create a ComboBox for the status selection
+        ComboBox<String> statusComboBox = new ComboBox<>();
+        statusComboBox.getItems().addAll("Not Treated", "In Progress", "Resolved");
+        statusComboBox.setValue(reclamation.getStatueOfReclamation()); // Set current status as default
 
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Edit Reclamation Status");
+        // Add the ComboBox to the dialog
+        dialog.getDialogPane().setContent(statusComboBox);
 
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                refreshTable(); // Refresh the table after editing
+        // Add OK and Cancel buttons
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+
+        // Handle the result of the dialog
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == okButtonType) {
+                return statusComboBox.getValue();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error", "Failed to open the edit status dialog.");
-        }
+            return null;
+        });
+
+        // Show the dialog and handle the new status
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(newStatus -> {
+            try {
+                reclamation.setStatueOfReclamation(newStatus); // Update the status in the object
+                reclamationService.updateReclamationStatus(reclamation); // Save the new status in the database
+                refreshTable(); // Refresh the table to reflect the changes
+                showAlert("Success", "Reclamation status updated successfully.");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to update the reclamation status.");
+            }
+        });
     }
 }

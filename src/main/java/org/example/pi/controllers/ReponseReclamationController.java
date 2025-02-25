@@ -49,6 +49,17 @@ public class ReponseReclamationController {
                 submitButton.setOnAction(event -> handleSubmit());
                 submitButton.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5;"); // Green button
             }
+
+            // Add event handler for the Cancel button
+            ButtonType cancelButtonType = dialogPane.getButtonTypes().stream()
+                    .filter(buttonType -> "Cancel".equals(buttonType.getText()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (cancelButtonType != null) {
+                Button cancelButton = (Button) dialogPane.lookupButton(cancelButtonType);
+                cancelButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5;"); // Red button
+            }
         } else {
             System.err.println("DialogPane is not initialized!");
         }
