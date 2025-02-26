@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b3b216ad-1aaf-4e37-ac94-5b9e36a44bda" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ReponseReclamationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ViewAllReclamationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/controllers/ViewAllReclamationsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/MainApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +16,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
