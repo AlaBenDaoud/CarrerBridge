@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #f9f9f9;"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.pi.controllers.ReponseReclamationListController">
+
+    <HBox spacing="15" alignment="CENTER">
+        <Label text="Responses to Reclamations" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+        <Button text="Refresh" fx:id="btnRefresh" onAction="#handleRefresh"
+                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5; -fx-font-size: 14px;"/>
+    </HBox>
+
+    <TableView fx:id="tableViewReponses" prefWidth="800" prefHeight="400" editable="true"
+               style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-effect: dropshadow(gaussian, #888888, 5, 0, 0, 1);">
+        <columns>
+            <TableColumn text="ID" fx:id="colId" prefWidth="50"/>
+            <TableColumn text="Reclamation ID" fx:id="colIdRec" prefWidth="100"/>
+            <TableColumn text="User ID" fx:id="colIdUser" prefWidth="100"/>
+            <TableColumn text="Response" fx:id="colReponse" prefWidth="200"/>
+            <TableColumn text="PDF" fx:id="colPdfPath" prefWidth="150"/>
+            <TableColumn text="Status" fx:id="colStatut" prefWidth="150" editable="true"/>
+            <TableColumn text="Actions" fx:id="colActions" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <style>
+        .table-view {
+        -fx-background-color: #ffffff;
+        -fx-border-color: #ccc;
+        -fx-border-radius: 5;
+        -fx-effect: dropshadow(gaussian, #888888, 5, 0, 0, 1);
+        }
+
+        .button {
+        -fx-background-color: #28a745; /* Green for action buttons */
+        -fx-text-fill: white;
+        -fx-padding: 10;
+        -fx-border-radius: 5;
+        -fx-font-size: 14px;
+        }
+
+        .button:hover {
+        -fx-background-color: #218838; /* Darker green on hover */
+        }
+
+        .button.delete {
+        -fx-background-color: #dc3545; /* Red for delete button */
+        }
+
+        .button.delete:hover {
+        -fx-background-color: #c82333; /* Darker red on hover */
+        }
+
+        .button.modify {
+        -fx-background-color: #007bff; /* Blue for modify button */
+        }
+
+        .button.modify:hover {
+        -fx-background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</VBox>

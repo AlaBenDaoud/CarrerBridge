@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER" style="-fx-padding: 20; -fx-background-color: #f9f9f9;"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.pi.controllers.ModifierReponseReclamationController">
+
+    <Label text="Modify Reclamation Response" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+
+    <Label text="Response ID:"/>
+    <TextField fx:id="txtId" editable="false" style="-fx-background-color: #e9ecef; -fx-border-color: #ccc; -fx-padding: 5;"/>
+
+    <Label text="New Response:"/>
+    <TextArea fx:id="txtReponse" prefRowCount="5" wrapText="true" style="-fx-border-color: #ccc; -fx-padding: 5;"/>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Save" onAction="#enregistrerModification" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5;"/>
+        <Button text="Cancel" onAction="#fermerFenetre" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 10; -fx-border-radius: 5;"/>
+    </HBox>
+</VBox>

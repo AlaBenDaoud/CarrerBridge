@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<DialogPane fx:id="dialogPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ReponseReclamationController">
+    <content>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- Reclamation ID -->
+            <Label text="Reclamation ID:" />
+            <TextField fx:id="idRecField" editable="false" />
+
+            <!-- User ID -->
+            <Label text="User ID:" />
+            <TextField fx:id="idUserField" editable="false" />
+
+            <!-- Receiver ID -->
+            <Label text="Receiver ID:" />
+            <TextField fx:id="idReceiverField" editable="true" />
+
+            <!-- Response -->
+            <Label text="Response:" />
+            <TextArea fx:id="reponseField" promptText="Enter your response..." />
+
+            <!-- PDF File Selection -->
+            <Label text="PDF File:" />
+            <HBox spacing="10">
+                <Button text="Select PDF" onAction="#handleSelectPdf" />
+                <Label fx:id="pdfPathLabel" text="No file selected" />
+            </HBox>
+
+            <!-- Error Message -->
+            <Label fx:id="pdfError" style="-fx-text-fill: red;" />
+        </VBox>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:id="submitButton" text="Submit" buttonData="OK_DONE" />
+        <ButtonType text="Cancel" buttonData="CANCEL_CLOSE" />
+    </buttonTypes>
+</DialogPane>
