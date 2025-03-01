@@ -1,29 +1,18 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import org.example.pi.models.Reclamation;
-import org.example.pi.services.ReclamationService;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.sql.SQLException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.auth.models.Reclamation;
+import org.example.auth.services.ReclamationService;
+
+import java.io.File;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class ReclamationSubmissionController {
-    @FXML
-    private TextField userIdField;
-    @FXML
-    private ComboBox<String> receiverComboBox;
+
     @FXML
     private TextField titleField;
     @FXML
@@ -33,10 +22,6 @@ public class ReclamationSubmissionController {
     @FXML
     private TextField pdfPathField;
 
-    @FXML
-    private Label userIdError;
-    @FXML
-    private Label receiverError;
     @FXML
     private Label titleError;
     @FXML
@@ -48,46 +33,61 @@ public class ReclamationSubmissionController {
 
     private ReclamationService reclamationService = new ReclamationService();
 
+    private int employeeId;
+    private int companyId;
+
     @FXML
     public void initialize() {
-        receiverComboBox.getItems().addAll("RH", "Admin");
+        // Initialize any necessary components here
     }
 
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    /**
+     * Handles the "Choose Image" button click event.
+     */
     @FXML
     private void handleChooseImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            imagePathField.setText(file.getAbsolutePath());
+        fileChooser.setTitle("Select Image File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            imagePathField.setText(selectedFile.getAbsolutePath());
         }
     }
 
+    /**
+     * Handles the "Choose PDF" button click event.
+     */
     @FXML
     private void handleChoosePdf() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select PDF");
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            pdfPathField.setText(file.getAbsolutePath());
+        fileChooser.setTitle("Select PDF File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+        );
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            pdfPathField.setText(selectedFile.getAbsolutePath());
         }
     }
 
+    /**
+     * Handles the "Submit Reclamation" button click event.
+     */
     @FXML
     private void handleSubmitReclamation() {
         clearErrors();
-
         boolean isValid = true;
-
-        if (userIdField.getText().isEmpty() || !isNumeric(userIdField.getText())) {
-            userIdError.setText("Invalid User ID.");
-            isValid = false;
-        }
-
-        if (receiverComboBox.getValue() == null) {
-            receiverError.setText("Please select a receiver.");
-            isValid = false;
-        }
 
         if (titleField.getText().isEmpty()) {
             titleError.setText("Title cannot be empty.");
@@ -99,21 +99,11 @@ public class ReclamationSubmissionController {
             isValid = false;
         }
 
-        if (imagePathField.getText().isEmpty()) {
-            imageError.setText("Please choose an image.");
-            isValid = false;
-        }
-
-        if (pdfPathField.getText().isEmpty()) {
-            pdfError.setText("Please choose a PDF.");
-            isValid = false;
-        }
-
         if (isValid) {
             try {
                 Reclamation reclamation = new Reclamation();
-                reclamation.setUserId(Integer.parseInt(userIdField.getText()));
-                reclamation.setReceiver(receiverComboBox.getValue());
+                reclamation.setUserId(employeeId);
+                reclamation.setCompanyId(companyId);
                 reclamation.setTitle(titleField.getText());
                 reclamation.setDescription(descriptionField.getText());
                 reclamation.setImagePath(imagePathField.getText());
@@ -123,30 +113,28 @@ public class ReclamationSubmissionController {
                 reclamationService.addReclamation(reclamation);
                 clearForm();
 
-                showAlert(AlertType.INFORMATION, "Submission Successful", "Your reclamation has been submitted successfully!");
+                showAlert(Alert.AlertType.INFORMATION, "Submission Successful", "Your reclamation has been submitted successfully!");
             } catch (SQLException e) {
                 e.printStackTrace();
-                showAlert(AlertType.ERROR, "Submission Error", "There was an error submitting your reclamation.");
+                showAlert(Alert.AlertType.ERROR, "Submission Error", "There was an error submitting your reclamation.");
             }
         }
     }
 
+    /**
+     * Clears all error messages.
+     */
     private void clearErrors() {
-        userIdError.setText("");
-        receiverError.setText("");
         titleError.setText("");
         descriptionError.setText("");
         imageError.setText("");
         pdfError.setText("");
     }
 
-    private boolean isNumeric(String str) {
-        return str.matches("\\d+");
-    }
-
+    /**
+     * Clears the form fields and error messages.
+     */
     private void clearForm() {
-        userIdField.clear();
-        receiverComboBox.getSelectionModel().clearSelection();
         titleField.clear();
         descriptionField.clear();
         imagePathField.clear();
@@ -154,39 +142,18 @@ public class ReclamationSubmissionController {
         clearErrors();
     }
 
-    private void showAlert(AlertType alertType, String title, String message) {
+    /**
+     * Displays an alert dialog.
+     *
+     * @param alertType The type of alert (e.g., ERROR, INFORMATION).
+     * @param title     The title of the alert.
+     * @param message   The message to display.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    public void handleViewAllReclamations() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ViewAllReclamations.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("View All Reclamations");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleViewAllAnswers() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/pi/ReponseReclamationList.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("View All Answers");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

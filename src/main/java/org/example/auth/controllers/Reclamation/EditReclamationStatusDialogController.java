@@ -1,12 +1,13 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.ButtonBar.ButtonData;
-import org.example.pi.models.Reclamation;
-import org.example.pi.services.ReclamationService;
+import org.example.auth.models.Reclamation;
+import org.example.auth.services.ReclamationService;
 
 public class EditReclamationStatusDialogController {
 
@@ -21,7 +22,7 @@ public class EditReclamationStatusDialogController {
 
     @FXML
     public void initialize() {
-        // Set up the event handler for the "Save" button
+        // Récupérer le bouton "Save" du DialogPane et lui assigner un événement
         ButtonType saveButtonType = dialogPane.getButtonTypes().stream()
                 .filter(buttonType -> buttonType.getButtonData() == ButtonData.OK_DONE)
                 .findFirst()
@@ -36,21 +37,36 @@ public class EditReclamationStatusDialogController {
     public void setReclamation(Reclamation reclamation) {
         this.reclamation = reclamation;
         statusComboBox.getItems().addAll("Pending", "In Progress", "Resolved", "Closed");
-        statusComboBox.setValue(reclamation.getStatueOfReclamation());
+
+        if (reclamation != null) {
+            statusComboBox.setValue(reclamation.getStatueOfReclamation());
+        }
     }
 
     @FXML
     private void handleSave() {
+        if (reclamation == null) {
+            showAlert("Error", "No reclamation selected.");
+            return;
+        }
+
         String newStatus = statusComboBox.getValue();
         if (newStatus != null && !newStatus.isEmpty()) {
-            reclamation.setStatueOfReclamation(newStatus);
             try {
-                reclamationService.updateReclamationStatus(reclamation); // Update status in the database
+                // Mise à jour du statut dans la base de données
+                reclamationService.updateReclamationStatus(reclamation.getId(), newStatus);
+
+                // Mise à jour locale de l'objet Reclamation
+                reclamation.setStatueOfReclamation(newStatus);
+
+                // Fermeture du dialogue après succès
                 closeDialog();
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert("Error", "Failed to update the reclamation status.");
             }
+        } else {
+            showAlert("Warning", "Please select a status before saving.");
         }
     }
 
@@ -59,7 +75,7 @@ public class EditReclamationStatusDialogController {
     }
 
     private void showAlert(String title, String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

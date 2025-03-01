@@ -1,4 +1,4 @@
-package org.example.pi.models;
+package org.example.auth.models;
 
 import java.time.LocalDateTime;
 

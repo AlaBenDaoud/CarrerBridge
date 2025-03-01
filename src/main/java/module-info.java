@@ -24,6 +24,7 @@ module org.example.auth {
     opens org.example.auth.controllers.connexion to javafx.fxml;  // Open the package to javafx.fxml
     opens org.example.auth.controllers.JobAndApplicantion to javafx.fxml;  // Open the package to javafx.fxml
     opens org.example.auth.controllers.Congee to javafx.fxml;  // Open the package to javafx.fxml
+    opens org.example.auth.controllers.Reclamation to javafx.fxml;
 
     opens org.example.auth.models to javafx.base;
 
@@ -32,6 +33,7 @@ module org.example.auth {
     exports org.example.auth.controllers.connexion;  // Export the connexion package to javafx.fxml
     exports org.example.auth.controllers.JobAndApplicantion;  // Export the connexion package to javafx.fxml
     exports org.example.auth.controllers.Congee ;
+    exports org.example.auth.controllers.Reclamation to javafx.fxml;
 
     exports org.example.auth.models;
     exports org.example.auth;

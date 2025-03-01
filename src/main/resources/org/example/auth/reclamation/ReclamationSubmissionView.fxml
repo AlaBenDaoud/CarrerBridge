@@ -5,58 +5,53 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.paint.Color?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ReclamationSubmissionController" spacing="15" alignment="CENTER" style="-fx-background-color: #f4f7f9;">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Reclamation.ReclamationSubmissionController" spacing="15" alignment="CENTER" style="-fx-background-color: #f4f7f9;">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
+    <!-- Form Title -->
     <Label text="Reclamation Submission Form" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #333333;" />
     <Label text="Submit Reclamation" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #555555;" />
 
+    <!-- Form Fields -->
     <GridPane hgap="15" vgap="15" alignment="CENTER">
-        <Label text="User ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <TextField fx:id="userIdField" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="Enter your User ID"
-                   style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5; -fx-background-color: white;"/>
-        <Label fx:id="userIdError" style="-fx-text-fill: red;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
 
-        <Label text="Receiver:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-        <ComboBox fx:id="receiverComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Select Receiver"
-                  style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;"/>
-        <Label fx:id="receiverError" style="-fx-text-fill: red;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-
-        <Label text="Title:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <TextField fx:id="titleField" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Enter Title"
+        <!-- Title Field -->
+        <Label text="Title:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <TextField fx:id="titleField" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Enter Title"
                    style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;"/>
-        <Label fx:id="titleError" style="-fx-text-fill: red;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <Label fx:id="titleError" style="-fx-text-fill: red;" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
 
-        <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-        <TextArea fx:id="descriptionField" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="Enter Description"
+        <!-- Description Field -->
+        <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <TextArea fx:id="descriptionField" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Enter Description"
                   style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;"/>
-        <Label fx:id="descriptionError" style="-fx-text-fill: red;" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+        <Label fx:id="descriptionError" style="-fx-text-fill: red;" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
 
-        <Label text="Image:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-        <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1">
+        <!-- Image Field -->
+        <Label text="Image:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <HBox spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="1">
             <TextField fx:id="imagePathField" editable="false" style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;" />
             <Button text="Choose Image" onAction="#handleChooseImage"
                     style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
         </HBox>
-        <Label fx:id="imageError" style="-fx-text-fill: red;" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+        <Label fx:id="imageError" style="-fx-text-fill: red;" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
 
-        <Label text="PDF:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
-        <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1">
+        <!-- PDF Field -->
+        <Label text="PDF:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+        <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="1">
             <TextField fx:id="pdfPathField" editable="false" style="-fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;" />
             <Button text="Choose PDF" onAction="#handleChoosePdf"
                     style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
         </HBox>
-        <Label fx:id="pdfError" style="-fx-text-fill: red;" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+        <Label fx:id="pdfError" style="-fx-text-fill: red;" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
     </GridPane>
 
+    <!-- Action Buttons -->
     <HBox spacing="15" alignment="CENTER">
         <Button text="Submit Reclamation" onAction="#handleSubmitReclamation"
                 style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
-        <Button text="View All Reclamations" onAction="#handleViewAllReclamations"
-                style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
-        <Button text="View All Answers" onAction="#handleViewAllAnswers"
-                style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 10; -fx-background-radius: 5;"/>
+
     </HBox>
 </VBox>

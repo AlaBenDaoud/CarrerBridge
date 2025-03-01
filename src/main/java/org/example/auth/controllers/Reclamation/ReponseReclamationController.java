@@ -1,12 +1,12 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.pi.models.Reclamation;
-import org.example.pi.models.ReponseReclamation;
-import org.example.pi.services.ReponseReclamationService;
+import org.example.auth.models.Reclamation;
+import org.example.auth.models.ReponseReclamation;
+import org.example.auth.services.ReponseReclamationService;
 
 import java.io.File;
 import java.sql.SQLException;

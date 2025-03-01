@@ -1,15 +1,11 @@
-package org.example.pi.services;
+package org.example.auth.services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.example.auth.utils.DatabaseService;
+import org.example.auth.models.ReponseReclamation;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.example.pi.models.Reclamation;
-import org.example.pi.models.ReponseReclamation;
 
 public class ReponseReclamationService {
     private DatabaseService databaseService = new DatabaseService();

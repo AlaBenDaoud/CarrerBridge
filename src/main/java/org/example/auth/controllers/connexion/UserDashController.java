@@ -27,6 +27,8 @@ public class UserDashController {
     @FXML
     private Button createPostButton;
 
+    @FXML
+    private Button chatbotButton; // New Chatbot button
 
     private EmployeeService employeeService;
 
@@ -105,6 +107,20 @@ public class UserDashController {
             postStage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Create Post window.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleChatbot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/congee/chatbox.fxml"));
+            Stage chatbotStage = new Stage();
+            chatbotStage.setScene(new Scene(loader.load()));
+            chatbotStage.setTitle("Chatbot");
+            chatbotStage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load Chatbot window.");
             e.printStackTrace();
         }
     }

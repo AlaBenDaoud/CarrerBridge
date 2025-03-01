@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<DialogPane fx:id="dialogPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ReponseReclamationController">
+<DialogPane fx:id="dialogPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Reclamation.ReponseReclamationController">
     <content>
         <VBox spacing="10" style="-fx-padding: 10;">
             <!-- Reclamation ID -->

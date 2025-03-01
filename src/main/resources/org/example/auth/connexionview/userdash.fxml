@@ -34,6 +34,8 @@
             <Button text="Create Post" fx:id="createPostButton" onAction="#handleCreatePost"
                     style="-fx-text-fill: white; -fx-background-color: #27ae60; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
             </Button>
+
+            <Button fx:id="chatbotButton" text="Chatbot" onAction="#handleChatbot" />
         </HBox>
     </top>
 

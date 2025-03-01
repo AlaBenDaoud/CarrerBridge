@@ -1,14 +1,14 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.pi.models.Reclamation;
-import org.example.pi.services.ReclamationService;
+import org.example.auth.models.Reclamation;
+import org.example.auth.services.ReclamationService;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ public class EditReclamationDialogController {
     @FXML
     private TextField userIdField;
     @FXML
-    private TextField receiverField;
+    private TextField companyIdField; // Anciennement receiverField
     @FXML
     private TextField titleField;
     @FXML
@@ -31,7 +31,7 @@ public class EditReclamationDialogController {
     @FXML
     private Label userIdError;
     @FXML
-    private Label receiverError;
+    private Label companyIdError;
     @FXML
     private Label titleError;
     @FXML
@@ -42,28 +42,26 @@ public class EditReclamationDialogController {
     private Label pdfError;
 
     private Reclamation reclamation;
-    private ReclamationService reclamationService = new ReclamationService();
+    private final ReclamationService reclamationService = new ReclamationService();
 
     public void setReclamation(Reclamation reclamation) {
         this.reclamation = reclamation;
         userIdField.setText(String.valueOf(reclamation.getUserId()));
-        receiverField.setText(reclamation.getReceiver());
+        companyIdField.setText(String.valueOf(reclamation.getCompanyId())); // Correction du champ
         titleField.setText(reclamation.getTitle());
         descriptionField.setText(reclamation.getDescription());
         imagePathField.setText(reclamation.getImagePath());
         pdfPathField.setText(reclamation.getPdfPath());
-        dateLabel.setText(reclamation.getDate().toLocalDate().toString()); // Display the date
+        dateLabel.setText(reclamation.getDate().toLocalDate().toString()); // Affichage de la date
     }
 
-    public Reclamation getUpdatedReclamation() {
+    public void updateReclamationFromFields() {
         reclamation.setUserId(Integer.parseInt(userIdField.getText()));
-        reclamation.setReceiver(receiverField.getText());
+        reclamation.setCompanyId(Integer.parseInt(companyIdField.getText())); // Correction ici
         reclamation.setTitle(titleField.getText());
         reclamation.setDescription(descriptionField.getText());
         reclamation.setImagePath(imagePathField.getText());
         reclamation.setPdfPath(pdfPathField.getText());
-        // Return the updated reclamation object
-        return reclamation;
     }
 
     @FXML
@@ -71,37 +69,37 @@ public class EditReclamationDialogController {
         clearErrors();
         boolean isValid = true;
 
-        // Validate User ID
+        // Validation User ID
         if (userIdField.getText().isEmpty() || !isNumeric(userIdField.getText())) {
             userIdError.setText("Invalid User ID.");
             isValid = false;
         }
 
-        // Validate Receiver
-        if (receiverField.getText().isEmpty()) {
-            receiverError.setText("Receiver cannot be empty.");
+        // Validation Company ID
+        if (companyIdField.getText().isEmpty() || !isNumeric(companyIdField.getText())) {
+            companyIdError.setText("Invalid Company ID.");
             isValid = false;
         }
 
-        // Validate Title
+        // Validation Title
         if (titleField.getText().isEmpty()) {
             titleError.setText("Title cannot be empty.");
             isValid = false;
         }
 
-        // Validate Description
+        // Validation Description
         if (descriptionField.getText().isEmpty()) {
             descriptionError.setText("Description cannot be empty.");
             isValid = false;
         }
 
-        // Validate Image Path
+        // Validation Image Path
         if (imagePathField.getText().isEmpty()) {
             imageError.setText("Image path cannot be empty.");
             isValid = false;
         }
 
-        // Validate PDF Path
+        // Validation PDF Path
         if (pdfPathField.getText().isEmpty()) {
             pdfError.setText("PDF path cannot be empty.");
             isValid = false;
@@ -109,18 +107,17 @@ public class EditReclamationDialogController {
 
         if (isValid) {
             try {
-                // Update the reclamation object with the new data
-                getUpdatedReclamation(); // Update the reclamation before saving
+                // Mise à jour des champs avant enregistrement
+                updateReclamationFromFields();
 
-                // Save the updated reclamation to the database
+                // Mise à jour en base de données
                 reclamationService.updateReclamation(reclamation);
 
-                // Show success alert
+                // Affichage d'un message de succès
                 showAlert("Success", "Reclamation updated successfully!");
 
-                // Close the dialog
-                Stage stage = (Stage) userIdField.getScene().getWindow();
-                stage.close();
+                // Fermeture de la fenêtre
+                closeDialog();
             } catch (Exception e) {
                 e.printStackTrace();
                 showAlert("Error", "Failed to update the reclamation.");
@@ -130,9 +127,7 @@ public class EditReclamationDialogController {
 
     @FXML
     private void handleCancel() {
-        // Close the dialog without saving
-        Stage stage = (Stage) userIdField.getScene().getWindow();
-        stage.close();
+        closeDialog();
     }
 
     @FXML
@@ -159,7 +154,7 @@ public class EditReclamationDialogController {
 
     private void clearErrors() {
         userIdError.setText("");
-        receiverError.setText("");
+        companyIdError.setText(""); // Correction du champ
         titleError.setText("");
         descriptionError.setText("");
         imageError.setText("");
@@ -176,5 +171,10 @@ public class EditReclamationDialogController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void closeDialog() {
+        Stage stage = (Stage) userIdField.getScene().getWindow();
+        stage.close();
     }
 }

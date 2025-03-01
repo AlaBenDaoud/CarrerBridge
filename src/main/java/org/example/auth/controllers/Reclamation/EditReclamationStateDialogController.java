@@ -1,11 +1,11 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import org.example.pi.models.Reclamation;
-import org.example.pi.services.ReclamationService;
+import org.example.auth.models.Reclamation;
+import org.example.auth.services.ReclamationService;
 
 import java.sql.SQLException;
 

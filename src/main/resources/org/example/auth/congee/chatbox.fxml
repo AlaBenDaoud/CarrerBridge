@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.Congee.ChatbotController"
+      styleClass="chat-container">
 
-</AnchorPane>
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <HBox styleClass="header" alignment="CENTER">
+        <Label text="AI Assistant" styleClass="header-title"/>
+    </HBox>
+
+    <ScrollPane fx:id="chatScrollPane" VBox.vgrow="ALWAYS" styleClass="chat-scroll-pane">
+        <VBox fx:id="messageContainer" spacing="10" styleClass="message-container"/>
+    </ScrollPane>
+
+    <VBox styleClass="input-container">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <ProgressIndicator fx:id="loadingIndicator" maxHeight="20" maxWidth="20"/>
+            <Label fx:id="statusLabel" styleClass="status-label"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="inputField" HBox.hgrow="ALWAYS"
+                       promptText="Type your message here..." styleClass="input-field"/>
+            <Button fx:id="sendButton" text="Send" styleClass="send-button"
+                    onAction="#handleSendMessage"/>
+        </HBox>
+    </VBox>
+
+</VBox>

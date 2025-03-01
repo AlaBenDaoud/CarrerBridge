@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pi.controllers.ViewAllReclamationsController" spacing="10" style="-fx-background-color: #f9f9f9;">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.Reclamation.ViewAllReclamationsController" spacing="10" style="-fx-background-color: #f9f9f9;">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
@@ -21,13 +21,13 @@
         <columns>
             <TableColumn text="ID" fx:id="idColumn" />
             <TableColumn text="User ID" fx:id="userIdColumn" />
-            <TableColumn text="Receiver" fx:id="receiverColumn" />
+            <TableColumn text="Company ID" fx:id="companyIdColumn" />
             <TableColumn text="Title" fx:id="titleColumn" />
             <TableColumn text="Description" fx:id="descriptionColumn" />
             <TableColumn text="Image Path" fx:id="imagePathColumn" />
             <TableColumn text="PDF Path" fx:id="pdfPathColumn" />
             <TableColumn text="Date" fx:id="dateColumn" />
-            <TableColumn fx:id="statueColumn" text="Status" />
+            <TableColumn text="Status" fx:id="statusColumn" />
             <TableColumn text="Actions" fx:id="actionsColumn" />
         </columns>
     </TableView>

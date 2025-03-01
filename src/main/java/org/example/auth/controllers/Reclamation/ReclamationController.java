@@ -1,22 +1,19 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import org.example.pi.services.ReclamationService;
-import org.example.pi.models.Reclamation;
-import java.io.File;
-import java.time.LocalDateTime;
-import java.sql.SQLException;
+import org.example.auth.models.Reclamation;
+import org.example.auth.services.ReclamationService;
 
+import java.io.File;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class ReclamationController {
     @FXML
     private TextField userIdField;
-    @FXML
-    private ComboBox<String> receiverComboBox;
     @FXML
     private TextField titleField;
     @FXML
@@ -27,11 +24,15 @@ public class ReclamationController {
     private TextField pdfPathField;
 
     private ReclamationService reclamationService = new ReclamationService();
+    private int companyId; // Added companyId field
 
-    @FXML
-    public void initialize() {
-        // Initialize receiver options
-        receiverComboBox.getItems().addAll("RH", "Admin");
+    /**
+     * Sets the company ID.
+     *
+     * @param companyId The ID of the company.
+     */
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     @FXML
@@ -56,10 +57,15 @@ public class ReclamationController {
 
     @FXML
     private void handleSubmitReclamation() {
+        if (companyId == 0) {
+            System.out.println("Error: Company ID is not set.");
+            return;
+        }
+
         try {
             Reclamation reclamation = new Reclamation();
             reclamation.setUserId(Integer.parseInt(userIdField.getText()));
-            reclamation.setReceiver(receiverComboBox.getValue());
+            reclamation.setCompanyId(companyId); // Assign company ID
             reclamation.setTitle(titleField.getText());
             reclamation.setDescription(descriptionField.getText());
             reclamation.setImagePath(imagePathField.getText());
@@ -71,6 +77,8 @@ public class ReclamationController {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error submitting reclamation.");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid User ID format.");
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.pi.controllers;
+package org.example.auth.controllers.Reclamation;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,10 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.pi.models.ReponseReclamation;
-import org.example.pi.services.ReponseReclamationService;
+import org.example.auth.models.ReponseReclamation;
+import org.example.auth.services.ReponseReclamationService;
 
 import java.io.IOException;
 import java.sql.SQLException;

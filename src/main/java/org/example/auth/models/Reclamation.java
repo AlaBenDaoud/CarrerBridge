@@ -1,11 +1,11 @@
-package org.example.pi.models;
+package org.example.auth.models;
 
 import java.time.LocalDateTime;
 
 public class Reclamation {
     private int id;
     private int userId;
-    private String receiver;
+    private int companyId; // Changed from receiver (String) to companyId (int)
     private String title;
     private String description;
     private String imagePath;
@@ -30,12 +30,12 @@ public class Reclamation {
         this.userId = userId;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public String getTitle() {
@@ -84,9 +84,5 @@ public class Reclamation {
 
     public void setStatueOfReclamation(String statueOfReclamation) {
         this.statueOfReclamation = statueOfReclamation;
-    }
-
-    public void setStatutOfReclamation(String statutOfReclamation) {
-
     }
 }

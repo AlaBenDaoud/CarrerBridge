@@ -27,7 +27,9 @@
     <!-- Edit Work Button -->
     <Button fx:id="editWorkButton" text="Edit Work" onAction="#handleEditWork"
             style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
-
+    <!-- View My Reclamation Button -->
+    <Button fx:id="viewReclamationButton" text="View My Reclamation" onAction="#handleViewReclamation"
+            style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
     <!-- Delete Work Button -->
     <Button fx:id="deleteWorkButton" text="Delete Work" onAction="#handleDeleteWork"
             style="-fx-text-fill: white; -fx-background-color: #ef4444; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;"/>
