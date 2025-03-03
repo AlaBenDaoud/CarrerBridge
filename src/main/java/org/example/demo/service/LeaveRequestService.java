@@ -41,7 +41,7 @@ public class LeaveRequestService {
         String query = "INSERT INTO leave_requests (employee_id, company_id, start_date, end_date, description, leave_type, pdf_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = databaseService.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, leaveRequest.getEmployeeId());
+            stmt.setInt(1, leaveRequest.getEmployeeId());//Cette ligne remplace le premier dans la requête SQL par l'ID de l'employé
             stmt.setInt(2, leaveRequest.getCompanyId()); // Set company_id
             stmt.setDate(3, Date.valueOf(leaveRequest.getStartDate()));
             stmt.setDate(4, Date.valueOf(leaveRequest.getEndDate()));
@@ -61,6 +61,7 @@ public class LeaveRequestService {
         try (Connection conn = databaseService.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
+            // récupère toutes les demandes de congé pour un employé spécifique
             while (rs.next()) {
                 LeaveRequest leaveRequest = new LeaveRequest();
                 leaveRequest.setId(rs.getInt("id"));

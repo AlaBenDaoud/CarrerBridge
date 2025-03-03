@@ -12,10 +12,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Initialize the database service
-        DatabaseService databaseService = new DatabaseService();
+        // Initialize the database service :
+      DatabaseService databaseService = new DatabaseService();
 
-        // Initialize the services
+        // Initialize the services : crée une instance de la classe LeaveRequestService
         LeaveRequestService leaveRequestService = new LeaveRequestService();
 
         // Load the FXML file for the leave request interface
@@ -29,7 +29,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Launch the JavaFX application
+        // Launch the JavaFX application /qui initialise et démarre l'application JavaFX
         launch(args);
     }
 }
