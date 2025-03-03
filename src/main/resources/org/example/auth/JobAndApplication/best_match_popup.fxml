@@ -5,21 +5,63 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.auth.controllers.JobAndApplicantion.BestMatchPopupController"
-            prefHeight="400.0" prefWidth="400.0"
-            style="-fx-background-color: #1e293b; -fx-padding: 20;">
+            prefHeight="600.0" prefWidth="500.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #1e293b, #0f172a);">
 
-    <VBox spacing="10">
-        <!-- Title -->
-        <Label text="Best Match Jobs" style="-fx-font-family: 'Segoe UI'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;"/>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
-        <!-- ScrollPane to make the job list scrollable -->
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background-color: transparent; -fx-padding: 0;">
-            <VBox fx:id="jobsContainer" spacing="10" style="-fx-padding: 10; -fx-background-color: #334155; -fx-border-radius: 5; -fx-background-radius: 5;"/>
+    <VBox spacing="20" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+
+        <!-- Header Section -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <StackPane>
+                <Label text="Best Match Jobs"
+                       style="-fx-font-family: 'Segoe UI'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;">
+                    <effect>
+                        <DropShadow color="#00000066" radius="5" spread="0.2"/>
+                    </effect>
+                </Label>
+            </StackPane>
+
+            <!-- Results Count -->
+            <Label fx:id="resultCountLabel"
+                   style="-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;"/>
+        </HBox>
+
+        <!-- Loading Indicator -->
+        <StackPane fx:id="loadingIndicator" visible="false" managed="false">
+            <Label text="Loading..."
+                   style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"/>
+        </StackPane>
+
+        <!-- ScrollPane for Jobs -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox fx:id="jobsContainer" spacing="15"
+                  style="-fx-padding: 10; -fx-background-color: transparent;">
+                <effect>
+                    <DropShadow color="#00000040" radius="10" spread="0.1"/>
+                </effect>
+            </VBox>
         </ScrollPane>
+
+        <!-- Error Message Container -->
+        <VBox fx:id="errorContainer" visible="false" managed="false"
+              alignment="CENTER" spacing="10"
+              style="-fx-padding: 20;">
+            <Label fx:id="errorMessageLabel"
+                   style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #ef4444;"/>
+        </VBox>
     </VBox>
 </AnchorPane>

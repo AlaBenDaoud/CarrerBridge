@@ -1,5 +1,6 @@
 package org.example.auth.controllers.connexion;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -165,6 +166,23 @@ public class CompanyDashController {
             showAlert(Alert.AlertType.ERROR, "Error", "Unable to load the Employee Rankings page.");
         }
     }
+
+    @FXML
+    private void handleCreateCard(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/congee/create_card.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Create a Card");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

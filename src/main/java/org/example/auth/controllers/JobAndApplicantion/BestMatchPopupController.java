@@ -1,5 +1,6 @@
 package org.example.auth.controllers.JobAndApplicantion;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -17,87 +19,204 @@ import org.example.auth.models.User;
 import org.example.auth.services.JobService;
 import org.example.auth.services.UserService;
 import org.example.auth.controllers.connexion.AuthUserController;
+import javafx.scene.layout.HBox;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BestMatchPopupController {
 
-    @FXML
-    private VBox jobsContainer;
+    @FXML private VBox jobsContainer;
+    @FXML private Label resultCountLabel;
+    @FXML private StackPane loadingIndicator;
+    @FXML private VBox errorContainer;
+    @FXML private Label errorMessageLabel;
 
     private final JobService jobService = new JobService();
     private final UserService userService = new UserService();
+    private static final Logger logger = Logger.getLogger(BestMatchPopupController.class.getName());
 
     // Suppress PDFBox font warnings
     static {
-        java.util.logging.Logger.getLogger("org.apache.pdfbox.pdmodel.font.PDSimpleFont")
-                .setLevel(java.util.logging.Level.SEVERE);
+        Logger.getLogger("org.apache.pdfbox.pdmodel.font.PDSimpleFont")
+                .setLevel(Level.SEVERE);
     }
 
-    /**
-     * Loads all best-matched job details into the pop-up based on the user's CV.
-     */
+    @FXML
+    public void initialize() {
+        // Initial setup
+        loadBestMatchJobs();
+    }
+
     public void loadBestMatchJobs() {
-        // Get the logged-in user's ID
-        int userId = AuthUserController.getLoggedInUserId();
+        showLoading(true);
+        clearContent();
 
-        // Retrieve the user's information (including CV path)
-        User user = userService.getUserById(userId);
+        CompletableFuture.runAsync(() -> {
+            try {
+                int userId = AuthUserController.getLoggedInUserId();
+                User user = userService.getUserById(userId);
 
-        if (user == null || user.getCv() == null || user.getCv().isEmpty()) {
-            System.err.println("Error: No CV path found for the user.");
-            displayMessage("No CV Found");
-            return;
-        }
+                if (user == null || user.getCv() == null || user.getCv().isEmpty()) {
+                    Platform.runLater(() -> showError("No CV found. Please upload your CV first."));
+                    return;
+                }
 
-        // Extract keywords from the user's CV
-        String cvPath = user.getCv();
-        System.out.println("CV Path: " + cvPath);
+                String cvContent = extractTextFromPdf(user.getCv());
+                if (cvContent == null) {
+                    Platform.runLater(() -> showError("Unable to read CV. Please ensure it's a valid PDF."));
+                    return;
+                }
 
-        String cvContent = extractTextFromPdf(cvPath);
+                List<String> cvKeywords = extractKeywordsFromCV(cvContent);
+                if (cvKeywords.isEmpty()) {
+                    Platform.runLater(() -> showError("No relevant keywords found in your CV."));
+                    return;
+                }
 
-        if (cvContent == null) {
-            System.err.println("Error: Failed to extract text from CV at path: " + cvPath);
-            displayMessage("Unable to read CV");
-            return;
-        }
+                List<Job> bestMatchJobs = jobService.getBestMatchJobsForKeywords(cvKeywords);
 
-        // Extract relevant keywords from the CV
-        List<String> cvKeywords = extractKeywordsFromCV(cvContent);
+                Platform.runLater(() -> {
+                    if (bestMatchJobs != null && !bestMatchJobs.isEmpty()) {
+                        updateResultCount(bestMatchJobs.size());
+                        bestMatchJobs.forEach(this::displayJob);
+                    } else {
+                        showError("No matching jobs found for your profile.");
+                    }
+                });
 
-        if (cvKeywords.isEmpty()) {
-            System.out.println("No relevant keywords found in the CV.");
-            displayMessage("No Relevant Jobs Found");
-            return;
-        }
-
-        // Find the best-matched jobs by comparing keywords with job titles and descriptions
-        List<Job> bestMatchJobs = jobService.getBestMatchJobsForKeywords(cvKeywords);
-
-        if (bestMatchJobs != null && !bestMatchJobs.isEmpty()) {
-            // Populate the UI with the list of best-matched jobs
-            for (Job job : bestMatchJobs) {
-                displayJob(job);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error loading best match jobs", e);
+                Platform.runLater(() -> showError("An error occurred while loading jobs."));
+            } finally {
+                Platform.runLater(() -> showLoading(false));
             }
-        } else {
-            // Handle the case where no best-matched jobs are found
-            System.out.println("No matching jobs found for the user's CV.");
-            displayMessage("No Jobs Found");
+        });
+    }
+
+    private void displayJob(Job job) {
+        VBox jobBox = new VBox(10);
+        jobBox.setStyle("""
+            -fx-padding: 15;
+            -fx-background-color: #334155;
+            -fx-border-radius: 8;
+            -fx-background-radius: 8;
+            -fx-effect: dropshadow(gaussian, #00000040, 10, 0, 0, 2);
+            -fx-border-color: #475569;
+            -fx-border-width: 1;
+        """);
+
+        // Add fade-in animation
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), jobBox);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+
+        // Job Title Section
+        HBox titleBox = new HBox(10);
+        titleBox.setStyle("-fx-alignment: center-left;");
+
+        Label titleLabel = new Label(job.getTitle());
+        titleLabel.setStyle("""
+            -fx-font-family: 'Segoe UI';
+            -fx-font-size: 18px;
+            -fx-font-weight: bold;
+            -fx-text-fill: #f8fafc;
+        """);
+        titleBox.getChildren().add(titleLabel);
+
+        // Job Details
+        VBox detailsBox = new VBox(5);
+        detailsBox.setStyle("-fx-padding: 10 0;");
+
+        Label positionLabel = createDetailLabel("📌 " + job.getPosition());
+        Label locationLabel = createDetailLabel("📍 " + job.getLocation());
+        Label postedDateLabel = createDetailLabel("🕒 Posted: " + job.getPostedDate().toString());
+
+        detailsBox.getChildren().addAll(positionLabel, locationLabel, postedDateLabel);
+
+        // Action Buttons
+        HBox buttonBox = new HBox(10);
+        buttonBox.setStyle("-fx-padding: 10 0 0 0;");
+
+        Button viewButton = createActionButton("View Details", "#3b82f6");
+        viewButton.setOnAction(event -> openJobDetails(job.getId(), event));
+
+        Button applyButton = createActionButton("Quick Apply", "#10b981");
+        applyButton.setOnAction(event -> handleQuickApply(job.getId()));
+
+        buttonBox.getChildren().addAll(viewButton, applyButton);
+
+        jobBox.getChildren().addAll(titleBox, detailsBox, buttonBox);
+        jobsContainer.getChildren().add(jobBox);
+    }
+
+    private Label createDetailLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("""
+            -fx-font-family: 'Segoe UI';
+            -fx-font-size: 14px;
+            -fx-text-fill: #94a3b8;
+            -fx-padding: 2 0;
+        """);
+        return label;
+    }
+
+    private Button createActionButton(String text, String color) {
+        Button button = new Button(text);
+        button.setStyle(String.format("""
+            -fx-background-color: %s;
+            -fx-text-fill: white;
+            -fx-font-family: 'Segoe UI';
+            -fx-font-size: 14px;
+            -fx-font-weight: bold;
+            -fx-padding: 8 16;
+            -fx-background-radius: 20;
+            -fx-cursor: hand;
+        """, color));
+
+        // Add hover effect
+        button.setOnMouseEntered(e -> button.setStyle(button.getStyle() + "-fx-opacity: 0.9;"));
+        button.setOnMouseExited(e -> button.setStyle(button.getStyle().replace("-fx-opacity: 0.9;", "")));
+
+        return button;
+    }
+
+    private void openJobDetails(int jobId, ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/job_detail.fxml"));
+            Parent root = loader.load();
+
+            JobDetailController controller = loader.getController();
+            controller.loadJobDetails(jobId);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Failed to open job details", e);
+            showError("Failed to open job details.");
         }
     }
 
-    /**
-     * Extracts text from a given PDF file.
-     *
-     * @param filePath The path to the PDF file.
-     * @return The extracted text, or null if extraction fails.
-     */
+    private void handleQuickApply(int jobId) {
+        // Implement quick apply functionality
+        // This is a placeholder for the quick apply feature
+        showMessage("Quick apply feature coming soon!");
+    }
+
     private String extractTextFromPdf(String filePath) {
         File file = new File(filePath);
         if (!file.exists() || !file.isFile()) {
-            System.err.println("Error: The file does not exist or is not a valid file: " + filePath);
+            logger.warning("File does not exist or is not valid: " + filePath);
             return null;
         }
 
@@ -105,90 +224,45 @@ public class BestMatchPopupController {
             PDFTextStripper pdfStripper = new PDFTextStripper();
             return pdfStripper.getText(document);
         } catch (IOException e) {
-            System.err.println("Error reading CV PDF: " + e.getMessage());
+            logger.log(Level.SEVERE, "Error reading CV PDF", e);
             return null;
         }
     }
 
-    /**
-     * Extracts relevant keywords from the CV content.
-     *
-     * @param cvContent The text extracted from the CV.
-     * @return A list of relevant keywords.
-     */
     private List<String> extractKeywordsFromCV(String cvContent) {
-        // Define keywords related to development roles
+        // Enhanced keyword list
         return List.of(
                 "full stack", "developer", "javascript", "typescript", "node.js",
-                "react", "tailwind css", "mongodb", "firebase", "supabase",
-                "web development", "frontend", "backend"
+                "react", "angular", "vue.js", "python", "java", "spring",
+                "docker", "kubernetes", "aws", "azure", "devops",
+                "ci/cd", "agile", "scrum", "sql", "nosql",
+                "mongodb", "postgresql", "rest api", "microservices"
         );
     }
 
-    /**
-     * Displays a single job in the UI.
-     *
-     * @param job The job to display.
-     */
-    private void displayJob(Job job) {
-        VBox jobBox = new VBox(5);
-        jobBox.setStyle("-fx-padding: 10; -fx-background-color: #475569; -fx-border-radius: 5; -fx-background-radius: 5;");
-
-        Label titleLabel = new Label(job.getTitle());
-        titleLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #f8fafc;");
-
-        Label positionLabel = new Label(job.getPosition());
-        positionLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
-
-        Label locationLabel = new Label(job.getLocation());
-        locationLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-text-fill: #94a3b8;");
-
-        Label postedDateLabel = new Label("Posted: " + job.getPostedDate().toString());
-        postedDateLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 12px; -fx-text-fill: #94a3b8;");
-
-        // View Details Button
-        Button viewButton = new Button("View Details");
-        viewButton.setStyle("-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 20px; -fx-cursor: hand;");
-        viewButton.setOnAction(event -> openJobDetails(job.getId(), event));
-
-        jobBox.getChildren().addAll(titleLabel, positionLabel, locationLabel, postedDateLabel, viewButton);
-        jobsContainer.getChildren().add(jobBox);
+    private void showLoading(boolean show) {
+        loadingIndicator.setVisible(show);
+        loadingIndicator.setManaged(show);
     }
 
-    /**
-     * Opens the job details view for the selected job.
-     *
-     * @param jobId  The ID of the job to view.
-     * @param event  The action event.
-     */
-    private void openJobDetails(int jobId, ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/auth/JobAndApplication/job_detail.fxml"));
-            Parent root = loader.load();
-
-            // Pass job ID to the JobDetailController
-            JobDetailController controller = loader.getController();
-            controller.loadJobDetails(jobId);
-
-            // Load new scene
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 600));
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Failed to open job details: " + e.getMessage());
-            e.printStackTrace();
-        }
+    private void showError(String message) {
+        errorMessageLabel.setText(message);
+        errorContainer.setVisible(true);
+        errorContainer.setManaged(true);
     }
 
-    /**
-     * Displays a message in the UI when no jobs or CV is found.
-     *
-     * @param message The message to display.
-     */
-    private void displayMessage(String message) {
+    private void showMessage(String message) {
+        // Implement a toast or notification system
+        System.out.println(message); // Placeholder
+    }
+
+    private void clearContent() {
         jobsContainer.getChildren().clear();
-        Label messageLabel = new Label(message);
-        messageLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #f8fafc;");
-        jobsContainer.getChildren().add(messageLabel);
+        errorContainer.setVisible(false);
+        errorContainer.setManaged(false);
+    }
+
+    private void updateResultCount(int count) {
+        resultCountLabel.setText(String.format("Found %d matching jobs", count));
     }
 }

@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.paint.Color?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.auth.controllers.connexion.UserController" spacing="10">
-    <Label text="Name:"/>
-    <TextField fx:id="nameField" promptText="Enter your name"/>
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.connexion.UserController"
+      spacing="20"
+      alignment="CENTER"
+      style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b); -fx-padding: 40px;">
 
-    <Label text="Email:"/>
-    <TextField fx:id="emailField" promptText="Enter your email"/>
+    <!-- Title -->
+    <Label text="User Registration"
+           style="-fx-font-family: 'Segoe UI'; -fx-font-size: 32px; -fx-text-fill: #f8fafc; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 2);"/>
 
-    <Label text="Password:"/>
-    <PasswordField fx:id="passwordField" promptText="Enter your password"/>
+    <!-- Registration Form -->
+    <GridPane hgap="15" vgap="15" alignment="CENTER">
+        <!-- Name Field -->
+        <Label text="Name:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField"
+                   promptText="Enter your name"
+                   style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-    <Label text="CV:"/>
-    <TextField fx:id="cvField" promptText="No file selected" editable="false"/>
+        <!-- Email Field -->
+        <Label text="Email:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField"
+                   promptText="Enter your email"
+                   style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-    <Button fx:id="chooseCvButton" text="Choose CV File" />
-    <Button fx:id="registerButton" text="Register" />
+        <!-- Password Field -->
+        <Label text="Password:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField"
+                       promptText="Enter your password"
+                       style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;"
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <!-- CV Field -->
+        <Label text="CV:"
+               style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-text-fill: #94a3b8;"
+               GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="cvField"
+                   promptText="No file selected"
+                   editable="false"
+                   style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #a1a1aa; -fx-padding: 8px; -fx-font-size: 14px;"
+                   GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Buttons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="chooseCvButton"
+                text="Choose CV File"
+                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 20px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 4);"/>
+
+        <Button fx:id="registerButton"
+                text="Register"
+                style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 20px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 15, 0, 0, 4);"/>
+    </HBox>
 </VBox>

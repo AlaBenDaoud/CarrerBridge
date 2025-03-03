@@ -1,7 +1,5 @@
 package org.example.auth.controllers.JobAndApplicantion;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +7,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import org.example.auth.models.Job;
 import org.example.auth.services.JobService;
 import org.example.auth.utils.AlertUtils;
@@ -20,46 +26,21 @@ import org.example.auth.controllers.connexion.AuthCompanyController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RHViewDetailsController implements Initializable {
 
     @FXML
-    private TableView<Job> jobsTable;
+    private VBox jobsContainer;
 
     @FXML
-    private TableColumn<Job, Integer> idColumn;
-
-    @FXML
-    private TableColumn<Job, String> titleColumn;
-
-    @FXML
-    private TableColumn<Job, String> descriptionColumn;
-
-    @FXML
-    private TableColumn<Job, String> locationColumn;
-
-    @FXML
-    private TableColumn<Job, Timestamp> postedDateColumn;
-
-    @FXML
-    private TableColumn<Job, Void> actionsColumn;
+    private TextField searchField;
 
     private JobService jobService = new JobService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize table columns
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        postedDateColumn.setCellValueFactory(new PropertyValueFactory<>("postedDate"));
-
-        // Add buttons to the actions column
-        addButtonsToTable();
-
         // Fetch jobs as soon as the view is loaded
         handleFetchJobs();
     }
@@ -71,49 +52,85 @@ public class RHViewDetailsController implements Initializable {
 
         if (companyId != -1) {
             // Fetch jobs for the logged-in company
-            ObservableList<Job> jobs = FXCollections.observableArrayList(jobService.getJobsByCompanyId(companyId));
-            jobsTable.setItems(jobs);
+            List<Job> jobs = jobService.getJobsByCompanyId(companyId);
+            displayJobs(jobs);
         } else {
             AlertUtils.showError("Company not logged in. Please log in first.");
         }
     }
 
-    private void addButtonsToTable() {
-        Callback<TableColumn<Job, Void>, TableCell<Job, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Job, Void> call(final TableColumn<Job, Void> param) {
-                return new TableCell<>() {
-                    private final Button modifyButton = new Button("Modify");
-                    private final Button deleteButton = new Button("Delete");
+    @FXML
+    private void handleSearch() {
+        String query = searchField.getText().toLowerCase();
+        int companyId = AuthCompanyController.getLoggedInCompanyId();
 
-                    {
-                        // Modify button action
-                        modifyButton.setOnAction(event -> {
-                            Job job = getTableView().getItems().get(getIndex());
-                            handleModifyJob(job);
-                        });
+        if (companyId != -1) {
+            List<Job> jobs = jobService.getJobsByCompanyId(companyId);
+            List<Job> filteredJobs = jobs.stream()
+                    .filter(job -> job.getTitle().toLowerCase().contains(query) ||
+                            job.getDescription().toLowerCase().contains(query) ||
+                            job.getLocation().toLowerCase().contains(query))
+                    .toList();
+            displayJobs(filteredJobs);
+        } else {
+            AlertUtils.showError("Company not logged in. Please log in first.");
+        }
+    }
 
-                        // Delete button action
-                        deleteButton.setOnAction(event -> {
-                            Job job = getTableView().getItems().get(getIndex());
-                            handleDeleteJob(job);
-                        });
-                    }
+    private void displayJobs(List<Job> jobs) {
+        jobsContainer.getChildren().clear(); // Clear existing cards
 
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(new javafx.scene.layout.HBox(modifyButton, deleteButton));
-                        }
-                    }
-                };
-            }
-        };
+        for (Job job : jobs) {
+            // Create a card for each job
+            StackPane card = new StackPane();
+            card.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);");
 
-        actionsColumn.setCellFactory(cellFactory);
+            // Card content
+            VBox content = new VBox(10);
+            content.setPadding(new Insets(20));
+
+            // Job title
+            Text title = new Text(job.getTitle());
+            title.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
+            title.setFill(Color.web("#005bb5"));
+
+            // Job description
+            Text description = new Text(job.getDescription());
+            description.setFont(Font.font("Roboto", 14));
+            description.setFill(Color.web("#333333"));
+            description.setWrappingWidth(600);
+
+            // Job location and posted date
+            HBox details = new HBox(10);
+            Text location = new Text("Location: " + job.getLocation());
+            location.setFont(Font.font("Roboto", 14));
+            location.setFill(Color.web("#555555"));
+
+            Text postedDate = new Text("Posted: " + job.getPostedDate());
+            postedDate.setFont(Font.font("Roboto", 14));
+            postedDate.setFill(Color.web("#555555"));
+
+            details.getChildren().addAll(location, postedDate);
+
+            // Buttons for modify and delete
+            HBox buttons = new HBox(10);
+            Button modifyButton = new Button("Modify");
+            modifyButton.setStyle("-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10 20; -fx-background-radius: 5;");
+            modifyButton.setOnAction(event -> handleModifyJob(job));
+
+            Button deleteButton = new Button("Delete");
+            deleteButton.setStyle("-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10 20; -fx-background-radius: 5;");
+            deleteButton.setOnAction(event -> handleDeleteJob(job));
+
+            buttons.getChildren().addAll(modifyButton, deleteButton);
+
+            // Add all elements to the card
+            content.getChildren().addAll(title, description, details, buttons);
+            card.getChildren().add(content);
+
+            // Add the card to the container
+            jobsContainer.getChildren().add(card);
+        }
     }
 
     private void handleModifyJob(Job job) {
@@ -140,7 +157,7 @@ public class RHViewDetailsController implements Initializable {
     private void handleDeleteJob(Job job) {
         boolean isDeleted = jobService.deleteJob(job.getId());
         if (isDeleted) {
-            jobsTable.getItems().remove(job);
+            handleFetchJobs(); // Refresh the job list
             System.out.println("Job deleted: " + job.getId());
         } else {
             System.out.println("Failed to delete job: " + job.getId());

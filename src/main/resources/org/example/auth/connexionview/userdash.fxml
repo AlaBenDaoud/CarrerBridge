@@ -4,44 +4,147 @@
 <?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 <?import javafx.fxml.FXMLLoader?>
 <?import javafx.scene.Parent?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.Region?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.auth.controllers.connexion.UserDashController"
-            style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);">
+            style="-fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);">
 
-    <!-- Top Navigation Bar -->
-    <top>
-        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(30, 41, 59, 0.95); -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 15, 0, 0, 3);">
-            <Button text="Search for Job" fx:id="searchJobButton" onAction="#handleSearchJob"
-                    style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
-            </Button>
-            <Button text="View My Applications" fx:id="viewApplicationsButton" onAction="#handleViewApplications"
-                    style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
-            </Button>
-            <Button text="Edit My Profile" fx:id="editProfileButton" onAction="#handleEditProfile"
-                    style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
-            </Button>
-            <Button text="Consult My Work" fx:id="consultWorkButton" onAction="#handleConsultWork"
-                    style="-fx-text-fill: white; -fx-background-color: #3b82f6; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;" visible="false">
-            </Button>
-            <Button text="Create Post" fx:id="createPostButton" onAction="#handleCreatePost"
-                    style="-fx-text-fill: white; -fx-background-color: #27ae60; -fx-font-family: 'Segoe UI'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-background-radius: 25px; -fx-cursor: hand;">
-            </Button>
+    <!-- Left Navigation Bar -->
+    <left>
+        <VBox style="-fx-background-color: #1a1f36; -fx-min-width: 250; -fx-max-width: 250;">
+            <!-- Header Section -->
+            <HBox alignment="CENTER_LEFT" style="-fx-padding: 16 12; -fx-background-color: #232942;">
+                <Circle radius="16" fill="#4f46e5"/>
+                <Label text="Dashboard"
+                       style="-fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 0 0 12;"/>
+            </HBox>
 
-            <Button fx:id="chatbotButton" text="Chatbot" onAction="#handleChatbot" />
-        </HBox>
-    </top>
+            <!-- Main Navigation -->
+            <VBox spacing="4" style="-fx-padding: 12 8;">
+                <!-- Navigation Section Label -->
+                <Label text="NAVIGATION"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 0 0 4 12;"/>
 
-    <!-- Main Content Area (Loads Other Pages) -->
+                <Button text="Search Jobs" fx:id="searchJobButton" onAction="#handleSearchJob"
+                        styleClass="nav-button"
+                        style="-fx-text-fill: #e2e8f0;
+                               -fx-background-color: transparent;
+                               -fx-font-size: 13px;
+                               -fx-padding: 8 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="My Applications" fx:id="viewApplicationsButton" onAction="#handleViewApplications"
+                        styleClass="nav-button"
+                        style="-fx-text-fill: #e2e8f0;
+                               -fx-background-color: transparent;
+                               -fx-font-size: 13px;
+                               -fx-padding: 8 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="Edit Profile" fx:id="editProfileButton" onAction="#handleEditProfile"
+                        styleClass="nav-button"
+                        style="-fx-text-fill: #e2e8f0;
+                               -fx-background-color: transparent;
+                               -fx-font-size: 13px;
+                               -fx-padding: 8 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="My Work" fx:id="consultWorkButton" onAction="#handleConsultWork"
+                        styleClass="nav-button"
+                        style="-fx-text-fill: #e2e8f0;
+                               -fx-background-color: transparent;
+                               -fx-font-size: 13px;
+                               -fx-padding: 8 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-border-color: transparent;"
+                        visible="false">
+                </Button>
+
+                <!-- Actions Section Label -->
+                <Label text="ACTIONS"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 16 0 4 12;"/>
+
+                <Button text="Create New Post" fx:id="createPostButton" onAction="#handleCreatePost"
+                        style="-fx-text-fill: white;
+                               -fx-background-color: #4f46e5;
+                               -fx-font-size: 13px;
+                               -fx-padding: 10 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.3), 4, 0, 0, 1);">
+                </Button>
+
+                <Button text="AI Chatbot" fx:id="chatbotButton" onAction="#handleChatbot"
+                        style="-fx-text-fill: #4f46e5;
+                               -fx-background-color: rgba(79,70,229,0.1);
+                               -fx-font-size: 13px;
+                               -fx-padding: 10 16;
+                               -fx-background-radius: 6;
+                               -fx-alignment: CENTER_LEFT;
+                               -fx-min-width: 230;
+                               -fx-border-color: #4f46e5;
+                               -fx-border-width: 1;
+                               -fx-border-radius: 6;">
+                </Button>
+            </VBox>
+
+            <!-- Push remaining content to bottom -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Footer Section -->
+            <VBox style="-fx-padding: 16; -fx-background-color: #232942;">
+                <Label text="User Status"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                <Label text="Online"
+                       style="-fx-text-fill: #22c55e; -fx-font-size: 13px; -fx-padding: 4 0 0 0;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
     <center>
-        <fx:include source="../JobAndApplication/post_view.fxml"/>
+        <StackPane style="-fx-background-color: #f1f5f9;">
+            <!-- Header -->
+            <VBox>
+                <HBox alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-padding: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);">
+                    <Label text="Welcome Back"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+                </HBox>
+
+                <!-- Content Area -->
+                <StackPane VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                    <fx:include source="../JobAndApplication/post_view.fxml"/>
+                </StackPane>
+            </VBox>
+        </StackPane>
     </center>
+
 
 </BorderPane>

@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -10,22 +12,44 @@
       styleClass="root"
       stylesheets="@styles.css">
 
-    <!-- Fixed Navigation Bar -->
-    <HBox styleClass="navbar" alignment="CENTER">
+    <!-- Modern Navigation Bar -->
+    <HBox styleClass="navbar">
+        <HBox styleClass="logo-container">
+            <Label text="BMS" styleClass="logo-text"/>
+        </HBox>
+        <HBox HBox.hgrow="ALWAYS"/> <!-- Spacer -->
         <MenuBar styleClass="menu-bar">
             <menus>
                 <Menu text="Admin" styleClass="menu-item">
+                    <graphic>
+                        <StackPane styleClass="menu-icon-container">
+                            <Rectangle width="16" height="16" styleClass="menu-icon-bg"/>
+                            <Label text="A" styleClass="menu-icon-text"/>
+                        </StackPane>
+                    </graphic>
                     <items>
                         <MenuItem text="Login" onAction="#handleAdminLogin"/>
                     </items>
                 </Menu>
                 <Menu text="Company" styleClass="menu-item">
+                    <graphic>
+                        <StackPane styleClass="menu-icon-container">
+                            <Rectangle width="16" height="16" styleClass="menu-icon-bg"/>
+                            <Label text="C" styleClass="menu-icon-text"/>
+                        </StackPane>
+                    </graphic>
                     <items>
                         <MenuItem text="Login" onAction="#handleCompanyLogin"/>
                         <MenuItem text="Register" onAction="#handleCompanyRegister"/>
                     </items>
                 </Menu>
                 <Menu text="User" styleClass="menu-item">
+                    <graphic>
+                        <StackPane styleClass="menu-icon-container">
+                            <Rectangle width="16" height="16" styleClass="menu-icon-bg"/>
+                            <Label text="U" styleClass="menu-icon-text"/>
+                        </StackPane>
+                    </graphic>
                     <items>
                         <MenuItem text="Login" onAction="#handleUserLogin"/>
                         <MenuItem text="Register" onAction="#handleUserRegister"/>
@@ -37,45 +61,154 @@
 
     <!-- Scrollable Content -->
     <ScrollPane fitToWidth="true" styleClass="content-scroll-pane">
-        <VBox>
-            <!-- Hero Section -->
-            <StackPane styleClass="hero-section">
-                <VBox styleClass="hero-content">
-                    <Label text="Welcome to" styleClass="welcome-text-small"/>
-                    <Label text="Business Management System" styleClass="welcome-text-large"/>
-                    <Label text="Streamline your business operations with our comprehensive solution"
-                           styleClass="welcome-description"/>
-                </VBox>
-            </StackPane>
+        <content>
+            <VBox spacing="40">
+                <!-- Hero Section with Animated Elements -->
+                <StackPane styleClass="hero-section">
+                    <VBox styleClass="hero-content">
+                        <Label text="WELCOME TO" styleClass="welcome-text-small"/>
+                        <StackPane>
+                            <Label text="BUSINESS MANAGEMENT SYSTEM" styleClass="welcome-text-large"/>
+                            <Rectangle styleClass="text-underline" width="120" height="4" StackPane.alignment="BOTTOM_CENTER"/>
+                        </StackPane>
+                        <Label text="Elevate your business operations with our powerful integrated solution"
+                               styleClass="welcome-description"/>
+                        <Button text="GET STARTED" styleClass="hero-button"/>
+                    </VBox>
 
-            <!-- Feature Cards Section -->
-            <GridPane styleClass="features-grid">
-                <VBox styleClass="feature-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="Admin" styleClass="card-title"/>
-                    <Label text="Manage system settings and user permissions with advanced controls"
-                           styleClass="card-description"/>
+                    <!-- Decorative circle elements -->
+                    <Circle styleClass="hero-circle-1" radius="100" StackPane.alignment="TOP_LEFT"/>
+                    <Circle styleClass="hero-circle-2" radius="80" StackPane.alignment="BOTTOM_RIGHT"/>
+                    <Circle styleClass="hero-circle-3" radius="40" StackPane.alignment="CENTER_RIGHT"/>
+                </StackPane>
+
+                <!-- Stats Banner -->
+                <HBox styleClass="stats-banner">
+                    <VBox styleClass="stat-item">
+                        <Label text="5000+" styleClass="stat-number"/>
+                        <Label text="Clients" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-item">
+                        <Label text="120+" styleClass="stat-number"/>
+                        <Label text="Countries" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-item">
+                        <Label text="99.9%" styleClass="stat-number"/>
+                        <Label text="Uptime" styleClass="stat-label"/>
+                    </VBox>
+                    <VBox styleClass="stat-item">
+                        <Label text="24/7" styleClass="stat-number"/>
+                        <Label text="Support" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Section Title -->
+                <VBox styleClass="section-title-container">
+                    <Label text="STREAMLINED SOLUTIONS" styleClass="section-title"/>
+                    <Rectangle styleClass="section-title-underline" width="80" height="3"/>
                 </VBox>
 
-                <VBox styleClass="feature-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <Label text="Company" styleClass="card-title"/>
-                    <Label text="Optimize resources and streamline business operations efficiently"
-                           styleClass="card-description"/>
+                <!-- Feature Cards Section - Modernized -->
+                <GridPane styleClass="features-grid">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+
+                    <VBox styleClass="feature-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <StackPane styleClass="card-icon-container">
+                            <Circle styleClass="card-icon-bg" radius="40"/>
+                            <Label text="A" styleClass="card-icon-text"/>
+                        </StackPane>
+                        <Label text="Admin Dashboard" styleClass="card-title"/>
+                        <Label text="Control system settings, manage user permissions, and monitor platform performance with advanced analytics tools"
+                               styleClass="card-description"/>
+                        <Button text="Learn More" styleClass="card-button"/>
+                    </VBox>
+
+                    <VBox styleClass="feature-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <StackPane styleClass="card-icon-container">
+                            <Circle styleClass="card-icon-bg" radius="40"/>
+                            <Label text="C" styleClass="card-icon-text"/>
+                        </StackPane>
+                        <Label text="Company Portal" styleClass="card-title"/>
+                        <Label text="Optimize resource allocation, streamline operations, and access real-time business intelligence to drive growth"
+                               styleClass="card-description"/>
+                        <Button text="Learn More" styleClass="card-button"/>
+                    </VBox>
+
+                    <VBox styleClass="feature-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        <StackPane styleClass="card-icon-container">
+                            <Circle styleClass="card-icon-bg" radius="40"/>
+                            <Label text="U" styleClass="card-icon-text"/>
+                        </StackPane>
+                        <Label text="User Interface" styleClass="card-title"/>
+                        <Label text="Access powerful collaboration tools, manage your account seamlessly, and enjoy an intuitive user experience"
+                               styleClass="card-description"/>
+                        <Button text="Learn More" styleClass="card-button"/>
+                    </VBox>
+                </GridPane>
+
+                <!-- Testimonials Section -->
+                <VBox styleClass="testimonials-section">
+                    <VBox styleClass="section-title-container">
+                        <Label text="TRUSTED BY INDUSTRY LEADERS" styleClass="section-title"/>
+                        <Rectangle styleClass="section-title-underline" width="80" height="3"/>
+                    </VBox>
+
+                    <HBox styleClass="testimonials-container">
+                        <VBox styleClass="testimonial-card">
+                            <Label text="&quot;The Business Management System has transformed our operations entirely. We've seen a 40% increase in productivity.&quot;"
+                                   styleClass="testimonial-text"/>
+                            <Label text="— Sarah Johnson, CEO" styleClass="testimonial-author"/>
+                        </VBox>
+
+                        <VBox styleClass="testimonial-card">
+                            <Label text="&quot;Implementation was seamless, and the ROI has been outstanding. Customer support is exceptional.&quot;"
+                                   styleClass="testimonial-text"/>
+                            <Label text="— Michael Chen, CTO" styleClass="testimonial-author"/>
+                        </VBox>
+                    </HBox>
                 </VBox>
 
-                <VBox styleClass="feature-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                    <Label text="User" styleClass="card-title"/>
-                    <Label text="Access powerful tools and manage accounts seamlessly"
-                           styleClass="card-description"/>
-                </VBox>
-            </GridPane>
+                <!-- Call to Action Section - Enhanced -->
+                <StackPane styleClass="cta-section">
+                    <VBox alignment="CENTER" spacing="20">
+                        <Label text="Ready to Transform Your Business?" styleClass="cta-title"/>
+                        <Label text="Join thousands of satisfied customers and elevate your business operations today" styleClass="cta-subtitle"/>
+                        <HBox styleClass="cta-buttons-container">
+                            <Button text="GET STARTED" styleClass="cta-button primary"/>
+                            <Button text="BOOK A DEMO" styleClass="cta-button secondary"/>
+                        </HBox>
+                    </VBox>
 
-            <!-- Call to Action Section -->
-            <StackPane styleClass="cta-section">
-                <VBox alignment="CENTER" spacing="20">
-                    <Label text="Ready to Transform Your Business?" styleClass="cta-title"/>
-                    <Label text="Join thousands of satisfied customers today" styleClass="cta-subtitle"/>
-                </VBox>
-            </StackPane>
-        </VBox>
+                    <!-- Background elements for visual interest -->
+                    <Circle styleClass="cta-circle-1" radius="150" StackPane.alignment="CENTER_LEFT"/>
+                    <Circle styleClass="cta-circle-2" radius="100" StackPane.alignment="BOTTOM_RIGHT"/>
+                </StackPane>
+
+                <!-- Footer -->
+                <HBox styleClass="footer">
+                    <VBox styleClass="footer-column">
+                        <Label text="BMS" styleClass="footer-logo"/>
+                        <Label text="© 2025 Business Management System" styleClass="footer-text"/>
+                    </VBox>
+                    <VBox styleClass="footer-column">
+                        <Label text="Contact" styleClass="footer-heading"/>
+                        <Label text="support@bms.com" styleClass="footer-text"/>
+                        <Label text="+1 (555) 123-4567" styleClass="footer-text"/>
+                    </VBox>
+                    <VBox styleClass="footer-column">
+                        <Label text="Legal" styleClass="footer-heading"/>
+                        <Label text="Privacy Policy" styleClass="footer-link"/>
+                        <Label text="Terms of Service" styleClass="footer-link"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </content>
     </ScrollPane>
 </VBox>

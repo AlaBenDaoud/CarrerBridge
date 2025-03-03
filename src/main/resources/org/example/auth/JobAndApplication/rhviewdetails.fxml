@@ -1,67 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.GridPane?>
 
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.JobAndApplicantion.RHViewDetailsController"
-      spacing="20" alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.JobAndApplicantion.RHViewDetailsController"
+      spacing="20" alignment="TOP_CENTER" style="-fx-background-color: #e6f3ff;">
     <padding>
         <Insets top="40" right="40" bottom="40" left="40"/>
     </padding>
 
     <!-- Back Button -->
     <Button text="Back to Main" fx:id="backButton" onAction="#handleBackButton"
-            prefWidth="250" style="-fx-background-color: #4CAF50; -fx-text-fill: white;
+            prefWidth="250" style="-fx-background-color: #0078d7; -fx-text-fill: white;
                 -fx-font-size: 16; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);" />
 
     <!-- Title -->
-    <Text text="View Job Details" style="-fx-fill: #2c3e50;">
+    <Text text="View Job Details" style="-fx-fill: #005bb5;">
         <font>
             <Font name="Roboto" size="28" />
         </font>
     </Text>
 
-    <!-- Job Table Section -->
-    <ScrollPane prefWidth="800" prefHeight="400" style="-fx-background-color: transparent; -fx-padding: 20 0;">
-        <TableView fx:id="jobsTable" prefWidth="800" prefHeight="400" style="-fx-border-color: #ddd; -fx-border-width: 1;">
-            <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="50">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="id" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="titleColumn" text="Title" prefWidth="200">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="title" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="300">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="description" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="locationColumn" text="Location" prefWidth="150">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="location" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="postedDateColumn" text="Posted Date" prefWidth="150">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="postedDate" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="150">
-                    <!-- Actions column will contain buttons for modify and delete -->
-                </TableColumn>
-            </columns>
-        </TableView>
-    </ScrollPane>
+    <!-- Search Bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="searchField" promptText="Search jobs..." prefWidth="400"
+                   style="-fx-background-color: white; -fx-text-fill: #005bb5; -fx-font-size: 14; -fx-padding: 10; -fx-background-radius: 5;" />
+        <Button text="Search" onAction="#handleSearch"
+                style="-fx-background-color: #0078d7; -fx-text-fill: white; -fx-font-size: 14; -fx-padding: 10 20; -fx-background-radius: 5;" />
+    </HBox>
 
+    <!-- Job Cards Section -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+        <VBox fx:id="jobsContainer" spacing="20" alignment="TOP_CENTER" />
+    </ScrollPane>
 </VBox>

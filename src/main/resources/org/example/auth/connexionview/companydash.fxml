@@ -2,88 +2,127 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.CompanyDashController"
-            style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.auth.controllers.connexion.CompanyDashController"
+            style="-fx-background-color: linear-gradient(to bottom right, #1e293b, #0f172a);">
 
-    <!-- Side Navbar -->
     <left>
-        <VBox spacing="20" alignment="CENTER" style="-fx-background-color: #1e293b;" prefWidth="250">
+        <VBox spacing="15" style="-fx-background-color: #1e293b; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);"
+              prefWidth="280">
             <padding>
-                <Insets top="40" right="20" bottom="40" left="20"/>
+                <Insets top="30" right="20" bottom="30" left="20"/>
             </padding>
 
-            <!-- Post an Offer Button -->
-            <Button text="Post an Offer" fx:id="postOfferButton" onAction="#handlePostOffer" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+            <!-- Company Logo and Title -->
+            <StackPane alignment="CENTER">
+                <Circle radius="40" style="-fx-fill: #3b82f6;"/>
+                <Label text="C" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+            </StackPane>
 
-            <!-- View My Posts Button -->
-            <Button text="View My Posts" fx:id="viewPostsButton" onAction="#handleViewPosts" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+            <Label text="Company Dashboard" alignment="CENTER"
+                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;">
+                <VBox.margin>
+                    <Insets bottom="20"/>
+                </VBox.margin>
+            </Label>
 
-            <!-- View Applicants Button -->
-            <Button text="View Applicants" fx:id="viewApplicantsButton" onAction="#handleViewApplicants" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+            <!-- Job Management Section -->
+            <VBox spacing="10" style="-fx-background-color: #273449; -fx-background-radius: 15;">
+                <padding>
+                    <Insets top="15" right="10" bottom="15" left="10"/>
+                </padding>
 
-            <!-- View Employees Button -->
-            <Button text="View Employees" fx:id="viewEmployeesButton" onAction="#handleViewEmployees" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+                <Label text="JOB MANAGEMENT"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;"/>
 
-            <!-- View All Leave Requests Button -->
-            <Button text="View All Leave Requests" fx:id="viewLeaveRequestsButton" onAction="#handleViewLeaveRequests" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+                <Button text="Post an Offer" fx:id="postOfferButton" onAction="#handlePostOffer"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-font-weight: bold; -fx-background-radius: 8;
+                               -fx-border-color: transparent;">
+                </Button>
 
-            <!-- View Reclamations Button -->
-            <Button text="View Reclamations" fx:id="viewReclamationsButton" onAction="#handleViewReclamations" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+                <Button text="View My Posts" fx:id="viewPostsButton" onAction="#handleViewPosts"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
 
-            <!-- View Online Jobs Button -->
-            <Button text="View Online Jobs" fx:id="viewOnlineJobsButton" onAction="#handleViewOnlineJobs" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+                <Button text="Create a Card" fx:id="createCardButton" onAction="#handleCreateCard"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+            </VBox>
 
-            <!-- View Employee Rankings Button -->
-            <Button text="View Employee Rankings" fx:id="viewEmployeeRankingsButton" onAction="#handleViewEmployeeRankings" prefWidth="200" prefHeight="50"
-                    style="-fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25px; -fx-cursor: hand;">
-                <font>
-                    <Font size="16"/>
-                </font>
-            </Button>
+            <!-- Employee Management Section -->
+            <VBox spacing="10" style="-fx-background-color: #273449; -fx-background-radius: 15;">
+                <padding>
+                    <Insets top="15" right="10" bottom="15" left="10"/>
+                </padding>
+
+                <Label text="EMPLOYEE MANAGEMENT"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+                <Button text="View Applicants" fx:id="viewApplicantsButton" onAction="#handleViewApplicants"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="View Employees" fx:id="viewEmployeesButton" onAction="#handleViewEmployees"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="Employee Rankings" fx:id="viewEmployeeRankingsButton" onAction="#handleViewEmployeeRankings"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+            </VBox>
+
+            <!-- HR Management Section -->
+            <VBox spacing="10" style="-fx-background-color: #273449; -fx-background-radius: 15;">
+                <padding>
+                    <Insets top="15" right="10" bottom="15" left="10"/>
+                </padding>
+
+                <Label text="HR MANAGEMENT"
+                       style="-fx-text-fill: #64748b; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+
+                <Button text="Leave Requests" fx:id="viewLeaveRequestsButton" onAction="#handleViewLeaveRequests"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="Reclamations" fx:id="viewReclamationsButton" onAction="#handleViewReclamations"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+
+                <Button text="Online Jobs" fx:id="viewOnlineJobsButton" onAction="#handleViewOnlineJobs"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px;
+                               -fx-alignment: CENTER_LEFT; -fx-padding: 10 15; -fx-cursor: hand;
+                               -fx-background-radius: 8; -fx-border-color: transparent;">
+                </Button>
+            </VBox>
         </VBox>
     </left>
 
-    <!-- Main Content Area -->
     <center>
-        <fx:include source="../JobAndApplication/post_view.fxml"/>
+        <StackPane style="-fx-background-color: transparent;">
+            <fx:include source="../JobAndApplication/post_view.fxml"/>
+        </StackPane>
     </center>
 </BorderPane>

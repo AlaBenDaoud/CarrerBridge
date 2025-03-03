@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.canvas.Canvas?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.auth.controllers.Congee.CreateCardController"
+            style="-fx-background-color: #f5f7fa; -fx-padding: 20;">
+
+    <top>
+        <Label text="Employee ID Card Generator"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 0 0 20 0;"/>
+    </top>
+
+    <center>
+        <HBox spacing="30" alignment="CENTER">
+            <!-- Left Side: Form Inputs in a Card -->
+            <VBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 25;
+                  -fx-background-radius: 12; -fx-max-width: 450;">
+                <effect>
+                    <DropShadow radius="10" color="#00000022"/>
+                </effect>
+
+                <Label text="Enter Employee Information"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #3498db;"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="ID:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <TextField fx:id="idField" promptText="Enter ID" prefWidth="250"
+                               style="-fx-background-radius: 5; -fx-border-radius: 5;" onKeyReleased="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Full Name:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <TextField fx:id="fullNameField" promptText="Enter Full Name" prefWidth="250"
+                               style="-fx-background-radius: 5; -fx-border-radius: 5;" onKeyReleased="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Position:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <TextField fx:id="positionField" promptText="Enter Position" prefWidth="250"
+                               style="-fx-background-radius: 5; -fx-border-radius: 5;" onKeyReleased="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Telephone:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <TextField fx:id="telephoneField" promptText="Enter Telephone" prefWidth="250"
+                               style="-fx-background-radius: 5; -fx-border-radius: 5;" onKeyReleased="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="Start Date:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <DatePicker fx:id="startDatePicker" prefWidth="160"
+                                style="-fx-background-radius: 5; -fx-border-radius: 5;" onAction="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="End Date:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <DatePicker fx:id="endDatePicker" prefWidth="160"
+                                style="-fx-background-radius: 5; -fx-border-radius: 5;" onAction="#updatePreview"/>
+                </HBox>
+
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="Photo:" style="-fx-font-weight: bold; -fx-min-width: 90;"/>
+                    <StackPane>
+                        <Rectangle width="100" height="100" style="-fx-fill: #f0f3f6; -fx-arc-width: 10; -fx-arc-height: 10;"/>
+                        <ImageView fx:id="imageView" fitWidth="100" fitHeight="100" preserveRatio="true"/>
+                    </StackPane>
+                    <Button text="Upload Photo" fx:id="uploadButton" onAction="#handleUploadPicture"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                </HBox>
+
+                <Button text="Generate ID Card" fx:id="saveButton" onAction="#handleSaveCard"
+                        style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 16px;
+                             -fx-padding: 12 25; -fx-background-radius: 8; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </VBox>
+
+            <!-- Right Side: Employee Card Preview -->
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="ID Card Preview"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #3498db;"/>
+
+                <StackPane fx:id="cardPreview" style="-fx-background-color: white; -fx-padding: 0;">
+                    <effect>
+                        <DropShadow radius="15" color="#00000033"/>
+                    </effect>
+
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15;"
+                          prefWidth="320" prefHeight="500">
+
+                        <!-- Company Header -->
+                        <HBox alignment="CENTER" style="-fx-background-color: #3498db; -fx-background-radius: 15 15 0 0;"
+                              prefHeight="80">
+                            <Label text="COMPANY NAME"
+                                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                        </HBox>
+
+                        <VBox alignment="CENTER" spacing="15" style="-fx-padding: 25;">
+                            <!-- Photo Area -->
+                            <StackPane>
+                                <Rectangle width="120" height="120" style="-fx-fill: #f0f3f6; -fx-arc-width: 150; -fx-arc-height: 150;"/>
+                                <ImageView fx:id="previewImageView" fitWidth="120" fitHeight="120" preserveRatio="true"
+                                           style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);"/>
+                            </StackPane>
+
+                            <!-- Employee Info -->
+                            <Label fx:id="previewFullName" text="Full Name"
+                                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                            <Label fx:id="previewPosition" text="Position"
+                                   style="-fx-font-size: 18px; -fx-text-fill: #7f8c8d;"/>
+
+                            <VBox spacing="10" style="-fx-background-color: #f5f7fa; -fx-padding: 15; -fx-background-radius: 8;"
+                                  alignment="CENTER_LEFT" prefWidth="270">
+                                <Label fx:id="previewId" text="ID: 0000"
+                                       style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+                                <Label fx:id="previewTelephone" text="Tel: 000-000-0000"
+                                       style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+                                <Label fx:id="previewDates" text="Valid: Start - End"
+                                       style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+                            </VBox>
+
+                            <!-- Barcode Area (Generated) -->
+                            <VBox alignment="CENTER" spacing="5">
+                                <Canvas fx:id="barcodeCanvas" width="200" height="40"/>
+                                <Label text="Authorized Signature"
+                                       style="-fx-font-size: 12px; -fx-font-style: italic; -fx-text-fill: #95a5a6;"/>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                </StackPane>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <Label text="© 2025 Company Name - Employee Management System"
+               style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-padding: 20 0 0 0;"/>
+    </bottom>
+</BorderPane>

@@ -6,15 +6,33 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.CompanyController">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.CompanyController"
+      spacing="15"
+      alignment="CENTER"
+      style="-fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b); -fx-padding: 40px;">
 
-    <TextField fx:id="companyNameField" promptText="Enter Company Name" />
-    <TextField fx:id="locationField" promptText="Enter Location" />
-    <TextField fx:id="secteurField" promptText="Enter Sector" />
-    <TextField fx:id="emailField" promptText="Enter Email" />
-    <PasswordField fx:id="passwordField" promptText="Enter Password" />
-    <Button text="Register" onAction="#handleRegister"/>
+    <!-- Company Registration Title -->
+    <TextField fx:id="companyNameField" promptText="Enter Company Name"
+               style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;" />
+
+    <!-- Location Field -->
+    <TextField fx:id="locationField" promptText="Enter Location"
+               style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;" />
+
+    <!-- Sector Field -->
+    <TextField fx:id="secteurField" promptText="Enter Sector"
+               style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;" />
+
+    <!-- Email Field -->
+    <TextField fx:id="emailField" promptText="Enter Email"
+               style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;" />
+
+    <!-- Password Field -->
+    <PasswordField fx:id="passwordField" promptText="Enter Password"
+                   style="-fx-background-color: rgba(30, 41, 59, 0.7); -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(59, 130, 246, 0.2); -fx-border-width: 1px; -fx-text-fill: #f8fafc; -fx-padding: 8px; -fx-font-size: 14px;" />
+
+    <!-- Register Button -->
+    <Button text="Register"
+            onAction="#handleRegister"
+            style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10px 30px; -fx-background-radius: 25px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 4);"/>
 </VBox>
