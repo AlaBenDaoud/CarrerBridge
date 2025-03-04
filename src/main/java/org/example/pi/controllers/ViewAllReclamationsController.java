@@ -14,7 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ViewAllReclamationsController {
 
@@ -40,6 +42,9 @@ public class ViewAllReclamationsController {
     private TableColumn<Reclamation, String> statueColumn;
     @FXML
     private TableColumn<Reclamation, Void> actionsColumn;
+
+    @FXML
+    private TextField searchField;
 
     private final ReclamationService reclamationService = new ReclamationService();
 
@@ -238,5 +243,26 @@ public class ViewAllReclamationsController {
                 showAlert("Error", "Failed to update the reclamation status.");
             }
         });
+    }
+
+
+
+    @FXML
+    private void handleSearch() {
+        String keyword = searchField.getText().toLowerCase().trim();
+
+        if (keyword.isEmpty()) {
+            refreshTable(); // Si le champ est vide, afficher toutes les réclamations
+            return;
+        }
+
+        List<Reclamation> filteredList = reclamationTable.getItems().stream()
+                .filter(reclamation ->
+                        reclamation.getTitle().toLowerCase().contains(keyword) ||
+                                reclamation.getDescription().toLowerCase().contains(keyword) ||
+                                reclamation.getStatueOfReclamation().toLowerCase().contains(keyword))
+                .collect(Collectors.toList());
+
+        reclamationTable.getItems().setAll(filteredList);
     }
 }

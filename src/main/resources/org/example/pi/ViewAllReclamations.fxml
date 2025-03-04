@@ -9,6 +9,11 @@
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
+    <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-pref-height: 50;">
+        <Label text="Search:" style="-fx-font-size: 14;"/>
+        <TextField fx:id="searchField" promptText="Enter keyword..." onKeyReleased="#handleSearch"/>
+    </HBox>
+
     <HBox spacing="10" alignment="CENTER" style="-fx-pref-height: 50;">
         <Label text="All Reclamations" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
     </HBox>
