@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox prefHeight="481.0" prefWidth="598.0" spacing="15" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.auth.controllers.connexion.UserController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+    <ComboBox fx:id="languageComboBox" styleClass="language-combo-box">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="English"/>
+                <String fx:value="Français"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- Title -->
+    <Label fx:id="registrationTitle" text="User Registration" styleClass="registration-title" />
+
+    <!-- Name Field -->
+    <Label  fx:id="nameLabel" text="Name:" styleClass="input-label" />
+    <TextField fx:id="nameField" promptText="Enter your name" styleClass="input-field" />
+
+    <!-- Email Field -->
+    <Label fx:id="emailLabel" text="Email:" styleClass="input-label" />
+    <TextField fx:id="emailField" promptText="Enter your email" styleClass="input-field" />
+
+    <!-- Password Field -->
+    <Label fx:id="passwordLabel" text="Password:" styleClass="input-label" />
+    <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="input-field" />
+
+    <!-- CV Field -->
+    <Label fx:id="cvLabel" text="CV:" styleClass="input-label" />
+    <TextField fx:id="cvField" editable="false" promptText="No file selected" styleClass="input-field" />
+
+    <!-- Buttons -->
+    <Button fx:id="chooseCvButton" text="Choose CV File" styleClass="action-button" />
+    <Button fx:id="registerButton" text="Register" styleClass="register-button" />
+</VBox>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.auth.controllers.MainController"
+      styleClass="root"
+      stylesheets="@connexionview/styles.css">
+
+    <!-- Navigation Bar -->
+    <HBox styleClass="navbar">
+        <MenuBar styleClass="menu-bar">
+            <menus>
+                <Menu text="Admin">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleAdminLogin"/>
+                    </items>
+                </Menu>
+                <Menu text="Company">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleCompanyLogin"/>
+                        <MenuItem text="Register" onAction="#handleCompanyRegister"/>
+                    </items>
+                </Menu>
+                <Menu text="User">
+                    <items>
+                        <MenuItem text="Login" onAction="#handleUserLogin"/>
+                        <MenuItem text="Register" onAction="#handleUserRegister"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ComboBox fx:id="languageComboBox" styleClass="language-combo-box">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="English"/>
+                    <String fx:value="Français"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </HBox>
+
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="30" styleClass="content-area">
+        <padding>
+            <Insets top="50" right="20" bottom="50" left="20"/>
+        </padding>
+
+        <!-- Welcome Text -->
+        <VBox alignment="CENTER" spacing="15">
+            <Label fx:id="welcomeTextSmall" text="Welcome to" styleClass="welcome-text-small"/>
+            <Label fx:id="welcomeTextLarge" text="Business Management System" styleClass="welcome-text-large"/>
+            <Label fx:id="welcomeDescription" text="Streamline your business operations with our comprehensive solution"
+                   styleClass="welcome-description"/>
+        </VBox>
+
+        <!-- Feature Cards -->
+        <HBox spacing="20" alignment="CENTER">
+            <VBox styleClass="feature-card">
+                <Label fx:id="adminCardTitle" text="For Administrators" styleClass="card-title"/>
+                <Label fx:id="adminCardDescription" text="Manage system settings and user permissions"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="feature-card">
+                <Label fx:id="companyCardTitle" text="For Companies" styleClass="card-title"/>
+                <Label fx:id="companyCardDescription" text="Track resources and manage operations"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="feature-card">
+                <Label fx:id="userCardTitle" text="For Users" styleClass="card-title"/>
+                <Label fx:id="userCardDescription" text="Access services and manage personal accounts"
+                       styleClass="card-description" wrapText="true"/>
+            </VBox>
+        </HBox>
+
+        <!-- Call to Action Button -->
+        <Button fx:id="ctaButton" text="Get Started" styleClass="cta-button"/>
+    </VBox>
+</VBox>

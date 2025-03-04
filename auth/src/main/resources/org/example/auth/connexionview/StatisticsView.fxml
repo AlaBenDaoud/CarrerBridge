@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="481.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.StatisticsViewController">
+    <children>
+        <!-- LineChart pour afficher les statistiques -->
+        <LineChart fx:id="statisticsChart" layoutX="20" layoutY="20" prefHeight="400" prefWidth="550">
+            <xAxis>
+                <NumberAxis label="Catégorie" lowerBound="1" upperBound="2" tickUnit="1" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Nombre d'utilisateurs/sociétés" />
+            </yAxis>
+        </LineChart>
+    </children>
+</AnchorPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="481.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.AdminDashboardController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+
+
+
+    <children>
+
+        <ComboBox fx:id="languageComboBox" layoutX="450.0" layoutY="20.0" styleClass="language-combo-box">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="English"/>
+                    <String fx:value="Français"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+      <AnchorPane prefHeight="58.0" prefWidth="598.0" style="-fx-background-color: #2980b9;" />
+        <!-- Dashboard Title -->
+        <Label fx:id="dashboardTitle" layoutX="20" layoutY="20" styleClass="dashboard-title" text="Admin Dashboard" textFill="#fffffff7" />
+
+        <!-- View Reclamation Button -->
+        <Button fx:id="viewReclamationButton" layoutX="14.0" layoutY="83.0" onAction="#handleViewReclamation" prefWidth="181.0" styleClass="dashboard-button" text="View Reclamations" />
+
+        <!-- View Company & Employee Button -->
+        <Button fx:id="viewCompanyEmployeeButton" layoutX="14.0" layoutY="143.0" onAction="#handleViewCompanyEmployee" styleClass="dashboard-button" text="View Company et Employee" />
+
+        <!-- View User Button -->
+        <Button fx:id="viewUserButton" layoutX="14.0" layoutY="203.0" onAction="#handleViewUser" styleClass="dashboard-button" text="View Users" />
+
+        <Button fx:id="viewStatisticsButton" layoutX="14.0" layoutY="263.0" onAction="#handleViewStatistics" styleClass="dashboard-button" text="View Statistics" />
+    </children>
+</AnchorPane>

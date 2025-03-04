@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox alignment="CENTER" prefHeight="481.0" prefWidth="598.0" spacing="20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.auth.controllers.connexion.AuthCompanyController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+    <ComboBox fx:id="languageComboBox" styleClass="language-combo-box">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="English"/>
+                <String fx:value="Français"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <GridPane hgap="10" vgap="20" styleClass="grid-pane">
+        <Label fx:id="emailLabel" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="label" />
+        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="text-field" />
+
+        <Label fx:id="passwordLabel" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="label" />
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="password-field" />
+
+        <columnConstraints>
+            <ColumnConstraints percentWidth="30" />
+            <ColumnConstraints percentWidth="70" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="50" />
+            <RowConstraints percentHeight="50" />
+        </rowConstraints>
+    </GridPane>
+
+    <Button fx:id="loginButton" onAction="#handleLogin" text="Login" styleClass="login-button" />
+</VBox>
