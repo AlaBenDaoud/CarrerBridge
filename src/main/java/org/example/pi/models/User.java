@@ -12,7 +12,15 @@ public class User {
     }
 
     // Getters et Setters
-    public Long getId() { return id; }
-    public String getUsername() { return username; }
-    public String getRole() { return role; }
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
