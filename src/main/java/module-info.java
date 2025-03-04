@@ -12,6 +12,9 @@ module org.example.pi {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
+
+    requires jakarta.mail; // Ajout de la dépendance pour JavaMail
+
     opens org.example.pi to javafx.fxml;
     opens org.example.pi.controllers to javafx.fxml; // This line is crucial
     opens org.example.pi.models to javafx.base;

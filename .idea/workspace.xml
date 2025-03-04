@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b3b216ad-1aaf-4e37-ac94-5b9e36a44bda" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/pi/services/ReclamationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/pi/services/ReclamationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +54,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "ala",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Projet Integré/pi"
+    "last_opened_file_path": "C:/Users/Ala/Desktop/auth"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
