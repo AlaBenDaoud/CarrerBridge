@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import org.example.pi.models.Reclamation;
 import org.example.pi.models.ReponseReclamation;
 import org.example.pi.services.ReclamationService;
-
 import org.example.pi.services.ReponseReclamationService;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -46,10 +45,16 @@ public class ViewAllReclamationsController {
     @FXML
     private TextField searchField;
 
+    @FXML
+    private Pagination pagination;
+
     private final ReclamationService reclamationService = new ReclamationService();
+    private List<Reclamation> allReclamations;
+    private static final int ROWS_PER_PAGE = 10; // Nombre de lignes par page
 
     @FXML
     public void initialize() {
+        // Liaison des colonnes du tableau avec les propriétés de l'objet Reclamation
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         receiverColumn.setCellValueFactory(new PropertyValueFactory<>("receiver"));
@@ -60,7 +65,10 @@ public class ViewAllReclamationsController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         statueColumn.setCellValueFactory(new PropertyValueFactory<>("statueOfReclamation"));
 
+        // Ajout des boutons d'actions dans la colonne "Actions"
         addActionButtonsToTable();
+
+        // Chargement des données et configuration de la pagination
         refreshTable();
     }
 
@@ -78,11 +86,13 @@ public class ViewAllReclamationsController {
             private final HBox buttonBox = new HBox(10, changeStatusButton, deleteButton, modifyButton, answerButton);
 
             {
+                // Style des boutons
                 deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
                 modifyButton.setStyle("-fx-background-color: #007bff; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
                 answerButton.setStyle("-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-padding: 5; -fx-background-radius: 5;");
                 changeStatusButton.setStyle("-fx-background-color: #ffc107; -fx-text-fill: black; -fx-padding: 5; -fx-background-radius: 5;");
 
+                // Actions des boutons
                 deleteButton.setOnAction(event -> {
                     Reclamation reclamation = getTableView().getItems().get(getIndex());
                     if (reclamation != null) {
@@ -172,7 +182,7 @@ public class ViewAllReclamationsController {
             DialogPane dialogPane = loader.load();
 
             ReponseReclamationController controller = loader.getController();
-            controller.setReclamation(reclamation); // Pass the reclamation to the controller
+            controller.setReclamation(reclamation);
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -180,7 +190,7 @@ public class ViewAllReclamationsController {
 
             Optional<ButtonType> result = dialog.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                refreshTable(); // Refresh the table after submitting the response
+                refreshTable();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -190,11 +200,20 @@ public class ViewAllReclamationsController {
 
     private void refreshTable() {
         try {
-            reclamationTable.getItems().clear();
-            reclamationTable.getItems().addAll(reclamationService.getAllReclamations());
+            allReclamations = reclamationService.getAllReclamations();
+            int pageCount = (int) Math.ceil((double) allReclamations.size() / ROWS_PER_PAGE);
+            pagination.setPageCount(pageCount);
+            pagination.setPageFactory(this::createPage);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private TableView<Reclamation> createPage(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, allReclamations.size());
+        reclamationTable.getItems().setAll(allReclamations.subList(fromIndex, toIndex));
+        return reclamationTable;
     }
 
     private void showAlert(String title, String message) {
@@ -210,33 +229,26 @@ public class ViewAllReclamationsController {
         dialog.setTitle("Change Reclamation Status");
         dialog.setHeaderText("Change the status of the reclamation");
 
-        // Create a ComboBox for the status selection
         ComboBox<String> statusComboBox = new ComboBox<>();
         statusComboBox.getItems().addAll("Not Treated", "In Progress", "Resolved");
-        statusComboBox.setValue(reclamation.getStatueOfReclamation()); // Set current status as default
+        statusComboBox.setValue(reclamation.getStatueOfReclamation());
 
-        // Add the ComboBox to the dialog
         dialog.getDialogPane().setContent(statusComboBox);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        // Add OK and Cancel buttons
-        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
-
-        // Handle the result of the dialog
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == okButtonType) {
+            if (dialogButton == ButtonType.OK) {
                 return statusComboBox.getValue();
             }
             return null;
         });
 
-        // Show the dialog and handle the new status
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(newStatus -> {
             try {
-                reclamation.setStatueOfReclamation(newStatus); // Update the status in the object
-                reclamationService.updateReclamationStatus(reclamation); // Save the new status in the database
-                refreshTable(); // Refresh the table to reflect the changes
+                reclamation.setStatueOfReclamation(newStatus);
+                reclamationService.updateReclamationStatus(reclamation);
+                refreshTable();
                 showAlert("Success", "Reclamation status updated successfully.");
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -245,24 +257,29 @@ public class ViewAllReclamationsController {
         });
     }
 
-
-
     @FXML
     private void handleSearch() {
         String keyword = searchField.getText().toLowerCase().trim();
 
         if (keyword.isEmpty()) {
-            refreshTable(); // Si le champ est vide, afficher toutes les réclamations
+            refreshTable();
             return;
         }
 
-        List<Reclamation> filteredList = reclamationTable.getItems().stream()
+        List<Reclamation> filteredList = allReclamations.stream()
                 .filter(reclamation ->
                         reclamation.getTitle().toLowerCase().contains(keyword) ||
                                 reclamation.getDescription().toLowerCase().contains(keyword) ||
                                 reclamation.getStatueOfReclamation().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());
 
-        reclamationTable.getItems().setAll(filteredList);
+        int pageCount = (int) Math.ceil((double) filteredList.size() / ROWS_PER_PAGE);
+        pagination.setPageCount(pageCount);
+        pagination.setPageFactory(pageIndex -> {
+            int fromIndex = pageIndex * ROWS_PER_PAGE;
+            int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
+            reclamationTable.getItems().setAll(filteredList.subList(fromIndex, toIndex));
+            return reclamationTable;
+        });
     }
 }

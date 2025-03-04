@@ -19,18 +19,16 @@ import java.util.regex.Pattern;
 public class ReclamationService {
     private DatabaseService databaseService = new DatabaseService();
 
-    private static final List<String> BAD_WORDS = Arrays.asList(" badword1 ", "badword2", "badword3");
+    //private static final List<String> BAD_WORDS = Arrays.asList(" badword1 ", "badword2", "badword3");
 
 
-    private String sanitizeText(String text) {
+    /*private String sanitizeText(String text) {
         String textLower = text;
         for (String badWord : BAD_WORDS) {
             textLower = textLower.replaceAll("(?i)\\b" + Pattern.quote(badWord) + "\\b", "****");
         }
         return textLower;
-    }
-
-
+    }*/
 
 
 
@@ -62,7 +60,7 @@ public class ReclamationService {
 
     // Add a new reclamation to the database
     public void addReclamation(Reclamation reclamation) throws SQLException {
-        reclamation.setDescription(sanitizeText(reclamation.getDescription()));
+        //reclamation.setDescription(sanitizeText(reclamation.getDescription()));
 
 
         String query = "INSERT INTO reclamations (user_id, receiver, title, description, image_path, pdf_path, date) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -77,33 +75,33 @@ public class ReclamationService {
             pstmt.setObject(7, reclamation.getDate());
             pstmt.executeUpdate();
 
-            String companyEmail = getCompanyEmail(reclamation.getCompanyId());
+            //String companyEmail = getCompanyEmail(reclamation.getCompanyId());
 
             // Envoyer l'email de notification
-            sendEmail(companyEmail,
-                    "Nouvelle Réclamation Soumise",
-                    "Un utilisateur a soumis une nouvelle réclamation avec le titre : " + reclamation.getTitle() + "\nDescription : " + reclamation.getDescription());
+            //sendEmail(companyEmail,
+                    //"Nouvelle Réclamation Soumise",
+                    //"Un utilisateur a soumis une nouvelle réclamation avec le titre : " + reclamation.getTitle() + "\nDescription : " + reclamation.getDescription());
         }
 
         // Ajoute cette méthode pour envoyer un email
-        public void sendEmail(String toEmail, String subject, String body) {
-            final String fromEmail = "alabendawed@gmail.com"; // Remplace avec ton email
-            final String password = "nwrcacslrklwfanu"; // Remplace avec ton mot de passe
+        //public void sendEmail(String toEmail, String subject, String body) {
+          //  final String fromEmail = "alabendawed@gmail.com"; // Remplace avec ton email
+            //final String password = "nwrcacslrklwfanu"; // Remplace avec ton mot de passe
 
-            Properties properties = new Properties();
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
+            //Properties properties = new Properties();
+            //properties.put("mail.smtp.host", "smtp.gmail.com");
+            //properties.put("mail.smtp.port", "587");
+            //properties.put("mail.smtp.auth", "true");
+            //properties.put("mail.smtp.starttls.enable", "true");
 
-            Session session = Session.getInstance(properties, new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(fromEmail, password);
-                }
-            });
+            //Session session = Session.getInstance(properties, new Authenticator() {
+               // @Override
+                //protected PasswordAuthentication getPasswordAuthentication() {
+                  //  return new PasswordAuthentication(fromEmail, password);
+                }//
+            //});
 
-            try {
+            /*try {
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(fromEmail));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
@@ -115,8 +113,7 @@ public class ReclamationService {
             } catch (MessagingException e) {
                 e.printStackTrace();
                 System.out.println("Erreur lors de l'envoi de l'e-mail.");
-            }
-        }
+            }*/
 
         public String getCompanyEmail(int companyId) throws SQLException {
             String query = "SELECT email FROM companies WHERE id = ?";
@@ -137,7 +134,7 @@ public class ReclamationService {
     );*/
 
         // Vérifier si la description contient un mot interdit
-        private boolean containsBadWords(String text) {
+        /*private boolean containsBadWords(String text) {
             String textLower = text.toLowerCase();
             for (String badWord : BAD_WORDS) {
                 if (Pattern.compile("\\b" + badWord + "\\b", Pattern.CASE_INSENSITIVE).matcher(textLower).find()) {
@@ -146,7 +143,7 @@ public class ReclamationService {
             }
             return false;
         }
-    }
+    }*/
     // Method to get all reclamations
     public List<Reclamation> getAllReclamations() throws SQLException {
         List<Reclamation> reclamations = new ArrayList<>();

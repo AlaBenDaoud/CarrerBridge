@@ -36,4 +36,7 @@
             <TableColumn text="Actions" fx:id="actionsColumn" />
         </columns>
     </TableView>
+
+    <!-- Pagination -->
+    <Pagination fx:id="pagination" />
 </VBox>
